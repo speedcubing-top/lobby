@@ -1,0 +1,9 @@
+name: Lobby
+main: speedcubing.Main
+version: 1.0
+commands:
+  lang:
+    usage: /lang
+depend:
+  - speedcubingServer
+  - speedcubingLib
