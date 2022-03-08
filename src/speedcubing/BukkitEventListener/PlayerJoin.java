@@ -2,9 +2,9 @@ package speedcubing.BukkitEventListener;
 
 import cubing.bukkit.PlayerUtils;
 import cubing.bukkit.api.SideBarAPI;
-import cubingserver.connection.ServerUtils;
 import cubingserver.libs.PlayerData;
 import cubingserver.libs.Rank;
+import cubingserver.speedcubingServer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
@@ -20,8 +20,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-import speedcubing.All.Chat;
-import speedcubing.All.NPCClick;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
@@ -68,7 +66,7 @@ public class PlayerJoin implements Listener {
             SideBarAPI.sidebarTeams(scoreboard, new String[][]{
                     {sidebar[8]},
                     {split1[0], "§3§f", split1[1]},
-                    {"", sidebar[6], Integer.toString(ServerUtils.AllPlayers)},
+                    {"", sidebar[6], Integer.toString(speedcubingServer.AllPlayers)},
                     {sidebar[5]},
                     {split2[0], "§2§f", split2[1]},
                     {sidebar[3].replace("%player%", format[0] + format[1] + name)},
@@ -95,8 +93,6 @@ public class PlayerJoin implements Listener {
             inventory.setItem(1, ItemStackList.Settings[lang]);
             PlayerUtils.sendActionBar(connection, "");
             player.setGameMode(GameMode.ADVENTURE);
-            new Chat().PacketInject(player);
-            new NPCClick().PacketInject(player);
         }
     }
 }

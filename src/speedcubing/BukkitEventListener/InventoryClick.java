@@ -112,7 +112,7 @@ public class InventoryClick implements Listener {
 //                        player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
 //                        player.closeInventory();
 //                        player.sendMessage(StringList.discord[PlayerData.getLang(player.getUniqueId())]);
-//                        Chat.discord.add(player.getUniqueId());
+//                        Main.discord.add(player.getUniqueId());
 //                    }
 //                    break;
                 }

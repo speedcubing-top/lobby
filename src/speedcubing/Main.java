@@ -1,19 +1,21 @@
 package speedcubing;
 
-import cubingserver.connection.SocketUtils;
+import cubing.bukkit.Event.ServerEventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
-import speedcubing.All.SocketServer;
-import speedcubing.BukkitCommands.*;
+import speedcubing.BukkitCommands.lang;
 import speedcubing.BukkitEventListener.*;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Main extends JavaPlugin {
+
+    public static Set<UUID> discord = new HashSet<>();
 
     public void onEnable() {
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
@@ -29,6 +31,6 @@ public class Main extends JavaPlugin {
         Bukkit.getWorld("world").setTime(6000);
         new ItemStackList().Load();
         new EntityList().Load();
-        new SocketServer().Load();
+        ServerEventManager.registerEventListener(new ServerEvent());
     }
 }
