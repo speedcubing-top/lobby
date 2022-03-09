@@ -31,6 +31,6 @@ public class Main extends JavaPlugin {
         Bukkit.getWorld("world").setTime(6000);
         new ItemStackList().Load();
         new EntityList().Load();
-        ServerEventManager.registerEventListener(new ServerEvent());
+        ServerEventManager.registerListeners(new ServerEvent());
     }
 }
