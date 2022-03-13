@@ -1,22 +1,30 @@
 package speedcubing.BukkitEventListener;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import cubing.bukkit.Glow;
+import cubing.bukkit.ItemBuilder;
 import cubing.bukkit.PlayerUtils;
 import cubing.bukkit.api.SideBarAPI;
-import cubingserver.libs.PlayerData;
-import cubingserver.libs.Rank;
+import cubing.utils.Reflections;
+import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
+import net.minecraft.server.v1_8_R3.Item;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -24,9 +32,7 @@ import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerJoin implements Listener {
 
@@ -39,8 +45,8 @@ public class PlayerJoin implements Listener {
             player.sendTitle("", "");
             PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
             Inventory inventory = player.getInventory();
-            int lang = PlayerData.getLang(uuid);
-            String[] format = Rank.format(uuid);
+            int lang = User.getLang(uuid);
+            String[] format = User.getFormat(User.getRank(uuid));
             String name = player.getName();
             player.getInventory().setHeldItemSlot(0);
             player.sendMessage(StringList.LobbyJoinMessage[lang]
@@ -49,7 +55,7 @@ public class PlayerJoin implements Listener {
                     .replace("%format2%", format[2])
                     .replace("%name%", name));
             for (Player p : player.getWorld().getPlayers()) {
-                p.sendMessage(StringList.LobbyJoinMessage[PlayerData.getLang(p.getUniqueId())]
+                p.sendMessage(StringList.LobbyJoinMessage[User.getLang(p.getUniqueId())]
                         .replace("%format0%", format[0])
                         .replace("%format1%", format[1])
                         .replace("%format2%", format[2])

@@ -1,6 +1,6 @@
 package speedcubing.List;
 
-import cubingserver.configcache;
+import cubingserver.config;
 
 public class StringList {
     public static String[] LobbyJoinMessage = {
@@ -27,9 +27,9 @@ public class StringList {
             "§cInvalid Discord format! (Cancelled)"
     };
     public static String[][] LobbySideBar = {
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord-Server§a:", "§2", "§8»§b %player%", "§aWillkommen:", "§5", "§8» §b", "§aOnline-Spieler§a:", "§8", "§6" + configcache.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord Server§a:", "§2", "§8»§b %player%", "§aWelcome:", "§5", "§8» §b", "§aOnline players§a:", "§8", "§6" + configcache.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 伺服器:", "§2", "§8»§b %player%", "§a歡迎:", "§5", "§8» §b", "§a線上玩家:", "§8", "§6" + configcache.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 服务器:", "§2", "§8»§b %player%", "§a欢迎:", "§5", "§8» §b", "§a线上玩家:", "§8", "§6" + configcache.SERVERIP}
+            {"§8»§b discord.gg/rnbRWrb", "§aDiscord-Server§a:", "§2", "§8»§b %player%", "§aWillkommen:", "§5", "§8» §b", "§aOnline-Spieler§a:", "§8", "§6" + config.SERVERIP},
+            {"§8»§b discord.gg/rnbRWrb", "§aDiscord Server§a:", "§2", "§8»§b %player%", "§aWelcome:", "§5", "§8» §b", "§aOnline players§a:", "§8", "§6" + config.SERVERIP},
+            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 伺服器:", "§2", "§8»§b %player%", "§a歡迎:", "§5", "§8» §b", "§a線上玩家:", "§8", "§6" + config.SERVERIP},
+            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 服务器:", "§2", "§8»§b %player%", "§a欢迎:", "§5", "§8» §b", "§a线上玩家:", "§8", "§6" + config.SERVERIP}
     };
 }

@@ -1,6 +1,6 @@
 package speedcubing.BukkitCommands;
 
-import cubingserver.libs.PlayerData;
+import cubingserver.libs.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +17,7 @@ public class lang implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (strings.length == 0) {
             Player player = (Player) commandSender;
-            player.openInventory(ItemStackList.Lang[PlayerData.getLang(player.getUniqueId())]);
+            player.openInventory(ItemStackList.Lang[User.getLang(player.getUniqueId())]);
         } else commandSender.sendMessage("/lang");
         return true;
     }

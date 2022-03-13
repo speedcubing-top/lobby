@@ -5,7 +5,7 @@ import cubing.bukkit.PlayerUtils;
 import cubing.bukkit.api.BungeePluginMessage;
 import cubing.bukkit.api.SideBarAPI;
 import cubingserver.connection.SocketUtils;
-import cubingserver.libs.PlayerData;
+import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -95,7 +95,7 @@ public class InventoryClick implements Listener {
                     player.sendMessage(StringList.LangSettings[x]);
                     int finalX = x;
                     new Thread(() -> speedcubingServer.connection.update("playersdata", "lang=" + finalX, "uuid='" + uuid + "'")).start();
-                    PlayerData.LangCache.put(uuid, x);
+                    User.LangCache.put(uuid, x);
                     player.closeInventory();
                 }
             } else if (holder == ItemStackList.SettingsHolder) {
@@ -104,7 +104,7 @@ public class InventoryClick implements Listener {
                     case 11: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
-                        player.openInventory(ItemStackList.Lang[PlayerData.getLang(player.getUniqueId())]);
+                        player.openInventory(ItemStackList.Lang[User.getLang(player.getUniqueId())]);
                     }
                     break;
 //                    case 15: {

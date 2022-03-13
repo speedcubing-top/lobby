@@ -1,13 +1,12 @@
 package speedcubing.BukkitEventListener;
 
-import cubingserver.libs.PlayerData;
+import cubingserver.libs.User;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import speedcubing.List.ItemStackList;
-import speedcubing.Main;
 
 public class PlayerInteract implements Listener {
 
@@ -16,10 +15,10 @@ public class PlayerInteract implements Listener {
         Player player = e.getPlayer();
         switch (player.getItemInHand().getType()) {
             case COMPASS:
-                player.openInventory(ItemStackList.navigator[PlayerData.getLang(player.getUniqueId())]);
+                player.openInventory(ItemStackList.navigator[User.getLang(player.getUniqueId())]);
                 break;
             case REDSTONE_COMPARATOR:
-                player.openInventory(ItemStackList.settings[PlayerData.getLang(player.getUniqueId())]);
+                player.openInventory(ItemStackList.settings[User.getLang(player.getUniqueId())]);
                 break;
         }
         if (e.getClickedBlock() != null && player.getGameMode() == GameMode.ADVENTURE)

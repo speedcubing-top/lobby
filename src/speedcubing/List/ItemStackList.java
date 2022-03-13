@@ -1,15 +1,12 @@
 package speedcubing.List;
 
-import cubing.bukkit.ItemUtils;
+import cubing.bukkit.ItemBuilder;
 import cubingserver.StringList.GlobalString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Collections;
 
 public class ItemStackList {
 
@@ -33,48 +30,48 @@ public class ItemStackList {
                 {"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"},
                 {"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}};
         for (int i = 0; i < 4; i++) {
-            Navigator[i] = ItemUtils.item(Material.COMPASS, new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i], 1, -1, false, false, null, null, null, null);
-            Settings[i] = ItemUtils.item(Material.REDSTONE_COMPARATOR, new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i], 1, -1, false, false, null, null, null, null);
+            Navigator[i] = new ItemBuilder(Material.COMPASS).name(new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]).build();
+            Settings[i] = new ItemBuilder(Material.REDSTONE_COMPARATOR).name(new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]).build();
             settings[i] = Bukkit.createInventory(SettingsHolder, 27, new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]);
-            settings[i].setItem(11, ItemUtils.skull(Material.SKULL_ITEM, new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i], 1, 3, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0="));
+            settings[i].setItem(11, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build());
 //            settings[i].setItem(15, ItemUtils.skull(Material.SKULL_ITEM, new String[]{"§aLink to your Discord", "§aLink to your Discord", "§aLink to your Discord", "§aLink to your Discord"}[i], 1, -1, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19"));
             navigator[i] = Bukkit.createInventory(NavigatorHolder, 45, new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]);
-            navigator[i].setItem(10, ItemUtils.item(Material.STICK, new String[]{"§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"}[i], 1, -1, true, false, null, null, null, null));
-            navigator[i].setItem(16, ItemUtils.item(Material.WOOD_SWORD, new String[]{"§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"}[i], 1, -1, true, false, new ItemFlag[]{ItemFlag.HIDE_ATTRIBUTES}, null, null, null));
-            navigator[i].setItem(21, ItemUtils.item(Material.BLAZE_ROD, new String[]{"§bReduce", "§bReduce", "§bReduce", "§bReduce"}[i], 1, -1, true, false, null, null, null, null));
-            navigator[i].setItem(23, ItemUtils.item(Material.SANDSTONE, new String[]{"§bFastBuilder", "§bFastBuilder", "§bFastBuilder", "§bFastBuilder"}[i], 1, -1, false, false, null, null, null, null));
-            navigator[i].setItem(28, ItemUtils.item(Material.DIAMOND_SWORD, new String[]{"§bPractice", "§bPractice", "§bPractice", "§bPractice"}[i], 1, -1, true, false, new ItemFlag[]{ItemFlag.HIDE_ATTRIBUTES}, null, null, null));
-            navigator[i].setItem(34, ItemUtils.item(Material.SANDSTONE_STAIRS, new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i], 1, -1, false, false, null, null, null, null));
+            navigator[i].setItem(10, new ItemBuilder(Material.STICK).name(new String[]{"§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"}[i]).glow().build());
+            navigator[i].setItem(16, new ItemBuilder(Material.WOOD_SWORD).name(new String[]{"§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"}[i]).glow().hideAttr().build());
+            navigator[i].setItem(21, new ItemBuilder(Material.BLAZE_ROD).name(new String[]{"§bReduce", "§bReduce", "§bReduce", "§bReduce"}[i]).glow().build());
+            navigator[i].setItem(23, new ItemBuilder(Material.SANDSTONE).name(new String[]{"§bFastBuilder", "§bFastBuilder", "§bFastBuilder", "§bFastBuilder"}[i]).build());
+            navigator[i].setItem(28, new ItemBuilder(Material.DIAMOND_SWORD).name(new String[]{"§bPractice", "§bPractice", "§bPractice", "§bPractice"}[i]).glow().hideAttr().build());
+            navigator[i].setItem(34, new ItemBuilder(Material.SANDSTONE_STAIRS).name(new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i]).build());
 
             GameSelect[i] = Bukkit.createInventory(GameSelectHolder, 18, new String[]{"§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce"}[i]);
-            GameSelect[i].setItem(0, ItemUtils.item(Material.LOG, mapname[0][i], 1, 3, false, false, null, null, null, null));
-            GameSelect[i].setItem(1, ItemUtils.item(Material.BED, mapname[1][i], 1, -1, false, false, null, null, null, null));
-            GameSelect[i].setItem(2, ItemUtils.item(Material.BARRIER, mapname[2][i], 1, -1, false, false, null, null, null, null));
-            GameSelect[i].setItem(3, ItemUtils.item(Material.SMOOTH_BRICK, mapname[3][i], 1, 1, false, false, null, null, null, null));
+            GameSelect[i].setItem(0, new ItemBuilder(Material.LOG).durability(3).name(mapname[0][i]).build());
+            GameSelect[i].setItem(1, new ItemBuilder(Material.BED).name(mapname[1][i]).build());
+            GameSelect[i].setItem(2, new ItemBuilder(Material.BARRIER).name(mapname[2][i]).build());
+            GameSelect[i].setItem(3, new ItemBuilder(Material.SMOOTH_BRICK).durability(1).name(mapname[3][i]).build());
         }
-        ItemStack Deutsch = ItemUtils.skull(Material.SKULL_ITEM, "§bDeutsch", 1, 3, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==");
-        ItemStack Mandarin = ItemUtils.skull(Material.SKULL_ITEM, "§b繁體中文", 1, 3, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=");
-        ItemStack Chinese = ItemUtils.skull(Material.SKULL_ITEM, "§b简体中文", 1, 3, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=");
-        ItemStack English = ItemUtils.skull(Material.SKULL_ITEM, "§bEnglish", 1, 3, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19");
+        ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
+        ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();
+        ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").build();
+        ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").build();
         Lang[0] = Bukkit.createInventory(LangHolder, 27, "§cSprache");
-        Lang[0].setItem(10, ItemUtils.skull(Material.SKULL_ITEM, "§bDeutsch", 1, 3, true, Collections.singletonList(GlobalString.selected[0]), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ=="));
+        Lang[0].setItem(10, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected[0]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build());
         Lang[0].setItem(12, English);
         Lang[0].setItem(14, Mandarin);
         Lang[0].setItem(16, Chinese);
         Lang[1] = Bukkit.createInventory(LangHolder, 27, "§cLanguage");
         Lang[1].setItem(10, Deutsch);
-        Lang[1].setItem(12, ItemUtils.skull(Material.SKULL_ITEM, "§bEnglish", 1, 3, true, Collections.singletonList(GlobalString.selected[1]), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19"));
+        Lang[1].setItem(12, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected[1]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build());
         Lang[1].setItem(14, Mandarin);
         Lang[1].setItem(16, Chinese);
         Lang[2] = Bukkit.createInventory(LangHolder, 27, "§c語言");
         Lang[2].setItem(10, Deutsch);
         Lang[2].setItem(12, English);
-        Lang[2].setItem(14, ItemUtils.skull(Material.SKULL_ITEM, "§b繁體中文", 1, 3, true, Collections.singletonList(GlobalString.selected[2]), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0="));
+        Lang[2].setItem(14, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected[2]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build());
         Lang[2].setItem(16, Chinese);
         Lang[3] = Bukkit.createInventory(LangHolder, 27, "§c语言");
         Lang[3].setItem(10, Deutsch);
         Lang[3].setItem(12, English);
         Lang[3].setItem(14, Mandarin);
-        Lang[3].setItem(16, ItemUtils.skull(Material.SKULL_ITEM, "§b简体中文", 1, 3, true, Collections.singletonList(GlobalString.selected[3]), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0="));
+        Lang[3].setItem(16, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected[3]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build());
     }
 }
