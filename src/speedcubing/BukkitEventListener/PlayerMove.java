@@ -1,8 +1,7 @@
 package speedcubing.BukkitEventListener;
 
 
-import cubing.bukkit.PlayerUtils;
-import org.bukkit.Bukkit;
+import cubing.spigot.lib.bukkit.PlayerUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -10,10 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import speedcubing.Main;
-
-import java.util.Set;
-import java.util.UUID;
 
 public class PlayerMove implements Listener {
 

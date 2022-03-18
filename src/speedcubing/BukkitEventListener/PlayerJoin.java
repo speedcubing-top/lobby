@@ -1,30 +1,21 @@
 package speedcubing.BukkitEventListener;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import cubing.bukkit.Glow;
-import cubing.bukkit.ItemBuilder;
-import cubing.bukkit.PlayerUtils;
-import cubing.bukkit.api.SideBarAPI;
-import cubing.utils.Reflections;
+import cubing.spigot.lib.bukkit.PlayerUtils;
+import cubing.spigot.lib.bukkit.api.SideBarAPI;
 import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
-import net.minecraft.server.v1_8_R3.Item;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -32,7 +23,9 @@ import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
 
 public class PlayerJoin implements Listener {
 

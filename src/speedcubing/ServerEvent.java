@@ -1,12 +1,13 @@
 package speedcubing;
 
-import cubing.bukkit.Event.ServerEventHandler;
-import cubing.bukkit.Event.events.PlayInChatEvent;
-import cubing.bukkit.Event.events.PlayInUseEntityEvent;
-import cubing.bukkit.PlayerUtils;
-import cubing.bukkit.api.BungeePluginMessage;
-import cubing.utils.Console;
-import cubing.utils.Reflections;
+import cubing.spigot.lib.bukkit.Event.ServerEventHandler;
+import cubing.spigot.lib.bukkit.Event.events.PlayInChatEvent;
+import cubing.spigot.lib.bukkit.Event.events.PlayInUseEntityEvent;
+import cubing.spigot.lib.bukkit.PlayerUtils;
+import cubing.spigot.lib.bukkit.api.BungeePluginMessage;
+import cubing.spigot.lib.utils.Console;
+import cubing.spigot.lib.utils.Reflections;
+import cubingserver.PluginMessage;
 import cubingserver.StringList.GlobalString;
 import cubingserver.customEvents.SocketEvent;
 import cubingserver.customEvents.UDPEvent;
@@ -16,6 +17,7 @@ import cubingserver.things.events.PlayerJoin;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
+import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -32,7 +34,7 @@ public class ServerEvent {
     public void socketEvent(SocketEvent e) {
         String[] rs = e.rs;
         if (rs != null && rs[0].equals("d"))
-            BungeePluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
+            PluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
     }
 
     @ServerEventHandler
@@ -45,7 +47,8 @@ public class ServerEvent {
                     speedcubingServer.AllPlayers = Integer.parseInt(rs[2]);
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         int lang = User.getLang(p.getUniqueId());
-                        PlayerUtils.sendTabHeaderFooter(((CraftPlayer) p).getHandle().playerConnection, GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2]));
+
+                       ((CraftPlayer) p).getHandle().playerConnection.sendPacket(new PacketPlayOutPlayerListHeaderFooter(GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2])));
                         Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[lang][6]);
                         if (team != null)
                             team.setSuffix(rs[2]);
@@ -88,19 +91,19 @@ public class ServerEvent {
         if (player.getItemInHand().getType() == org.bukkit.Material.AIR && packet.a().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
             switch (EntityList.NPCS.indexOf(Reflections.getField(packet, "a"))) {
                 case 0:
-                    BungeePluginMessage.switchServer(player, "mlgrush");
+                    PluginMessage.switchServer(player, "mlgrush");
                     break;
                 case 1:
                     Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[User.getLang(player.getUniqueId())]));
                     break;
                 case 2:
-                    BungeePluginMessage.switchServer(player, "kbffa");
+                    PluginMessage.switchServer(player, "kbffa");
                     break;
                 case 3:
-                    BungeePluginMessage.switchServer(player, "clutch");
+                    PluginMessage.switchServer(player, "clutch");
                     break;
                 case 4:
-                    BungeePluginMessage.switchServer(player, "fastbuilder");
+                    PluginMessage.switchServer(player, "fastbuilder");
                     break;
             }
     }

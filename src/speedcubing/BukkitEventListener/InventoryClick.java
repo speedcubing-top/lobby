@@ -1,9 +1,8 @@
 package speedcubing.BukkitEventListener;
 
-
-import cubing.bukkit.PlayerUtils;
-import cubing.bukkit.api.BungeePluginMessage;
-import cubing.bukkit.api.SideBarAPI;
+import cubing.spigot.lib.bukkit.PlayerUtils;
+import cubing.spigot.lib.bukkit.api.SideBarAPI;
+import cubingserver.PluginMessage;
 import cubingserver.connection.SocketUtils;
 import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
@@ -39,19 +38,19 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 switch (RawSlot) {
                     case 16:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "kbffa");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "kbffa");
                         break;
                     case 10:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
                         break;
                     case 28:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "practice");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "practice");
                         break;
                     case 23:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "fastbuilder");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "fastbuilder");
                         break;
                     case 34:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "clutch");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "clutch");
                         break;
                     case 21:
                         Player player = (Player) e.getWhoClicked();
