@@ -4,7 +4,6 @@ import cubing.spigot.lib.bukkit.Event.ServerEventHandler;
 import cubing.spigot.lib.bukkit.Event.events.PlayInChatEvent;
 import cubing.spigot.lib.bukkit.Event.events.PlayInUseEntityEvent;
 import cubing.lib.utils.Console;
-import cubing.lib.utils.Reflections;
 import cubingserver.PluginMessage;
 import cubingserver.StringList.GlobalString;
 import cubingserver.customEvents.SocketEvent;
@@ -87,7 +86,7 @@ public class ServerEvent {
         Player player = e.player;
         PacketPlayInUseEntity packet = e.packet;
         if (player.getItemInHand().getType() == org.bukkit.Material.AIR && packet.a().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-            switch (EntityList.NPCS.indexOf(Reflections.getField(packet, "a"))) {
+            switch (EntityList.NPCS.indexOf(packet.a)) {
                 case 0:
                     PluginMessage.switchServer(player, "mlgrush");
                     break;
