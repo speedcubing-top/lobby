@@ -15,8 +15,8 @@ public class EntityList {
     public static EntityArmorStand[] Lobbys = new EntityArmorStand[13];
     public static Set<PacketPlayOutSpawnEntityLiving> spawnpackets = new HashSet<>();
     public static List<Integer> NPCS = new ArrayList<>();
-    public static List<Packet> LobbyNPCPackets = new ArrayList<>();
-    public static List<Packet> LobbyNPCDelayedPackets = new ArrayList<>();
+    public static List<Packet<?>> LobbyNPCPackets = new ArrayList<>();
+    public static List<Packet<?>> LobbyNPCDelayedPackets = new ArrayList<>();
 
     public void Load() {
         WorldServer world = ((CraftWorld) Bukkit.getWorld("world")).getHandle();

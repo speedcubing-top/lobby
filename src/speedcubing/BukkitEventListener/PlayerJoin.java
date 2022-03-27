@@ -74,13 +74,13 @@ public class PlayerJoin implements Listener {
                     {sidebar[0]},
             }, new int[]{8, 7, 6, 5, 4, 3, 2, 1, 0});
             player.setScoreboard(scoreboard);
-            for (Packet packet : EntityList.LobbyNPCPackets) {
+            for (Packet<?> packet : EntityList.LobbyNPCPackets) {
                 connection.sendPacket(packet);
             }
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    for (Packet packet : EntityList.LobbyNPCDelayedPackets) {
+                    for (Packet<?> packet : EntityList.LobbyNPCDelayedPackets) {
                         connection.sendPacket(packet);
                     }
                 }
