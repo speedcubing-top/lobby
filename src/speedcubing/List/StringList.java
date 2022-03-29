@@ -4,10 +4,10 @@ import cubingserver.config;
 
 public class StringList {
     public static String[] LobbyJoinMessage = {
-            "%format0%%format1%%name%%format2% has joined the Lobby!",
-            "%format0%%format1%%name%%format2% has joined the Lobby!",
-            "%format0%%format1%%name%%format2% has joined the Lobby!",
-            "%format0%%format1%%name%%format2% has joined the Lobby!"};
+            "%f0%%name%%f1% has joined the Lobby!",
+            "%f0%%name%%f1% has joined the Lobby!",
+            "%f0%%name%%f1% has joined the Lobby!",
+            "%f0%%name%%f1% has joined the Lobby!"};
     public static String[] LangSettings = {
             "§8[§eSystem§8] §aErfolgreich auf Deutsch geändert!\n§8[§eSystem§8] §cDer Server ist noch nicht vollständig übersetzt.",
             "§8[§eSystem§8] §aSuccessfully changed to English!\n§8[§eSystem§8] §cThe server is not fully translated yet.",
