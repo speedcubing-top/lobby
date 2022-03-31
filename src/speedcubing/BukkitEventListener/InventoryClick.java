@@ -1,7 +1,7 @@
 package speedcubing.BukkitEventListener;
 
-import cubing.spigot.lib.bukkit.PlayerUtils;
-import cubing.spigot.lib.bukkit.api.SideBarAPI;
+import cubing.lib.bukkit.PlayerUtils;
+import cubing.lib.bukkit.SideBarAPI;
 import cubingserver.PluginMessage;
 import cubingserver.connection.SocketUtils;
 import cubingserver.libs.User;
