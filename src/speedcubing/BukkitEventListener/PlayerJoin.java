@@ -4,8 +4,6 @@ import cubing.lib.bukkit.PlayerUtils;
 import cubing.lib.bukkit.SideBarAPI;
 import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -46,12 +44,7 @@ public class PlayerJoin implements Listener {
                     .replace("%f0%", format[0])
                     .replace("%f1%", format[2])
                     .replace("%name%", name));
-            for (Player p : player.getWorld().getPlayers()) {
-                p.sendMessage(StringList.LobbyJoinMessage[User.getLang(p.getUniqueId())]
-                        .replace("%f0%", format[0])
-                        .replace("%f1%", format[2])
-                        .replace("%name%", name));
-            }
+            player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getLang(a.getUniqueId())].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
             Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             String[] sidebar = StringList.LobbySideBar[lang];
             Objective objective = scoreboard.registerNewObjective("sidebar", "dummy");
@@ -72,19 +65,14 @@ public class PlayerJoin implements Listener {
                     {sidebar[0]},
             }, new int[]{8, 7, 6, 5, 4, 3, 2, 1, 0});
             player.setScoreboard(scoreboard);
-            for (Packet<?> packet : EntityList.LobbyNPCPackets) {
-                connection.sendPacket(packet);
-            }
+            EntityList.LobbyNPCPackets.forEach(connection::sendPacket);
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    for (Packet<?> packet : EntityList.LobbyNPCDelayedPackets) {
-                        connection.sendPacket(packet);
-                    }
+                    EntityList.LobbyNPCDelayedPackets.forEach(connection::sendPacket);
                 }
             }, 4000);
-            for (PacketPlayOutSpawnEntityLiving packet : EntityList.spawnpackets)
-                connection.sendPacket(packet);
+            EntityList.spawnpackets.forEach(connection::sendPacket);
             inventory.clear();
             inventory.setItem(0, ItemStackList.Navigator[lang]);
             inventory.setItem(1, ItemStackList.Settings[lang]);

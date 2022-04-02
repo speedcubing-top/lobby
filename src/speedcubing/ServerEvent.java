@@ -16,7 +16,6 @@ import cubingserver.things.events.PlayerJoin;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -46,7 +45,7 @@ public class ServerEvent {
                     speedcubingServer.AllPlayers = Integer.parseInt(rs[2]);
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         int lang = User.getLang(p.getUniqueId());
-                       ((CraftPlayer) p).getHandle().playerConnection.sendPacket(OutPlayerListHeaderFooter.a(GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2])));
+                        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(OutPlayerListHeaderFooter.a(GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2])));
                         Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[lang][6]);
                         if (team != null)
                             team.setSuffix(rs[2]);
@@ -75,9 +74,7 @@ public class ServerEvent {
             }
             if (stand != null) {
                 PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), stand.getDataWatcher(), true);
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
-                }
+                Bukkit.getOnlinePlayers().forEach(a -> ((CraftPlayer) a).getHandle().playerConnection.sendPacket(packet));
             }
         }
     }
@@ -87,7 +84,7 @@ public class ServerEvent {
         Player player = e.player;
         PacketPlayInUseEntity packet = e.packet;
         if (player.getItemInHand().getType() == org.bukkit.Material.AIR && packet.a().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-            switch (EntityList.NPCS.indexOf(Reflections.getField(packet,"a"))) {
+            switch (EntityList.NPCS.indexOf(Reflections.getField(packet, "a"))) {
                 case 0:
                     PluginMessage.switchServer(player, "mlgrush");
                     break;
@@ -137,9 +134,7 @@ public class ServerEvent {
                         str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendMessage(out[User.getLang(p.getUniqueId())]);
-                }
+                Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getLang(a.getUniqueId())]));
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
                 speedcubingServer.lastmsg.put(uuid, message);
             }
