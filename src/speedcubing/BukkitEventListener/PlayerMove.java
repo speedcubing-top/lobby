@@ -17,7 +17,7 @@ public class PlayerMove implements Listener {
         Player player = e.getPlayer();
         if (player.getGameMode() == GameMode.ADVENTURE) {
             Location to = e.getTo();
-            if (Math.abs(to.getX()) > 101 || Math.abs(to.getZ()) > 101)
+            if (Math.abs(to.getX()) > 501 || Math.abs(to.getZ()) > 501)
                 player.teleport(e.getFrom());
             if (to.getY() <= 80) {
                 player.closeInventory();
