@@ -12,7 +12,6 @@ import cubingserver.customEvents.SocketEvent;
 import cubingserver.customEvents.UDPEvent;
 import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
-import cubingserver.things.events.PlayerJoin;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
@@ -110,35 +109,26 @@ public class ServerEvent {
         String message = e.packet.a();
         UUID uuid = player.getUniqueId();
         if (Main.discord.contains(uuid)) {
+            e.setCancelled(true);
             if (message.split(" ").length == 1 && message.matches("([a-z]+#[0-9]{4})")) {
                 speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
                 player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now link your minecraft account in the Discord Server!");
             } else player.sendMessage(StringList.discordinvalid[User.getLang(uuid)]);
             Main.discord.remove(uuid);
-            return;
+            speedcubingServer.node(false, uuid);
+        } else if (message.charAt(0) != '/') {
+            e.setCancelled(true);
+            String[] formats = User.getFormat(User.getRank(uuid));
+            String text = formats[0] + player.getName();
+            String[] str = GlobalString.MessageFormat[0];
+            String[] out = new String[]{
+                    str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
+                    str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
+                    str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
+                    str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
+            };
+            Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getLang(a.getUniqueId())]));
+            Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
         }
-        long time = System.currentTimeMillis();
-        boolean spam = PlayerJoin.Canspam.contains(uuid);
-        if (!spam && time - speedcubingServer.spam.get(uuid) < 500)
-            player.sendMessage(GlobalString.spam[User.getLang(uuid)]);
-        else if (message.charAt(0) != '/') {
-            if (!spam && speedcubingServer.lastmsg.get(uuid).equals(message))
-                player.sendMessage(GlobalString.samemsg[User.getLang(uuid)]);
-            else {
-                String[] formats = User.getFormat(User.getRank(uuid));
-                String text = formats[0] + player.getName();
-                String[] str = GlobalString.MessageFormat[0];
-                String[] out = new String[]{
-                        str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
-                };
-                Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getLang(a.getUniqueId())]));
-                Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
-                speedcubingServer.lastmsg.put(uuid, message);
-            }
-        } else e.setCancelled(false);
-        speedcubingServer.spam.put(uuid, time);
     }
 }
