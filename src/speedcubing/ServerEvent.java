@@ -104,7 +104,6 @@ public class ServerEvent {
 
     @ServerEventHandler
     public void PlayInChatEvent(PlayInChatEvent e) {
-        e.setCancelled(true);
         Player player = e.player;
         String message = e.packet.a();
         UUID uuid = player.getUniqueId();
