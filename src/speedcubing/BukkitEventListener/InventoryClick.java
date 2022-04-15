@@ -3,7 +3,6 @@ package speedcubing.BukkitEventListener;
 import cubing.lib.bukkit.PlayerUtils;
 import cubing.lib.bukkit.SideBarAPI;
 import cubingserver.PluginMessage;
-import cubingserver.connection.SocketUtils;
 import cubingserver.libs.User;
 import cubingserver.speedcubingServer;
 import org.bukkit.Bukkit;
@@ -119,7 +118,7 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 if (RawSlot < 4) {
                     try {
-                        SocketUtils.UnHandledSendData(25604 - Bukkit.getPort() % 2, "d|" + e.getWhoClicked().getUniqueId() + "|" + RawSlot, 100);
+                        speedcubingServer.tcp.sendUnsafe(25604 - Bukkit.getPort() % 2, "d|" + e.getWhoClicked().getUniqueId() + "|" + RawSlot);
                     } catch (Exception exception) {
 
                     }
