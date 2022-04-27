@@ -1,6 +1,6 @@
 package speedcubing.BukkitCommands;
 
-import cubingserver.libs.User;
+import speedcubing.server.libs.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

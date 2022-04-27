@@ -1,10 +1,10 @@
 package speedcubing.BukkitEventListener;
 
-import cubing.lib.bukkit.PlayerUtils;
-import cubing.lib.bukkit.SideBarAPI;
-import cubingserver.PluginMessage;
-import cubingserver.libs.User;
-import cubingserver.speedcubingServer;
+import speedcubing.lib.bukkit.PlayerUtils;
+import speedcubing.lib.bukkit.SideBarAPI;
+import speedcubing.server.PluginMessage;
+import speedcubing.server.libs.User;
+import speedcubing.server.speedcubingServer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
