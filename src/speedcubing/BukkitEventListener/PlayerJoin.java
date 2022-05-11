@@ -36,17 +36,17 @@ public class PlayerJoin implements Listener {
             player.sendTitle("", "");
             PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
             Inventory inventory = player.getInventory();
-            int lang = User.getLang(uuid);
-            String[] format = User.getFormat(User.getRank(uuid));
+            User user = User.getUser(uuid);
+            String[] format = speedcubingServer.getFormat(user.rank);
             String name = player.getName();
             player.getInventory().setHeldItemSlot(0);
-            player.sendMessage(StringList.LobbyJoinMessage[lang]
+            player.sendMessage(StringList.LobbyJoinMessage[user.lang]
                     .replace("%f0%", format[0])
                     .replace("%f1%", format[2])
                     .replace("%name%", name));
-            player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getLang(a.getUniqueId())].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
+            player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getUser(a.getUniqueId()).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
             Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-            String[] sidebar = StringList.LobbySideBar[lang];
+            String[] sidebar = StringList.LobbySideBar[user.lang];
             Objective objective = scoreboard.registerNewObjective("sidebar", "dummy");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
             objective.setDisplayName(sidebar[9]);
@@ -74,8 +74,8 @@ public class PlayerJoin implements Listener {
             }, 4000);
             EntityList.spawnpackets.forEach(connection::sendPacket);
             inventory.clear();
-            inventory.setItem(0, ItemStackList.Navigator[lang]);
-            inventory.setItem(1, ItemStackList.Settings[lang]);
+            inventory.setItem(0, ItemStackList.Navigator[user.lang]);
+            inventory.setItem(1, ItemStackList.Settings[user.lang]);
             PlayerUtils.sendActionBar(connection, "");
             player.setGameMode(GameMode.ADVENTURE);
         }

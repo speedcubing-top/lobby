@@ -17,7 +17,7 @@ public class lang implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (strings.length == 0) {
             Player player = (Player) commandSender;
-            player.openInventory(ItemStackList.Lang[User.getLang(player.getUniqueId())]);
+            player.openInventory(ItemStackList.Lang[User.getUser(player.getUniqueId()).lang]);
         } else commandSender.sendMessage("/lang");
         return true;
     }

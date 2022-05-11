@@ -15,10 +15,10 @@ public class PlayerInteract implements Listener {
         Player player = e.getPlayer();
         switch (player.getItemInHand().getType()) {
             case COMPASS:
-                player.openInventory(ItemStackList.navigator[User.getLang(player.getUniqueId())]);
+                player.openInventory(ItemStackList.navigator[User.getUser(player.getUniqueId()).lang]);
                 break;
             case REDSTONE_COMPARATOR:
-                player.openInventory(ItemStackList.settings[User.getLang(player.getUniqueId())]);
+                player.openInventory(ItemStackList.settings[User.getUser(player.getUniqueId()).lang]);
                 break;
         }
         if (e.getClickedBlock() != null && player.getGameMode() == GameMode.ADVENTURE)

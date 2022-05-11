@@ -1,10 +1,5 @@
 package speedcubing.BukkitEventListener;
 
-import speedcubing.lib.bukkit.PlayerUtils;
-import speedcubing.lib.bukkit.SideBarAPI;
-import speedcubing.server.PluginMessage;
-import speedcubing.server.libs.User;
-import speedcubing.server.speedcubingServer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -19,6 +14,11 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scoreboard.Scoreboard;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
+import speedcubing.lib.bukkit.PlayerUtils;
+import speedcubing.lib.bukkit.SideBarAPI;
+import speedcubing.server.PluginMessage;
+import speedcubing.server.libs.User;
+import speedcubing.server.speedcubingServer;
 
 import java.util.UUID;
 
@@ -93,7 +93,7 @@ public class InventoryClick implements Listener {
                     player.sendMessage(StringList.LangSettings[x]);
                     int finalX = x;
                     new Thread(() -> speedcubingServer.connection.update("playersdata", "lang=" + finalX, "uuid='" + uuid + "'")).start();
-                    User.LangCache.put(uuid, x);
+                    User.getUser(uuid).lang = x;
                     player.closeInventory();
                 }
             } else if (holder == ItemStackList.SettingsHolder) {
@@ -102,7 +102,7 @@ public class InventoryClick implements Listener {
                     case 11: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
-                        player.openInventory(ItemStackList.Lang[User.getLang(player.getUniqueId())]);
+                        player.openInventory(ItemStackList.Lang[User.getUser(player.getUniqueId()).lang]);
                     }
                     break;
 //                    case 15: {
