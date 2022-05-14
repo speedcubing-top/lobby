@@ -15,7 +15,6 @@ import speedcubing.lib.utils.Console;
 import speedcubing.lib.utils.Reflections;
 import speedcubing.server.PluginMessage;
 import speedcubing.server.events.SocketEvent;
-import speedcubing.server.events.UDPEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
@@ -30,51 +29,49 @@ public class ServerEvent {
     @ServerEventHandler
     public void socketEvent(SocketEvent e) {
         String[] rs = e.rs;
-        if (rs != null && rs[0].equals("d"))
-            PluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
-    }
-
-    @ServerEventHandler
-    public void UDPEvent(UDPEvent e) {
-        String[] rs = e.rs;
-        if (rs[0].equals("o")) {
-            EntityArmorStand stand = null;
-            switch (rs[1]) {
-                case "1":
-                    speedcubingServer.AllPlayers = Integer.parseInt(rs[2]);
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        int lang = User.getUser(p.getUniqueId()).lang;
-                        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(OutPlayerListHeaderFooter.a(GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2])));
-                        Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[lang][6]);
-                        if (team != null)
-                            team.setSuffix(rs[2]);
-                    }
-                    break;
-                case "2":
-                    EntityList.Lobbys[9].setCustomName("§e§l" + rs[2] + " Players");
-                    stand = EntityList.Lobbys[9];
-                    break;
-                case "3":
-                    EntityList.Lobbys[1].setCustomName("§e§l" + rs[2] + " Players");
-                    stand = EntityList.Lobbys[1];
-                    break;
-                case "4":
-                    EntityList.Lobbys[5].setCustomName("§e§l" + rs[2] + " Players");
-                    stand = EntityList.Lobbys[5];
-                    break;
-                case "6":
-                    EntityList.Lobbys[7].setCustomName("§e§l" + rs[2] + " Players");
-                    stand = EntityList.Lobbys[7];
-                    break;
-                case "7":
-                    EntityList.Lobbys[3].setCustomName("§e§l" + rs[2] + " Players");
-                    stand = EntityList.Lobbys[3];
-                    break;
-            }
-            if (stand != null) {
-                PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), stand.getDataWatcher(), true);
-                Bukkit.getOnlinePlayers().forEach(a -> ((CraftPlayer) a).getHandle().playerConnection.sendPacket(packet));
-            }
+        switch (rs[0]) {
+            case "o":
+                EntityArmorStand stand = null;
+                switch (rs[1]) {
+                    case "1":
+                        speedcubingServer.AllPlayers = Integer.parseInt(rs[2]);
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            int lang = User.getUser(p.getUniqueId()).lang;
+                            ((CraftPlayer) p).getHandle().playerConnection.sendPacket(OutPlayerListHeaderFooter.a(GlobalString.LobbyTabList[0][lang], GlobalString.LobbyTabList[1][lang].replace("%int%", rs[2])));
+                            Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[lang][6]);
+                            if (team != null)
+                                team.setSuffix(rs[2]);
+                        }
+                        break;
+                    case "2":
+                        EntityList.Lobbys[9].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[9];
+                        break;
+                    case "3":
+                        EntityList.Lobbys[1].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[1];
+                        break;
+                    case "4":
+                        EntityList.Lobbys[5].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[5];
+                        break;
+                    case "6":
+                        EntityList.Lobbys[7].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[7];
+                        break;
+                    case "7":
+                        EntityList.Lobbys[3].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[3];
+                        break;
+                }
+                if (stand != null) {
+                    PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), stand.getDataWatcher(), true);
+                    Bukkit.getOnlinePlayers().forEach(a -> ((CraftPlayer) a).getHandle().playerConnection.sendPacket(packet));
+                }
+                break;
+            case "d":
+                PluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
+                break;
         }
     }
 
