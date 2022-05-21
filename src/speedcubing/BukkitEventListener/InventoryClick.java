@@ -118,7 +118,7 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 if (RawSlot < 4) {
                     try {
-                        speedcubingServer.tcp.sendUnsafe(25604 - Bukkit.getPort() % 2, "d|" + e.getWhoClicked().getUniqueId() + "|" + RawSlot);
+                        speedcubingServer.tcp.sendUnsafe(User.getUser(e.getWhoClicked().getUniqueId()).tcpPort, "d|" + e.getWhoClicked().getUniqueId() + "|" + RawSlot);
                     } catch (Exception exception) {
 
                     }

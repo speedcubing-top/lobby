@@ -111,7 +111,7 @@ public class ServerEvent {
                 player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now link your minecraft account in the Discord Server!");
             } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
             Main.discord.remove(uuid);
-            speedcubingServer.node(false, uuid);
+            speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);
         } else if (message.charAt(0) != '/') {
             e.setCancelled(true);
             String[] formats = speedcubingServer.getFormat(User.getUser(uuid).rank);
