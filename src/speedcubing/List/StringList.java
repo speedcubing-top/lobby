@@ -15,10 +15,10 @@ public class StringList {
             "§8[§e系统§8] §a成功切换为简体中文!\n§8[§e系统§8] §c伺服器目前尚未完全翻译"};
 
     public static String[] discord = {
-            "§aPlease input a valid discord \"name#tag\" in the chat:",
-            "§aPlease input a valid discord \"name#tag\" in the chat:",
-            "§aPlease input a valid discord \"name#tag\" in the chat:",
-            "§aPlease input a valid discord \"name#tag\" in the chat:"
+            "§aPlease input a valid discord id in the chat:",
+            "§aPlease input a valid discord id in the chat:",
+            "§aPlease input a valid discord id in the chat:",
+            "§aPlease input a valid discord id in the chat:"
     };
     public static String[] discordinvalid = {
             "§cInvalid Discord format! (Cancelled)",
