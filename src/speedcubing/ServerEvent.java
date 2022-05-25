@@ -106,7 +106,7 @@ public class ServerEvent {
         UUID uuid = player.getUniqueId();
         if (Main.discord.contains(uuid)) {
             e.setCancelled(true);
-            if (message.split(" ").length == 1 && message.matches("([a-z]+#[0-9]{4})")) {
+            if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
                 speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
                 player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now link your minecraft account in the Discord Server!");
             } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);

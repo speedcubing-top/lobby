@@ -14,6 +14,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scoreboard.Scoreboard;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
+import speedcubing.Main;
 import speedcubing.lib.bukkit.PlayerUtils;
 import speedcubing.lib.bukkit.SideBarAPI;
 import speedcubing.server.PluginMessage;
@@ -105,14 +106,14 @@ public class InventoryClick implements Listener {
                         player.openInventory(ItemStackList.Lang[User.getUser(player.getUniqueId()).lang]);
                     }
                     break;
-//                    case 15: {
-//                        Player player = (Player) e.getWhoClicked();
-//                        player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
-//                        player.closeInventory();
-//                        player.sendMessage(StringList.discord[PlayerData.getLang(player.getUniqueId())]);
-//                        Main.discord.add(player.getUniqueId());
-//                    }
-//                    break;
+                    case 15: {
+                        Player player = (Player) e.getWhoClicked();
+                        player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
+                        player.closeInventory();
+                        player.sendMessage(StringList.discord[User.getUser(player.getUniqueId()).lang]);
+                        Main.discord.add(player.getUniqueId());
+                    }
+                    break;
                 }
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
