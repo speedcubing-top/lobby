@@ -20,6 +20,35 @@ public class StringList {
             "§aPlease input a valid discord id in the chat:",
             "§aPlease input a valid discord id in the chat:"
     };
+
+    public static String[] settingstitle = {
+            "§cEinstellungen", "§cSettings", "§c設定", "§c设置"
+    };
+
+    public static String[] discordremoved = {
+            "§cYour discord id is cleared.",
+            "§cYour discord id is cleared.",
+            "§cYour discord id is cleared.",
+            "§cYour discord id is cleared."
+    };
+
+    public static String[] dc = {"§aDiscord", "§aDiscord", "§aDiscord", "§aDiscord"};
+
+    public static String[] discordA = {
+            "§aYou are §6%a%",
+            "§aYou are §6%a%",
+            "§aYou are §6%a%",
+            "§aYou are §6%a%"
+    };
+
+    public static String[] discordB =
+            {"§cYou don't have any data yet.",
+                    "§cYou don't have any data yet.",
+                    "§cYou don't have any data yet.",
+                    "§cYou don't have any data yet.",
+            };
+
+    public static String[] discordEdit = {"§aLeft: edit§8 , §cRight: remove", "§aLeft: edit§8 , §cRight: remove", "§aLeft: edit§8 , §cRight: remove", "§aLeft: edit§8 , §cRight: remove"};
     public static String[] discordinvalid = {
             "§cInvalid Discord format! (Cancelled)",
             "§cInvalid Discord format! (Cancelled)",

@@ -1,5 +1,6 @@
 package speedcubing.List;
 
+import org.bukkit.entity.Item;
 import speedcubing.lib.bukkit.ItemBuilder;
 import speedcubing.server.libs.GlobalString;
 import org.bukkit.Bukkit;
@@ -12,13 +13,13 @@ public class ItemStackList {
 
     public static ItemStack[] Navigator = new ItemStack[4];
     public static ItemStack[] Settings = new ItemStack[4];
+    public static ItemStack[] lang = new ItemStack[4];
 
     public static InventoryHolder GameSelectHolder = () -> null;
     public static Inventory[] GameSelect = new Inventory[4];
     public static InventoryHolder NavigatorHolder = () -> null;
     public static Inventory[] navigator = new Inventory[4];
     public static InventoryHolder SettingsHolder = () -> null;
-    public static Inventory[] settings = new Inventory[4];
     public static InventoryHolder LangHolder = () -> null;
     public static Inventory[] Lang = new Inventory[4];
 
@@ -30,11 +31,9 @@ public class ItemStackList {
                 {"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"},
                 {"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}};
         for (int i = 0; i < 4; i++) {
+            lang[i] = new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build();
             Navigator[i] = new ItemBuilder(Material.COMPASS).name(new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]).build();
             Settings[i] = new ItemBuilder(Material.REDSTONE_COMPARATOR).name(new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]).build();
-            settings[i] = Bukkit.createInventory(SettingsHolder, 27, new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]);
-            settings[i].setItem(11, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build());
-//            settings[i].setItem(15, ItemUtils.skull(Material.SKULL_ITEM, new String[]{"§aLink to your Discord", "§aLink to your Discord", "§aLink to your Discord", "§aLink to your Discord"}[i], 1, -1, false, null, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19"));
             navigator[i] = Bukkit.createInventory(NavigatorHolder, 45, new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]);
             navigator[i].setItem(10, new ItemBuilder(Material.STICK).name(new String[]{"§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"}[i]).glow().build());
             navigator[i].setItem(16, new ItemBuilder(Material.WOOD_SWORD).name(new String[]{"§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"}[i]).glow().hideAttr().build());

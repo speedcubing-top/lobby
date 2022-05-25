@@ -107,8 +107,11 @@ public class ServerEvent {
         if (Main.discord.contains(uuid)) {
             e.setCancelled(true);
             if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
+                String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
                 speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
-                player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now link your minecraft account in the Discord Server!");
+                if (!theOldOne.equals("") && !theOldOne.equals(message))
+                    speedcubingServer.tcp.send(20000, theOldOne);
+                player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
             } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
             Main.discord.remove(uuid);
             speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);

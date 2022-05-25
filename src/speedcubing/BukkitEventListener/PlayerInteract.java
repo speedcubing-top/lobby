@@ -1,5 +1,10 @@
 package speedcubing.BukkitEventListener;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import speedcubing.List.StringList;
+import speedcubing.lib.bukkit.ItemBuilder;
 import speedcubing.server.libs.User;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -7,9 +12,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import speedcubing.List.ItemStackList;
+import speedcubing.server.speedcubingServer;
+
+import java.lang.reflect.Member;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class PlayerInteract implements Listener {
 
+
+
+
+    @Deprecated
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent e) {
         Player player = e.getPlayer();
@@ -18,7 +32,15 @@ public class PlayerInteract implements Listener {
                 player.openInventory(ItemStackList.navigator[User.getUser(player.getUniqueId()).lang]);
                 break;
             case REDSTONE_COMPARATOR:
-                player.openInventory(ItemStackList.settings[User.getUser(player.getUniqueId()).lang]);
+                UUID uuid = player.getUniqueId();
+                String data = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
+                int lang = User.getUser(uuid).lang;
+                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 27, StringList.settingstitle[lang]);
+                inv.setItem(11, ItemStackList.lang[lang]);
+                inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[lang]).lore(
+                                data.equals("") ? StringList.discordB[lang] : StringList.discordA[lang].replace("%a%", data), StringList.discordEdit[lang])
+                        .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build());
+                player.openInventory(inv);
                 break;
         }
         if (e.getClickedBlock() != null && player.getGameMode() == GameMode.ADVENTURE)
