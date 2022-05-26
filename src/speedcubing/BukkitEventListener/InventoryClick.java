@@ -119,8 +119,11 @@ public class InventoryClick implements Listener {
                                 break;
                             case PICKUP_HALF:
                                 player.closeInventory();
-                                speedcubingServer.tcp.send(20000, speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + player.getUniqueId() + "'"));
-                                speedcubingServer.connection.update("playersdata", "discord=''", "uuid='" + player.getUniqueId() + "'");
+                                String discord = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + player.getUniqueId() + "'");
+                                if (!discord.equals("")) {
+                                    speedcubingServer.tcp.send(20000, discord);
+                                    speedcubingServer.connection.update("playersdata", "discord=''", "uuid='" + player.getUniqueId() + "'");
+                                }
                                 player.sendMessage(StringList.discordremoved[User.getUser(player.getUniqueId()).lang]);
                                 break;
                         }
