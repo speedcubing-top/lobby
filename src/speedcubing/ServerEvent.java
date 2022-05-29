@@ -30,7 +30,7 @@ public class ServerEvent {
     public void socketEvent(SocketEvent e) {
         String[] rs = e.rs;
         switch (rs[0]) {
-            case "o":
+            case "online":
                 EntityArmorStand stand = null;
                 switch (rs[1]) {
                     case "1":
@@ -69,7 +69,7 @@ public class ServerEvent {
                     Bukkit.getOnlinePlayers().forEach(a -> ((CraftPlayer) a).getHandle().playerConnection.sendPacket(packet));
                 }
                 break;
-            case "d":
+            case "reduce":
                 PluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
                 break;
         }
