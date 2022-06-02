@@ -38,7 +38,7 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 switch (RawSlot) {
                     case 16:
-                        PluginMessage.switchServer((Player) e.getWhoClicked(), "kbffa");
+                        PluginMessage.switchServer((Player) e.getWhoClicked(), "knockbackffa");
                         break;
                     case 10:
                         PluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");

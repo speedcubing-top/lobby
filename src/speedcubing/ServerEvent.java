@@ -88,7 +88,7 @@ public class ServerEvent {
                     Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[User.getUser(player.getUniqueId()).lang]));
                     break;
                 case 2:
-                    PluginMessage.switchServer(player, "kbffa");
+                    PluginMessage.switchServer(player, "knockbackffa");
                     break;
                 case 3:
                     PluginMessage.switchServer(player, "clutch");
