@@ -57,6 +57,10 @@ public class ServerEvent {
                         EntityList.Lobbys[5].setCustomName("§e§l" + rs[2] + " Players");
                         stand = EntityList.Lobbys[5];
                         break;
+                    case "5":
+                        EntityList.Lobbys[11].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[11];
+                        break;
                     case "6":
                         EntityList.Lobbys[7].setCustomName("§e§l" + rs[2] + " Players");
                         stand = EntityList.Lobbys[7];
@@ -64,10 +68,6 @@ public class ServerEvent {
                     case "7":
                         EntityList.Lobbys[3].setCustomName("§e§l" + rs[2] + " Players");
                         stand = EntityList.Lobbys[3];
-                        break;
-                    case "8":
-                        EntityList.Lobbys[11].setCustomName("§e§l" + rs[2] + " Players");
-                        stand = EntityList.Lobbys[11];
                         break;
                 }
                 if (stand != null) {
