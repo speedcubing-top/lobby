@@ -1,7 +1,11 @@
 package speedcubing.List;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import org.bukkit.WorldCreator;
+import speedcubing.lib.api.exception.APIErrorException;
 import speedcubing.lib.bukkit.EntityPlayerUtils;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
@@ -9,10 +13,14 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 public class EntityList {
-    public static EntityArmorStand[] Lobbys = new EntityArmorStand[13];
+    public static EntityArmorStand[] Lobbys = new EntityArmorStand[12];
     public static Set<PacketPlayOutSpawnEntityLiving> spawnpackets = new HashSet<>();
     public static List<Integer> NPCS = new ArrayList<>();
     public static List<Packet<?>> LobbyNPCPackets = new ArrayList<>();
@@ -26,35 +34,6 @@ public class EntityList {
             Lobbys[i].setGravity(true);
             Lobbys[i].setInvisible(true);
             Lobbys[i].n(true);
-        }
-        Lobbys[0].setLocation(0.5, 100.85, 24.5, 0, 0);
-        Lobbys[0].setCustomName("§bMLGRush");
-        Lobbys[1].setLocation(0.5, 101.15, 24.5, 0, 0);
-        Lobbys[1].setCustomName("§e§l0 Players");
-        Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
-        Lobbys[2].setCustomName("§bReduce");
-        Lobbys[3].setLocation(8.5, 101.15, 22.5, 0, 0);
-        Lobbys[3].setCustomName("§e§l0 Players");
-        Lobbys[6].setLocation(-3.5, 100.85, 24.5, 0, 0);
-        Lobbys[6].setCustomName("§bClutch");
-        Lobbys[7].setLocation(-3.5, 101.15, 24.5, 0, 0);
-        Lobbys[7].setCustomName("§e§l0 Players");
-        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0);
-        Lobbys[4].setCustomName("§bKnockBack FFA");
-        Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0);
-        Lobbys[5].setCustomName("§e§l0 Players");
-        Lobbys[8].setLocation(4.5, 100.85, 24.5, 0, 0);
-        Lobbys[8].setCustomName("§bFastBuilder");
-        Lobbys[9].setLocation(4.5, 101.15, 24.5, 0, 0);
-        Lobbys[9].setCustomName("§e§l0 Players");
-        Lobbys[10].setLocation(4.5, 102.05, 24.5, 0, 0);
-        Lobbys[10].setCustomName("§6§lInspired by:");
-        Lobbys[11].setLocation(4.5, 101.75, 24.5, 0, 0);
-        Lobbys[11].setCustomName("§6§l§oGreev.eu");
-        Lobbys[12].setLocation(4.5, 101.45, 24.5, 0, 0);
-        Lobbys[12].setCustomName("§6§l§oMcPlayHD.net");
-        for (EntityArmorStand lobby : Lobbys) {
-            spawnpackets.add(new PacketPlayOutSpawnEntityLiving(lobby));
         }
 
         ScoreboardTeam NoNameTag = new ScoreboardTeam(((CraftScoreboard) Bukkit.getScoreboardManager().getMainScoreboard()).getHandle(), "");
@@ -70,8 +49,9 @@ public class EntityList {
         String grisignatures = "lcN1iqCxPCoawCAdYtzrYELQ+NASpTFLYCgvsGGYZvEl2PZhcPyfGCQAXh5LJI2y/Uau0o/nNp6SvswquXr0tkhsUBJAjL323QzkOVkaOGxHtpGRk0PNbtJ3ba0lEizuf3su523FJiuM8hmWm75rqR0Q2Eq3P7rEF+7WbQGzo+j55h8UYidY1wcc7n9jjrfXiVlBvwWvSIXAj9P/S5XWH6HJuh2OjFCnlSAAa/RJy/WywobCCSc/IeLFCon1CW5YnjTMGMQagMNaxvVlrd5bUtZE730nLgeLDZma+svnWhsBCKVM4yoz4GeNYnWyYjWIINxORH73b5ROEqtqA1uF0ddaGKjNiG3C+3E0IV2fx+eRPEmKF4yqmYqytr4vcYyEHO7MPKaZjvuMlZrdd3aa2s/tGdqXk0GMfDcdO4G+OxIScKQBKw7Q5CigD4aY2A41QwtE6ip5bThyijAXX1ZDbS+JDfPg0b8NpeQAE7h7wON6ZPLYDYDx7Hado27gqUAieoplakMU5oTdQsihH2EnQ1lCMr9snqSgPoQO7fRfLimpt2d+29eRoWpj4dch+Qo7gS2+cdk21cQCldsqWuA3/foDBfgT84aLAXTsa1yBLrap12qI4cSrpFpBqaUPhM2nThoqgwsH5sXzQfDue7h+NK6fM5KpMeFEC6gzOXXzsrc=";
         String doogle1 = "ewogICJ0aW1lc3RhbXAiIDogMTYxMjU4NDgyNTQ0NywKICAicHJvZmlsZUlkIiA6ICI1NjY3NWIyMjMyZjA0ZWUwODkxNzllOWM5MjA2Y2ZlOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVJbmRyYSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zNzdiM2UyNTAzZjk2YmZkNmVlN2IxZmFjMzk4M2JhYjMxOTRlYjc0OGFlZTczYzE1MzA0YWJkN2FlNzBjMGYzIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
         String doogle2 = "GLGEvQbFTIP3Z4ZScEMXyu7Z8/SwnzyMc20+tN/zYXf71q96rTg7NkZp5mrVYSfiQfI7Mjg0uaFF0cbl7GC82kkw3O9tHjeqipQMhvHlo2fvfFlffCZMoVDDlJHvccMOUow/1S/vrjsLJY2fBgBwekemwEAqdtjVyjbv+VAM3/lQpdn44aoELnx2AsMK4tAExtLw72Eg7c7dbwSCNo8KY5BMEdesqXl9wlN8waknTKmxUw/HbweRCbKzBT9aOEd9BpNqUcTj0dAv2D6U52NatLE+tE/4O2/s/aiFkey1NTLeH8HQWM6ksgBSKRsrgbna6w/Z1QltQX+7nc+rYECh1WjEcLgcr83/Kj8seWy3yQkz9mO//OEX1qskqOdSeOMZ29I9CpxjO/5C0HERHya5ZfaJt4hxZcu6gbllB1cSsE696vrppYU7fywtU/47JiNjBiqXSadQEyZbCn/tWHa7u3C+BHK39KzCKAnCxwZLVLn9G/rGjDCbfxCnwjM6JucThYK6pfZRFGJpYkU9YkGW94CWvD3F53mJqRKoEOxQfT4Cm8xZ/RyxsQxzxvmWhGRE8eMwahAHTW710+1ATEVoQgB/0A5iHILN0qo3f9kz0Zz3QPxeHMDf7g8Dkxl/6RCZR87GZn6CEMKHuAqqlt7MjfrIe85upnTcUsdRNfNMLXY=";
-
-        EntityPlayer[] entityPlayer = new EntityPlayer[5];
+        String str1 = "ewogICJ0aW1lc3RhbXAiIDogMTY1NDE2NjIyMzU2NCwKICAicHJvZmlsZUlkIiA6ICI3OTkyMzAzNmI1ODE0NjZhODUzZmMxNWQ5NmVkNDczZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdHJhaWdodCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80Yjk3ZmExZGZhOWMwYzUyYzZiOGM5ZjYzNWM4Nzk5ZTJmZDYyOTFmMWExOGIxMmM1YTQ4NjNlNWY4YzEzYzI5IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
+        String str2 = "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM=";
+        EntityPlayer[] entityPlayer = new EntityPlayer[6];
         for (int i = 0; i < entityPlayer.length; i++) {
             entityPlayer[i] = new EntityPlayer(((CraftServer) Bukkit.getServer()).getServer(), world, new GameProfile(UUID.randomUUID(), " "), new PlayerInteractManager(world));
             EntityPlayerUtils.enableOuterLayer(entityPlayer[i].getDataWatcher());
@@ -81,18 +61,46 @@ public class EntityList {
         entityPlayer[2].getProfile().getProperties().put("textures", new Property("textures", CAKETEXTURES, CAKESIGNATURES));
         entityPlayer[3].getProfile().getProperties().put("textures", new Property("textures", gritextures, grisignatures));
         entityPlayer[4].getProfile().getProperties().put("textures", new Property("textures", doogle1, doogle2));
+        entityPlayer[5].getProfile().getProperties().put("textures", new Property("textures", str1, str2));
+
 
         //rush
-        entityPlayer[0].setLocation(0.5, 99, 24.5, 180, 0);
+        entityPlayer[0].setLocation(-1.5, 99, 24.5, 180, 0);
+        Lobbys[0].setLocation(-1.5, 100.85, 24.5, 0, 0);
+        Lobbys[0].setCustomName("§bMLGRush");
+        Lobbys[1].setLocation(-1.5, 101.15, 24.5, 0, 0);
+        Lobbys[1].setCustomName("§e§l0 Players");
         //reduce
         entityPlayer[1].setLocation(8.5, 99.0, 22.5, 178, 0.0F);
-
+        Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
+        Lobbys[2].setCustomName("§bReduce");
+        Lobbys[3].setLocation(8.5, 101.15, 22.5, 0, 0);
+        Lobbys[3].setCustomName("§e§l0 Players");
         //clutch
-        entityPlayer[3].setLocation(-3.5, 99.0, 24.5, 180, 0.0F);
+        entityPlayer[3].setLocation(-4.5, 99.0, 23.5, 180, 0.0F);
+        Lobbys[6].setLocation(-4.5, 100.85, 23.5, 0, 0);
+        Lobbys[6].setCustomName("§bClutch");
+        Lobbys[7].setLocation(-4.5, 101.15, 23.5, 0, 0);
+        Lobbys[7].setCustomName("§e§l0 Players");
         //ffa
         entityPlayer[2].setLocation(-7.5, 99.0, 22.5, 180, 0.0F);
+        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0);
+        Lobbys[4].setCustomName("§bKnockBack FFA");
+        Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0);
+        Lobbys[5].setCustomName("§e§l0 Players");
         //fb
-        entityPlayer[4].setLocation(4.5, 99.0, 24.5, 180, 0.0F);
+        entityPlayer[4].setLocation(2.5, 99.0, 24.5, 180, 0.0F);
+        Lobbys[8].setLocation(2.5, 100.85, 24.5, 0, 0);
+        Lobbys[8].setCustomName("§bFastBuilder");
+        Lobbys[9].setLocation(2.5, 101.15, 24.5, 0, 0);
+        Lobbys[9].setCustomName("§e§l0 Players");
+        //practice
+        entityPlayer[5].setLocation(5.5, 99.0, 23.5, 180, 0.0F);
+        Lobbys[10].setLocation(5.5, 100.85, 23.5, 0, 0);
+        Lobbys[10].setCustomName("§bPractice");
+        Lobbys[11].setLocation(5.5, 101.15, 23.5, 0, 0);
+        Lobbys[11].setCustomName("§e§l0 Players");
+
         for (EntityPlayer value : entityPlayer) {
             LobbyNPCPackets.add(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, value));
             LobbyNPCPackets.add(new PacketPlayOutNamedEntitySpawn(value));
@@ -102,12 +110,16 @@ public class EntityList {
         LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[2], (byte) 160));
         LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[3], (byte) 128));
         LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[4], (byte) 128));
+        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[5], (byte) 128));
         LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, 1));
         LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, 0));
         LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, Collections.singletonList(" "), 3));
         for (EntityPlayer player : entityPlayer) {
             LobbyNPCDelayedPackets.add(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, player));
             NPCS.add(player.getId());
+        }
+        for (EntityArmorStand lobby : Lobbys) {
+            spawnpackets.add(new PacketPlayOutSpawnEntityLiving(lobby));
         }
     }
 }

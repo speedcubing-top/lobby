@@ -63,6 +63,10 @@ public class ServerEvent {
                         EntityList.Lobbys[3].setCustomName("§e§l" + rs[2] + " Players");
                         stand = EntityList.Lobbys[3];
                         break;
+                    case "8":
+                        EntityList.Lobbys[11].setCustomName("§e§l" + rs[2] + " Players");
+                        stand = EntityList.Lobbys[11];
+                        break;
                 }
                 if (stand != null) {
                     PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), stand.getDataWatcher(), true);
@@ -95,6 +99,9 @@ public class ServerEvent {
                     break;
                 case 4:
                     PluginMessage.switchServer(player, "fastbuilder");
+                    break;
+                case 5:
+                    PluginMessage.switchServer(player, "practice");
                     break;
             }
     }
