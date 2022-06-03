@@ -56,7 +56,7 @@ public class PlayerJoin implements Listener {
             SideBarAPI.sidebarTeams(scoreboard, new String[][]{
                     {sidebar[8]},
                     {split1[0], "§3§f", split1[1]},
-                    {"", sidebar[6], Integer.toString(speedcubingServer.AllPlayers)},
+                    {"", sidebar[6], "loading..."},
                     {sidebar[5]},
                     {split2[0], "§2§f", split2[1]},
                     {sidebar[3].replace("%player%", format[0] + format[1] + name)},

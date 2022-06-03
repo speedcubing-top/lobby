@@ -34,11 +34,9 @@ public class ServerEvent {
                 EntityArmorStand stand = null;
                 switch (rs[1]) {
                     case "1":
-                        speedcubingServer.AllPlayers = Integer.parseInt(rs[2]);
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             User user = User.getUser(p.getUniqueId());
                             if (user != null) {
-                                ((CraftPlayer) p).getHandle().playerConnection.sendPacket(OutPlayerListHeaderFooter.a(GlobalString.LobbyTabList[0][user.lang], GlobalString.LobbyTabList[1][user.lang].replace("%int%", rs[2])));
                                 Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[user.lang][6]);
                                 if (team != null)
                                     team.setSuffix(rs[2]);
