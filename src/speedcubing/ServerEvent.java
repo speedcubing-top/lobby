@@ -117,7 +117,7 @@ public class ServerEvent {
                 String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
                 speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
                 if (!theOldOne.equals("") && !theOldOne.equals(message))
-                    speedcubingServer.tcp.send(20000, theOldOne);
+                    speedcubingServer.tcp.send(20000, "a|" + theOldOne);
                 player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
             } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
             Main.discord.remove(uuid);
