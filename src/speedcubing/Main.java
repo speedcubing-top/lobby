@@ -1,6 +1,5 @@
 package speedcubing;
 
-import speedcubing.spigot.Event.ServerEventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +7,7 @@ import speedcubing.BukkitCommands.lang;
 import speedcubing.BukkitEventListener.*;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
+import speedcubing.lib.event.LibEventManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +31,6 @@ public class Main extends JavaPlugin {
         Bukkit.getWorld("world").setTime(6000);
         new ItemStackList().Load();
         new EntityList().Load();
-        ServerEventManager.registerListeners(new ServerEvent());
+        LibEventManager.registerListeners(new ServerEvent());
     }
 }

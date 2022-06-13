@@ -10,23 +10,22 @@ import org.bukkit.scoreboard.Team;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
-import speedcubing.lib.bukkit.packetwrapper.OutPlayerListHeaderFooter;
+import speedcubing.lib.event.LibEventHandler;
 import speedcubing.lib.utils.Console;
 import speedcubing.lib.utils.Reflections;
 import speedcubing.server.PluginMessage;
 import speedcubing.server.events.SocketEvent;
+import speedcubing.server.events.packet.PlayInChatEvent;
+import speedcubing.server.events.packet.PlayInUseEntityEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
-import speedcubing.spigot.Event.ServerEventHandler;
-import speedcubing.spigot.Event.events.PlayInChatEvent;
-import speedcubing.spigot.Event.events.PlayInUseEntityEvent;
 
 import java.util.UUID;
 
 public class ServerEvent {
 
-    @ServerEventHandler
+    @LibEventHandler
     public void socketEvent(SocketEvent e) {
         String[] rs = e.rs;
         switch (rs[0]) {
@@ -79,7 +78,7 @@ public class ServerEvent {
         }
     }
 
-    @ServerEventHandler
+    @LibEventHandler
     public void PlayInUseEntityEvent(PlayInUseEntityEvent e) {
         Player player = e.player;
         PacketPlayInUseEntity packet = e.packet;
@@ -106,7 +105,7 @@ public class ServerEvent {
             }
     }
 
-    @ServerEventHandler
+    @LibEventHandler
     public void PlayInChatEvent(PlayInChatEvent e) {
         Player player = e.player;
         String message = e.packet.a();
