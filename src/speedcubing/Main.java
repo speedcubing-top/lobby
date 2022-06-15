@@ -7,7 +7,7 @@ import speedcubing.BukkitCommands.lang;
 import speedcubing.BukkitEventListener.*;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
-import speedcubing.lib.event.LibEventManager;
+import speedcubing.lib.eventbus.LibEventManager;
 
 import java.util.HashSet;
 import java.util.Set;

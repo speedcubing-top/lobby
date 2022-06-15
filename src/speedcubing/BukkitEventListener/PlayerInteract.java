@@ -1,21 +1,19 @@
 package speedcubing.BukkitEventListener;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
-import speedcubing.List.StringList;
-import speedcubing.lib.bukkit.ItemBuilder;
-import speedcubing.server.libs.User;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import speedcubing.List.ItemStackList;
+import speedcubing.List.StringList;
+import speedcubing.lib.bukkit.inventory.ItemBuilder;
+import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
-import java.lang.reflect.Member;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class PlayerInteract implements Listener {

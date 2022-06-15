@@ -10,13 +10,13 @@ import org.bukkit.scoreboard.Team;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
-import speedcubing.lib.event.LibEventHandler;
+import speedcubing.lib.bukkit.BungeePluginMessage;
+import speedcubing.lib.bukkit.event.PlayInChatEvent;
+import speedcubing.lib.bukkit.event.PlayInUseEntityEvent;
+import speedcubing.lib.eventbus.LibEventHandler;
 import speedcubing.lib.utils.Console;
 import speedcubing.lib.utils.Reflections;
-import speedcubing.server.PluginMessage;
 import speedcubing.server.events.SocketEvent;
-import speedcubing.server.events.packet.PlayInChatEvent;
-import speedcubing.server.events.packet.PlayInUseEntityEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
@@ -73,7 +73,7 @@ public class ServerEvent {
                 }
                 break;
             case "reduce":
-                PluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
+                BungeePluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
                 break;
         }
     }
@@ -85,22 +85,22 @@ public class ServerEvent {
         if (player.getItemInHand().getType() == org.bukkit.Material.AIR && packet.a().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
             switch (EntityList.NPCS.indexOf(Reflections.getField(packet, "a"))) {
                 case 0:
-                    PluginMessage.switchServer(player, "mlgrush");
+                    BungeePluginMessage.switchServer(player, "mlgrush");
                     break;
                 case 1:
                     Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[User.getUser(player.getUniqueId()).lang]));
                     break;
                 case 2:
-                    PluginMessage.switchServer(player, "knockbackffa");
+                    BungeePluginMessage.switchServer(player, "knockbackffa");
                     break;
                 case 3:
-                    PluginMessage.switchServer(player, "clutch");
+                    BungeePluginMessage.switchServer(player, "clutch");
                     break;
                 case 4:
-                    PluginMessage.switchServer(player, "fastbuilder");
+                    BungeePluginMessage.switchServer(player, "fastbuilder");
                     break;
                 case 5:
-                    PluginMessage.switchServer(player, "practice");
+                    BungeePluginMessage.switchServer(player, "practice");
                     break;
             }
     }
@@ -111,7 +111,7 @@ public class ServerEvent {
         String message = e.packet.a();
         UUID uuid = player.getUniqueId();
         if (Main.discord.contains(uuid)) {
-            e.setCancelled(true);
+            e.isCancelled = true;
             if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
                 String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
                 speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
@@ -122,7 +122,7 @@ public class ServerEvent {
             Main.discord.remove(uuid);
             speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);
         } else if (message.charAt(0) != '/') {
-            e.setCancelled(true);
+            e.isCancelled = true;
             String[] formats = speedcubingServer.getFormat(User.getUser(uuid).rank);
             String text = formats[0] + player.getName();
             String[] str = GlobalString.MessageFormat[0];

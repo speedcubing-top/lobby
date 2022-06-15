@@ -1,13 +1,12 @@
 package speedcubing.List;
 
-import org.bukkit.entity.Item;
-import speedcubing.lib.bukkit.ItemBuilder;
-import speedcubing.server.libs.GlobalString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import speedcubing.lib.bukkit.inventory.ItemBuilder;
+import speedcubing.server.libs.GlobalString;
 
 public class ItemStackList {
 
