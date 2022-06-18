@@ -16,6 +16,7 @@ import speedcubing.lib.bukkit.event.PlayInUseEntityEvent;
 import speedcubing.lib.eventbus.LibEventHandler;
 import speedcubing.lib.utils.Console;
 import speedcubing.lib.utils.Reflections;
+import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.libs.User;
@@ -24,10 +25,19 @@ import speedcubing.server.speedcubingServer;
 import java.util.UUID;
 
 public class ServerEvent {
+    @LibEventHandler(priority = 500)
+    public void InputEvent(InputEvent e) {
+        String[] rs = e.receive.split("\\|");
+        switch (rs[3]) {
+            case "login":
+                Main.haveToLogin.add(UUID.fromString(rs[4]));
+                break;
+        }
+    }
 
     @LibEventHandler
     public void socketEvent(SocketEvent e) {
-        String[] rs = e.rs;
+        String[] rs = e.receive.split("\\|");
         switch (rs[0]) {
             case "online":
                 EntityArmorStand stand = null;

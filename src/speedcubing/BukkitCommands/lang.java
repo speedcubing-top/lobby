@@ -22,8 +22,7 @@ public class lang implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[]
-            strings) {
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         return new ArrayList<>();
     }
 }

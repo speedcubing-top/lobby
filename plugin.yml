@@ -4,6 +4,10 @@ version: 1.0
 commands:
   lang:
     usage: /lang
+  register:
+    usage: /register
+  login:
+    usage: /login
 depend:
   - speedcubingServer
   - speedcubingLib
