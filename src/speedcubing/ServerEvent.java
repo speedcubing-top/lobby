@@ -43,10 +43,8 @@ public class ServerEvent {
                 EntityArmorStand stand = null;
                 switch (rs[1]) {
                     case "1":
-                        for (Player p : Bukkit.getOnlinePlayers()) {
-                            User user = User.getUser(p.getUniqueId());
-                            if (user != null)
-                                SideBar.getSidebar(p).setLine(p.getPlayer(), StringList.LobbySideBar[user.lang][6] + rs[2], 3);
+                        for (SideBar s : SideBar.getSidebars()) {
+                            s.setLine(StringList.LobbySideBar[User.getUser(s.player.getUniqueId()).lang][6] + rs[2], 3);
                         }
                         break;
                     case "2":
