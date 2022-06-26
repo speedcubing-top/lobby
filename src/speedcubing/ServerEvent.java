@@ -46,7 +46,7 @@ public class ServerEvent {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             User user = User.getUser(p.getUniqueId());
                             if (user != null)
-                                SideBar.setLine(p, StringList.LobbySideBar[user.lang][6] + rs[2], 0);
+                                SideBar.setLine(p, StringList.LobbySideBar[user.lang][6] + rs[2], 1);
                         }
                         break;
                     case "2":

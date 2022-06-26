@@ -65,7 +65,7 @@ public class PlayerJoin implements Listener {
                 .changeableLine(sidebar[4], 4)
                 .staticLine(sidebar[3].replace("%player%", format[0] + format[1] + name), 3)
                 .staticLine(sidebar[2], 2)
-                .staticLine(sidebar[1], 1)
+                .changeableLine(sidebar[1], 1)
                 .staticLine(sidebar[0], 0)
                 .scoreboard);
         EntityList.LobbyNPCPackets.forEach(connection::sendPacket);

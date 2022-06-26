@@ -80,8 +80,8 @@ public class InventoryClick implements Listener {
                     UUID uuid = player.getUniqueId();
                     String[] sidebar = StringList.LobbySideBar[x];
                     SideBar.setLine(player, sidebar[7], 0);
-                    SideBar.setLine(player, sidebar[4], 1);
-                    SideBar.setLine(player, sidebar[1], 2);
+                    SideBar.setLine(player, sidebar[4], 2);
+                    SideBar.setLine(player, sidebar[1], 3);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
                     player.sendMessage(StringList.LangSettings[x]);
                     int finalX = x;
