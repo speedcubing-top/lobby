@@ -57,7 +57,7 @@ public class PlayerJoin implements Listener {
                     .replace("%name%", name));
         player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getUser(a.getUniqueId()).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
         String[] sidebar = StringList.LobbySideBar[user.lang];
-        player.setScoreboard(new SideBar(sidebar[9])
+        new SideBar(player, sidebar[9])
                 .staticLine(sidebar[8], 8)
                 .changeableLine(sidebar[7], 7)
                 .changeableLine(sidebar[6], "loading...", 6)
@@ -66,8 +66,7 @@ public class PlayerJoin implements Listener {
                 .staticLine(sidebar[3].replace("%player%", format[0] + format[1] + name), 3)
                 .staticLine(sidebar[2], 2)
                 .changeableLine(sidebar[1], 1)
-                .staticLine(sidebar[0], 0)
-                .scoreboard);
+                .staticLine(sidebar[0], 0).create();
         EntityList.LobbyNPCPackets.forEach(connection::sendPacket);
         new Timer().schedule(new TimerTask() {
             @Override
