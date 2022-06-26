@@ -44,7 +44,7 @@ public class ServerEvent {
                 switch (rs[1]) {
                     case "1":
                         for (SideBar s : SideBar.getSidebars()) {
-                            s.setLine(StringList.LobbySideBar[User.getUser(s.player.getUniqueId()).lang][6] + rs[2], 3);
+                            s.setLine(StringList.LobbySideBar[User.getUser(s.player.getUniqueId()).lang][3] + rs[2], 3);
                         }
                         break;
                     case "2":

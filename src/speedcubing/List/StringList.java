@@ -61,9 +61,9 @@ public class StringList {
             "§cInvalid Discord format! (Cancelled)"
     };
     public static String[][] LobbySideBar = {
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord-Server§a:", "§2", "§8»§b %player%", "§aWillkommen:", "§5", "§8» §b", "§aOnline-Spieler§a:", "§8", "§6" + config.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord Server§a:", "§2", "§8»§b %player%", "§aWelcome:", "§5", "§8» §b", "§aOnline players§a:", "§8", "§6" + config.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 伺服器:", "§2", "§8»§b %player%", "§a歡迎:", "§5", "§8» §b", "§a線上玩家:", "§8", "§6" + config.SERVERIP},
-            {"§8»§b discord.gg/rnbRWrb", "§aDiscord 服务器:", "§2", "§8»§b %player%", "§a欢迎:", "§5", "§8» §b", "§a线上玩家:", "§8", "§6" + config.SERVERIP}
+            {"§6" + config.SERVERIP, "§8", "§aOnline-Spieler§a:", "§8» §b", "§5", "§aWillkommen:", "§8»§b %player%", "§2", "§aDiscord-Server§a:", "§8»§b discord.gg/rnbRWrb"},
+            {"§6" + config.SERVERIP, "§8", "§aOnline players§a:", "§8» §b", "§5", "§aWelcome:", "§8»§b %player%", "§2", "§aDiscord Server§a:", "§8»§b discord.gg/rnbRWrb"},
+            {"§6" + config.SERVERIP, "§8", "§a線上玩家:", "§8» §b", "§5", "§a歡迎:", "§8»§b %player%", "§2", "§aDiscord 伺服器:", "§8»§b discord.gg/rnbRWrb"},
+            {"§6" + config.SERVERIP, "§8", "§a线上玩家:", "§8» §b", "§5", "§a欢迎:", "§8»§b %player%", "§2", "§aDiscord 服务器:", "§8»§b discord.gg/rnbRWrb"}
     };
 }
