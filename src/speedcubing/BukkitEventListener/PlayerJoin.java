@@ -60,7 +60,7 @@ public class PlayerJoin implements Listener {
         new SideBar(player, sidebar[9])
                 .staticLine(sidebar[8], 8)
                 .changeableLine(sidebar[7], 7)
-                .changeableLine(sidebar[6], "loading...", 6)
+                .changeableLine(sidebar[6] + "loading...", 6)
                 .staticLine(sidebar[5], 5)
                 .changeableLine(sidebar[4], 4)
                 .staticLine(sidebar[3].replace("%player%", format[0] + format[1] + name), 3)
