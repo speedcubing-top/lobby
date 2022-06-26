@@ -6,11 +6,11 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.lib.bukkit.BungeePluginMessage;
+import speedcubing.lib.bukkit.SideBar;
 import speedcubing.lib.bukkit.event.PlayInChatEvent;
 import speedcubing.lib.bukkit.event.PlayInUseEntityEvent;
 import speedcubing.lib.eventbus.LibEventHandler;
@@ -45,11 +45,8 @@ public class ServerEvent {
                     case "1":
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             User user = User.getUser(p.getUniqueId());
-                            if (user != null) {
-                                Team team = p.getScoreboard().getTeam(StringList.LobbySideBar[user.lang][6]);
-                                if (team != null)
-                                    team.setSuffix(rs[2]);
-                            }
+                            if (user != null)
+                                SideBar.setLine(p, StringList.LobbySideBar[user.lang][6] + rs[2], 0);
                         }
                         break;
                     case "2":

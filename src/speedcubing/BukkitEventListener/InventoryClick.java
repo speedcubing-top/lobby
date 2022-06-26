@@ -11,13 +11,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.scoreboard.Scoreboard;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.Main;
 import speedcubing.lib.bukkit.BungeePluginMessage;
 import speedcubing.lib.bukkit.PlayerUtils;
-import speedcubing.lib.bukkit.SideBarAPI;
+import speedcubing.lib.bukkit.SideBar;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
@@ -79,17 +78,10 @@ public class InventoryClick implements Listener {
                 if (x != -1) {
                     Player player = (Player) e.getWhoClicked();
                     UUID uuid = player.getUniqueId();
-                    Scoreboard scoreboard = player.getScoreboard();
                     String[] sidebar = StringList.LobbySideBar[x];
-                    String[] split1 = SideBarAPI.prefixSuffixSplit(sidebar[7]);
-                    String[] split2 = SideBarAPI.prefixSuffixSplit(sidebar[4]);
-                    String[] split3 = SideBarAPI.prefixSuffixSplit(sidebar[1]);
-                    scoreboard.getTeam("§3§f").setPrefix(split1[0]);
-                    scoreboard.getTeam("§3§f").setSuffix(split1[1]);
-                    scoreboard.getTeam("§2§f").setPrefix(split2[0]);
-                    scoreboard.getTeam("§2§f").setSuffix(split2[1]);
-                    scoreboard.getTeam("§1§f").setPrefix(split3[0]);
-                    scoreboard.getTeam("§1§f").setSuffix(split3[1]);
+                    SideBar.setLine(player, sidebar[7], 0);
+                    SideBar.setLine(player, sidebar[4], 1);
+                    SideBar.setLine(player, sidebar[1], 2);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
                     player.sendMessage(StringList.LangSettings[x]);
                     int finalX = x;

@@ -3,7 +3,6 @@ package speedcubing;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import speedcubing.BukkitCommands.lang;
 import speedcubing.BukkitCommands.login;

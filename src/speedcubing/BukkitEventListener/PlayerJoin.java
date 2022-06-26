@@ -10,14 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.Main;
-import speedcubing.lib.bukkit.SideBarAPI;
+import speedcubing.lib.bukkit.SideBar;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
@@ -59,26 +56,18 @@ public class PlayerJoin implements Listener {
                     .replace("%f1%", format[2])
                     .replace("%name%", name));
         player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getUser(a.getUniqueId()).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         String[] sidebar = StringList.LobbySideBar[user.lang];
-        Objective objective = scoreboard.registerNewObjective("sidebar", "dummy");
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName(sidebar[9]);
-        String[] split1 = SideBarAPI.prefixSuffixSplit(sidebar[7]);
-        String[] split2 = SideBarAPI.prefixSuffixSplit(sidebar[4]);
-        String[] split3 = SideBarAPI.prefixSuffixSplit(sidebar[1]);
-        SideBarAPI.sidebarTeams(scoreboard, new String[][]{
-                {sidebar[8]},
-                {split1[0], "§3§f", split1[1]},
-                {"", sidebar[6], "loading..."},
-                {sidebar[5]},
-                {split2[0], "§2§f", split2[1]},
-                {sidebar[3].replace("%player%", format[0] + format[1] + name)},
-                {sidebar[2]},
-                {split3[0], "§1§f", split3[1]},
-                {sidebar[0]},
-        }, new int[]{8, 7, 6, 5, 4, 3, 2, 1, 0});
-        player.setScoreboard(scoreboard);
+        player.setScoreboard(new SideBar(sidebar[9])
+                .staticLine(sidebar[8], 8)
+                .changeableLine(sidebar[7], 7)
+                .changeableLine(sidebar[6], "loading...", 6)
+                .staticLine(sidebar[5], 5)
+                .changeableLine(sidebar[4], 4)
+                .staticLine(sidebar[3].replace("%player%", format[0] + format[1] + name), 3)
+                .staticLine(sidebar[2], 2)
+                .staticLine(sidebar[1], 1)
+                .staticLine(sidebar[0], 0)
+                .scoreboard);
         EntityList.LobbyNPCPackets.forEach(connection::sendPacket);
         new Timer().schedule(new TimerTask() {
             @Override

@@ -18,10 +18,6 @@ import java.util.UUID;
 
 public class PlayerInteract implements Listener {
 
-
-
-
-    @Deprecated
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent e) {
         Player player = e.getPlayer();
