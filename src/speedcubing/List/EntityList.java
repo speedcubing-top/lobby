@@ -24,9 +24,11 @@ public class EntityList {
         String doogle2 = "GLGEvQbFTIP3Z4ZScEMXyu7Z8/SwnzyMc20+tN/zYXf71q96rTg7NkZp5mrVYSfiQfI7Mjg0uaFF0cbl7GC82kkw3O9tHjeqipQMhvHlo2fvfFlffCZMoVDDlJHvccMOUow/1S/vrjsLJY2fBgBwekemwEAqdtjVyjbv+VAM3/lQpdn44aoELnx2AsMK4tAExtLw72Eg7c7dbwSCNo8KY5BMEdesqXl9wlN8waknTKmxUw/HbweRCbKzBT9aOEd9BpNqUcTj0dAv2D6U52NatLE+tE/4O2/s/aiFkey1NTLeH8HQWM6ksgBSKRsrgbna6w/Z1QltQX+7nc+rYECh1WjEcLgcr83/Kj8seWy3yQkz9mO//OEX1qskqOdSeOMZ29I9CpxjO/5C0HERHya5ZfaJt4hxZcu6gbllB1cSsE696vrppYU7fywtU/47JiNjBiqXSadQEyZbCn/tWHa7u3C+BHK39KzCKAnCxwZLVLn9G/rGjDCbfxCnwjM6JucThYK6pfZRFGJpYkU9YkGW94CWvD3F53mJqRKoEOxQfT4Cm8xZ/RyxsQxzxvmWhGRE8eMwahAHTW710+1ATEVoQgB/0A5iHILN0qo3f9kz0Zz3QPxeHMDf7g8Dkxl/6RCZR87GZn6CEMKHuAqqlt7MjfrIe85upnTcUsdRNfNMLXY=";
         String str1 = "ewogICJ0aW1lc3RhbXAiIDogMTY1NDE2NjIyMzU2NCwKICAicHJvZmlsZUlkIiA6ICI3OTkyMzAzNmI1ODE0NjZhODUzZmMxNWQ5NmVkNDczZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdHJhaWdodCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80Yjk3ZmExZGZhOWMwYzUyYzZiOGM5ZjYzNWM4Nzk5ZTJmZDYyOTFmMWExOGIxMmM1YTQ4NjNlNWY4YzEzYzI5IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
         String str2 = "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM=";
-        NPC[] npcs = new NPC[6];
         for (int i = 0; i < npcs.length; i++) {
             npcs[i] = new NPC("", null, true);
+        }
+        for (int i = 0; i < Lobbys.length; i++) {
+            Lobbys[i] = new Hologram("", 0, 0, 0, 0, 0);
         }
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature);
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES);
