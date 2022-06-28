@@ -69,7 +69,7 @@ public class PlayerJoin implements Listener {
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
         for (NPC npc : EntityList.npcs) {
-            npc.setListenerValues(connection).spawn().rollBackListenerValues();
+            npc.setListenerValues(connection).spawn().hideNametag().rollBackListenerValues();
         }
         new Timer().schedule(new TimerTask() {
             @Override

@@ -26,6 +26,7 @@ public class EntityList {
         String str2 = "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM=";
         for (int i = 0; i < npcs.length; i++) {
             npcs[i] = new NPC("", null, true);
+            NPCS.add(npcs[i].entityPlayer.getId());
         }
         for (int i = 0; i < Lobbys.length; i++) {
             Lobbys[i] = new Hologram("", 0, 0, 0, 0, 0);
