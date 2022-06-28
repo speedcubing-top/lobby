@@ -1,5 +1,6 @@
 package speedcubing.BukkitEventListener;
 
+import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -15,6 +16,8 @@ import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.Main;
 import speedcubing.lib.bukkit.SideBar;
+import speedcubing.lib.bukkit.entity.Hologram;
+import speedcubing.lib.bukkit.entity.NPC;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
@@ -27,18 +30,16 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        if (player.isOnline()) {
-            player.sendTitle("", "");
-            player.setGameMode(GameMode.ADVENTURE);
-            UUID uuid = player.getUniqueId();
-            if (!speedcubingServer.isBungeeOnlineMode && Main.haveToLogin.contains(uuid)) {
-                player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
-                player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
-                if (speedcubingServer.connection.selectString("playersdata", "password", "uuid='" + uuid + "'").equals(""))
-                    player.sendMessage("/register <password> <confirm password>");
-                else player.sendMessage("/login <password>");
-            } else joinLobby(player, uuid, false);
-        }
+        player.sendTitle("", "");
+        player.setGameMode(GameMode.ADVENTURE);
+        UUID uuid = player.getUniqueId();
+        if (!speedcubingServer.isBungeeOnlineMode && Main.haveToLogin.contains(uuid)) {
+            player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
+            player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
+            if (speedcubingServer.connection.selectString("playersdata", "password", "uuid='" + uuid + "'").equals(""))
+                player.sendMessage("/register <password> <confirm password>");
+            else player.sendMessage("/login <password>");
+        } else joinLobby(player, uuid, false);
     }
 
     public static void joinLobby(Player player, UUID uuid, boolean login) {
@@ -67,14 +68,21 @@ public class PlayerJoin implements Listener {
                 .staticLine(sidebar[7], 2)
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
-        EntityList.LobbyNPCPackets.forEach(connection::sendPacket);
+        for (NPC npc : EntityList.npcs) {
+            npc.setListenerValues(connection).spawn().rollBackListenerValues();
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                EntityList.LobbyNPCDelayedPackets.forEach(connection::sendPacket);
+                for (NPC npc : EntityList.npcs) {
+                    connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npc.entityPlayer));
+                }
             }
         }, 4000);
-        EntityList.spawnpackets.forEach(connection::sendPacket);
+        for (Hologram hologram : EntityList.Lobbys) {
+            hologram.listener.add(connection);
+            hologram.setListenerValues(connection).spawn().rollBackListenerValues();
+        }
         inventory.clear();
         inventory.setItem(0, ItemStackList.Navigator[user.lang]);
         inventory.setItem(1, ItemStackList.Settings[user.lang]);

@@ -1,44 +1,24 @@
 package speedcubing.List;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import org.bukkit.WorldCreator;
-import speedcubing.lib.api.exception.APIErrorException;
-import speedcubing.lib.bukkit.EntityPlayerUtils;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
+import speedcubing.lib.bukkit.EntityPlayerUtils;
+import speedcubing.lib.bukkit.entity.Hologram;
+import speedcubing.lib.bukkit.entity.NPC;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 public class EntityList {
-    public static EntityArmorStand[] Lobbys = new EntityArmorStand[12];
-    public static Set<PacketPlayOutSpawnEntityLiving> spawnpackets = new HashSet<>();
+    public static Hologram[] Lobbys = new Hologram[12];
+    public static NPC[] npcs = new NPC[6];
     public static List<Integer> NPCS = new ArrayList<>();
-    public static List<Packet<?>> LobbyNPCPackets = new ArrayList<>();
-    public static List<Packet<?>> LobbyNPCDelayedPackets = new ArrayList<>();
 
     public void Load() {
         WorldServer world = ((CraftWorld) Bukkit.getWorld("world")).getHandle();
-        for (int i = 0; i < Lobbys.length; i++) {
-            Lobbys[i] = new EntityArmorStand(world);
-            Lobbys[i].setCustomNameVisible(true);
-            Lobbys[i].setGravity(true);
-            Lobbys[i].setInvisible(true);
-            Lobbys[i].n(true);
-        }
-
-        ScoreboardTeam NoNameTag = new ScoreboardTeam(((CraftScoreboard) Bukkit.getScoreboardManager().getMainScoreboard()).getHandle(), "");
-        NoNameTag.setNameTagVisibility(ScoreboardTeamBase.EnumNameTagVisibility.NEVER);
-
         String VEPEXtextures = "ewogICJ0aW1lc3RhbXAiIDogMTYxNzE4MDQwNzAyNSwKICAicHJvZmlsZUlkIiA6ICIwMGM2Yjk0YTY5YmU0MzY3OTkwOTQxNjFjMjAxOWI3ZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJLQUVWRVJZIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI1YTUzMTU2Zjk1ODhlZjNkZTQyMGU0ODA5MTYzN2Q3NGYwN2ZmM2MyMzIyNjRkM2Q0MGY3Y2RlOGQ1N2JiODMiCiAgICB9CiAgfQp9";
         String VEPEXsignature = "CY9LJ6UsQiJ4h0x2MlHVyWq08zc8bA5neVud+3Deh0eK9UcNU4eC5rk+5Wghq6Ue8KUUV8Kc+h6Ze4XuujN/OfX6tulvt2YrkLgDWh9dyoPFVhmUiIV7cyYUqHqCbNSvRDjFjMmlnmcgzLMmTYnsaArfxwk/vqnHpigkGMFa7EnfkyoFHHTs5evAPCfr2CXWTdOXJAgsGeb/o54KI159sjOdRjv4lgmdQFq+7SyzBKcGMD0cR5nB4thczXw79U9rfKc9IYFfMKtjTFV1Qxhzhnyugw9yPO5TiZ9qve59H9wf6THFgA7m8QWwVqjrQEIBTE7MSUDUS9jSU/sVPnYKz6F3z+pIQSPSPykh0AHW5T1fP5IerzVgo4ddBuAAQegpv7VX/wybjel02ZYa79bYXMbb2FUfSwcfLj6b6pAGMNTPgrhArr2v2EUZzZwa5Z1BfNAUI7KvQk+6VlYNO/2PfKqaSxxmDlo2C63eXTpVzndcPtuBNmEK9z9Zl1+SYDiEqjKwapPiwT6SsDr6LN4uM+QWJhV7H78KiXDB1ADfg3wf7VTWeIFphnVh/a3LFfRAq/kY88g8PcEHFaoU65nVZEe2K/M9Eis3YzX1mTqDJ8bbsOU2SnwzBv888wlNAdPJtSAuOIkWdoROxEn48YXOzUORpkk58HV1BU9POzdk0iw=";
         String BLENDERTEXTURES = "ewogICJ0aW1lc3RhbXAiIDogMTYyNTc1MTc5MDg0NiwKICAicHJvZmlsZUlkIiA6ICIyNTUyNzc0YTEzNjQ0NDA3YjdlM2QyZjY2ZDkzNjA1YyIsCiAgInByb2ZpbGVOYW1lIiA6ICJzdHVybWxpZWJlbmRlciIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81MmY4MzJlZDFiMGY5NWNkOWYzZTFmOWI2MGFlMmM4ZGY4Y2FiMDU0YjVkYTRjNjQ5NWFjNDI4ZWYwNDQ5YmQ1IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
@@ -51,75 +31,53 @@ public class EntityList {
         String doogle2 = "GLGEvQbFTIP3Z4ZScEMXyu7Z8/SwnzyMc20+tN/zYXf71q96rTg7NkZp5mrVYSfiQfI7Mjg0uaFF0cbl7GC82kkw3O9tHjeqipQMhvHlo2fvfFlffCZMoVDDlJHvccMOUow/1S/vrjsLJY2fBgBwekemwEAqdtjVyjbv+VAM3/lQpdn44aoELnx2AsMK4tAExtLw72Eg7c7dbwSCNo8KY5BMEdesqXl9wlN8waknTKmxUw/HbweRCbKzBT9aOEd9BpNqUcTj0dAv2D6U52NatLE+tE/4O2/s/aiFkey1NTLeH8HQWM6ksgBSKRsrgbna6w/Z1QltQX+7nc+rYECh1WjEcLgcr83/Kj8seWy3yQkz9mO//OEX1qskqOdSeOMZ29I9CpxjO/5C0HERHya5ZfaJt4hxZcu6gbllB1cSsE696vrppYU7fywtU/47JiNjBiqXSadQEyZbCn/tWHa7u3C+BHK39KzCKAnCxwZLVLn9G/rGjDCbfxCnwjM6JucThYK6pfZRFGJpYkU9YkGW94CWvD3F53mJqRKoEOxQfT4Cm8xZ/RyxsQxzxvmWhGRE8eMwahAHTW710+1ATEVoQgB/0A5iHILN0qo3f9kz0Zz3QPxeHMDf7g8Dkxl/6RCZR87GZn6CEMKHuAqqlt7MjfrIe85upnTcUsdRNfNMLXY=";
         String str1 = "ewogICJ0aW1lc3RhbXAiIDogMTY1NDE2NjIyMzU2NCwKICAicHJvZmlsZUlkIiA6ICI3OTkyMzAzNmI1ODE0NjZhODUzZmMxNWQ5NmVkNDczZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdHJhaWdodCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80Yjk3ZmExZGZhOWMwYzUyYzZiOGM5ZjYzNWM4Nzk5ZTJmZDYyOTFmMWExOGIxMmM1YTQ4NjNlNWY4YzEzYzI5IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
         String str2 = "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM=";
-        EntityPlayer[] entityPlayer = new EntityPlayer[6];
-        for (int i = 0; i < entityPlayer.length; i++) {
-            entityPlayer[i] = new EntityPlayer(((CraftServer) Bukkit.getServer()).getServer(), world, new GameProfile(UUID.randomUUID(), " "), new PlayerInteractManager(world));
-            EntityPlayerUtils.enableOuterLayer(entityPlayer[i].getDataWatcher());
+        NPC[] npcs = new NPC[6];
+        for (int i = 0; i < npcs.length; i++) {
+            npcs[i] = new NPC("", null, true);
         }
-        entityPlayer[0].getProfile().getProperties().put("textures", new Property("textures", VEPEXtextures, VEPEXsignature));
-        entityPlayer[1].getProfile().getProperties().put("textures", new Property("textures", BLENDERTEXTURES, BLENDERSIGNATURES));
-        entityPlayer[2].getProfile().getProperties().put("textures", new Property("textures", CAKETEXTURES, CAKESIGNATURES));
-        entityPlayer[3].getProfile().getProperties().put("textures", new Property("textures", gritextures, grisignatures));
-        entityPlayer[4].getProfile().getProperties().put("textures", new Property("textures", doogle1, doogle2));
-        entityPlayer[5].getProfile().getProperties().put("textures", new Property("textures", str1, str2));
+        npcs[0].setSkin(VEPEXtextures, VEPEXsignature);
+        npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES);
+        npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES);
+        npcs[3].setSkin(gritextures, grisignatures);
+        npcs[4].setSkin(doogle1, doogle2);
+        npcs[5].setSkin(str1, str2);
 
 
         //rush
-        entityPlayer[0].setLocation(-1.5, 99, 24.5, 180, 0);
+        npcs[0].setLocation(-1.5, 99, 24.5, 128, 0);
         Lobbys[0].setLocation(-1.5, 100.85, 24.5, 0, 0);
-        Lobbys[0].setCustomName("§bMLGRush");
+        Lobbys[0].setName("§bMLGRush");
         Lobbys[1].setLocation(-1.5, 101.15, 24.5, 0, 0);
-        Lobbys[1].setCustomName("§e§l0 Players");
+        Lobbys[1].setName("§e§l0 Players");
         //reduce
-        entityPlayer[1].setLocation(8.5, 99.0, 22.5, 178, 0.0F);
+        npcs[1].setLocation(8.5, 99.0, 22.5, 96, 0.0F);
         Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
-        Lobbys[2].setCustomName("§bReduce");
+        Lobbys[2].setName("§bReduce");
         Lobbys[3].setLocation(8.5, 101.15, 22.5, 0, 0);
-        Lobbys[3].setCustomName("§e§l0 Players");
+        Lobbys[3].setName("§e§l0 Players");
         //clutch
-        entityPlayer[3].setLocation(-4.5, 99.0, 23.5, 180, 0.0F);
+        npcs[3].setLocation(-4.5, 99.0, 23.5, 160, 0.0F);
         Lobbys[6].setLocation(-4.5, 100.85, 23.5, 0, 0);
-        Lobbys[6].setCustomName("§bClutch");
+        Lobbys[6].setName("§bClutch");
         Lobbys[7].setLocation(-4.5, 101.15, 23.5, 0, 0);
-        Lobbys[7].setCustomName("§e§l0 Players");
+        Lobbys[7].setName("§e§l0 Players");
         //ffa
-        entityPlayer[2].setLocation(-7.5, 99.0, 22.5, 180, 0.0F);
+        npcs[2].setLocation(-7.5, 99.0, 22.5, 128, 0.0F);
         Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0);
-        Lobbys[4].setCustomName("§bKnockBack FFA");
+        Lobbys[4].setName("§bKnockBack FFA");
         Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0);
-        Lobbys[5].setCustomName("§e§l0 Players");
+        Lobbys[5].setName("§e§l0 Players");
         //fb
-        entityPlayer[4].setLocation(2.5, 99.0, 24.5, 180, 0.0F);
+        npcs[4].setLocation(2.5, 99.0, 24.5, 128, 0.0F);
         Lobbys[8].setLocation(2.5, 100.85, 24.5, 0, 0);
-        Lobbys[8].setCustomName("§bFastBuilder");
+        Lobbys[8].setName("§bFastBuilder");
         Lobbys[9].setLocation(2.5, 101.15, 24.5, 0, 0);
-        Lobbys[9].setCustomName("§e§l0 Players");
+        Lobbys[9].setName("§e§l0 Players");
         //practice
-        entityPlayer[5].setLocation(5.5, 99.0, 23.5, 180, 0.0F);
+        npcs[5].setLocation(5.5, 99.0, 23.5, 128, 0.0F);
         Lobbys[10].setLocation(5.5, 100.85, 23.5, 0, 0);
-        Lobbys[10].setCustomName("§bPractice");
+        Lobbys[10].setName("§bPractice");
         Lobbys[11].setLocation(5.5, 101.15, 23.5, 0, 0);
-        Lobbys[11].setCustomName("§e§l0 Players");
-
-        for (EntityPlayer value : entityPlayer) {
-            LobbyNPCPackets.add(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, value));
-            LobbyNPCPackets.add(new PacketPlayOutNamedEntitySpawn(value));
-        }
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[0], (byte) 128));
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[1], (byte) 96));
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[2], (byte) 160));
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[3], (byte) 128));
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[4], (byte) 128));
-        LobbyNPCPackets.add(new PacketPlayOutEntityHeadRotation(entityPlayer[5], (byte) 128));
-        LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, 1));
-        LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, 0));
-        LobbyNPCPackets.add(new PacketPlayOutScoreboardTeam(NoNameTag, Collections.singletonList(" "), 3));
-        for (EntityPlayer player : entityPlayer) {
-            LobbyNPCDelayedPackets.add(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, player));
-            NPCS.add(player.getId());
-        }
-        for (EntityArmorStand lobby : Lobbys) {
-            spawnpackets.add(new PacketPlayOutSpawnEntityLiving(lobby));
-        }
+        Lobbys[11].setName("§e§l0 Players");
     }
 }

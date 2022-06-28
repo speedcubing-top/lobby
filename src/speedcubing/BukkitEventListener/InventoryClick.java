@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +14,6 @@ import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.Main;
 import speedcubing.lib.bukkit.BungeePluginMessage;
-import speedcubing.lib.bukkit.PlayerUtils;
 import speedcubing.lib.bukkit.SideBar;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
@@ -55,7 +53,7 @@ public class InventoryClick implements Listener {
                         Player player = (Player) e.getWhoClicked();
                         player.closeInventory();
                         player.playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-                        PlayerUtils.teleport(((CraftPlayer) player).getHandle().playerConnection, 7.5, 99, 21.5, 0, 0);
+                        player.teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
                         break;
                 }
             } else if (holder == ItemStackList.LangHolder) {
