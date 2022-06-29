@@ -16,7 +16,6 @@ import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.Main;
 import speedcubing.lib.bukkit.SideBar;
-import speedcubing.lib.bukkit.entity.Hologram;
 import speedcubing.lib.bukkit.entity.NPC;
 import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
@@ -68,9 +67,6 @@ public class PlayerJoin implements Listener {
                 .staticLine(sidebar[7], 2)
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
-        for (NPC npc : EntityList.npcs) {
-            npc.setListenerValues(connection).spawn().hideNametag().rollBackListenerValues();
-        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -79,10 +75,6 @@ public class PlayerJoin implements Listener {
                 }
             }
         }, 4000);
-        for (Hologram hologram : EntityList.Lobbys) {
-            hologram.listener.add(connection);
-            hologram.setListenerValues(connection).spawn().rollBackListenerValues();
-        }
         inventory.clear();
         inventory.setItem(0, ItemStackList.Navigator[user.lang]);
         inventory.setItem(1, ItemStackList.Settings[user.lang]);

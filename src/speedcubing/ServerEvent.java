@@ -1,18 +1,15 @@
 package speedcubing;
 
-import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
+import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import speedcubing.List.EntityList;
-import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
 import speedcubing.lib.bukkit.BungeePluginMessage;
 import speedcubing.lib.bukkit.SideBar;
-import speedcubing.lib.bukkit.event.PlayInChatEvent;
-import speedcubing.lib.bukkit.event.PlayInUseEntityEvent;
+import speedcubing.lib.bukkit.event.PlayInEvent;
 import speedcubing.lib.eventbus.LibEventHandler;
 import speedcubing.lib.utils.Console;
-import speedcubing.lib.utils.Reflections;
 import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
 import speedcubing.server.libs.GlobalString;
@@ -70,61 +67,36 @@ public class ServerEvent {
     }
 
     @LibEventHandler
-    public void PlayInUseEntityEvent(PlayInUseEntityEvent e) {
-        Player player = e.player;
-        PacketPlayInUseEntity packet = e.packet;
-        if (player.getItemInHand().getType() == org.bukkit.Material.AIR && packet.a().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-            switch (EntityList.NPCS.indexOf(Reflections.getField(packet, "a"))) {
-                case 0:
-                    BungeePluginMessage.switchServer(player, "mlgrush");
-                    break;
-                case 1:
-                    Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[User.getUser(player.getUniqueId()).lang]));
-                    break;
-                case 2:
-                    BungeePluginMessage.switchServer(player, "knockbackffa");
-                    break;
-                case 3:
-                    BungeePluginMessage.switchServer(player, "clutch");
-                    break;
-                case 4:
-                    BungeePluginMessage.switchServer(player, "fastbuilder");
-                    break;
-                case 5:
-                    BungeePluginMessage.switchServer(player, "practice");
-                    break;
+    public void PlayInEvent(PlayInEvent e) {
+        if (e.packet instanceof PacketPlayInChat) {
+            Player player = e.player;
+            String message = ((PacketPlayInChat) e.packet).a();
+            UUID uuid = player.getUniqueId();
+            if (Main.discord.contains(uuid)) {
+                e.isCancelled = true;
+                if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
+                    String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
+                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
+                    if (!theOldOne.equals("") && !theOldOne.equals(message))
+                        speedcubingServer.tcp.send(20000, "a|" + theOldOne);
+                    player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
+                } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
+                Main.discord.remove(uuid);
+                speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);
+            } else if (message.charAt(0) != '/') {
+                e.isCancelled = true;
+                String[] formats = speedcubingServer.getFormat(User.getUser(uuid).rank);
+                String text = formats[0] + player.getName();
+                String[] str = GlobalString.MessageFormat[0];
+                String[] out = new String[]{
+                        str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
+                };
+                Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getUser(a.getUniqueId()).lang]));
+                Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
-    }
-
-    @LibEventHandler
-    public void PlayInChatEvent(PlayInChatEvent e) {
-        Player player = e.player;
-        String message = e.packet.a();
-        UUID uuid = player.getUniqueId();
-        if (Main.discord.contains(uuid)) {
-            e.isCancelled = true;
-            if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
-                speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
-                if (!theOldOne.equals("") && !theOldOne.equals(message))
-                    speedcubingServer.tcp.send(20000, "a|" + theOldOne);
-                player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
-            } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
-            Main.discord.remove(uuid);
-            speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);
-        } else if (message.charAt(0) != '/') {
-            e.isCancelled = true;
-            String[] formats = speedcubingServer.getFormat(User.getUser(uuid).rank);
-            String text = formats[0] + player.getName();
-            String[] str = GlobalString.MessageFormat[0];
-            String[] out = new String[]{
-                    str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
-                    str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
-                    str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
-                    str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
-            };
-            Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getUser(a.getUniqueId()).lang]));
-            Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
         }
     }
 }
