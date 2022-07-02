@@ -3,6 +3,7 @@ package speedcubing.List;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
 import speedcubing.Main;
+import speedcubing.Member;
 import speedcubing.lib.bukkit.BungeePluginMessage;
 import speedcubing.lib.bukkit.entity.Hologram;
 import speedcubing.lib.bukkit.entity.NPC;
@@ -47,7 +48,7 @@ public class EntityList {
         npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99.0, 22.5, 96, 0.0F)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[User.getUser(player.getUniqueId()).lang]));
+                        Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).lang]));
                 });
         Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
         Lobbys[2].setName("§bReduce");

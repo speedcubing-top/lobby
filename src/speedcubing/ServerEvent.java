@@ -13,7 +13,6 @@ import speedcubing.lib.utils.Console;
 import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
 import speedcubing.server.libs.GlobalString;
-import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
 import java.util.UUID;
@@ -24,7 +23,7 @@ public class ServerEvent {
         String[] rs = e.receive.split("\\|");
         switch (rs[3]) {
             case "login":
-                Main.haveToLogin.add(UUID.fromString(rs[4]));
+                Member.getMember(Integer.parseInt(rs[4])).haveToLogin = true;
                 break;
         }
     }
@@ -37,7 +36,7 @@ public class ServerEvent {
                 switch (rs[1]) {
                     case "1":
                         for (SideBar s : SideBar.getSidebars()) {
-                            s.setLine(StringList.LobbySideBar[User.getUser(s.player.getUniqueId()).lang][3] + rs[2], 3);
+                            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).lang][3] + rs[2], 3);
                         }
                         break;
                     case "2":
@@ -71,30 +70,30 @@ public class ServerEvent {
         if (e.packet instanceof PacketPlayInChat) {
             Player player = e.player;
             String message = ((PacketPlayInChat) e.packet).a();
-            UUID uuid = player.getUniqueId();
-            if (Main.discord.contains(uuid)) {
+            Member member = Member.getMember(player);
+            if (member.discord) {
                 e.isCancelled = true;
                 if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                    String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
-                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "uuid='" + uuid + "'");
+                    String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "id=" + member.id);
+                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "id=" + member.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);
                     player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
-                } else player.sendMessage(StringList.discordinvalid[User.getUser(uuid).lang]);
-                Main.discord.remove(uuid);
-                speedcubingServer.node(false, uuid, User.getUser(uuid).tcpPort);
+                } else player.sendMessage(StringList.discordinvalid[member.lang]);
+                member.discord = false;
+                speedcubingServer.node(false, member.id, member.tcpPort);
             } else if (message.charAt(0) != '/') {
                 e.isCancelled = true;
-                String[] formats = speedcubingServer.getFormat(User.getUser(uuid).rank);
+                String[] formats = speedcubingServer.getFormat(member.rank);
                 String text = formats[0] + player.getName();
                 String[] str = GlobalString.MessageFormat[0];
-                String[] out = new String[]{
+                String[] out = {
                         str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
-                Bukkit.getOnlinePlayers().forEach(a -> a.sendMessage(out[User.getUser(a.getUniqueId()).lang]));
+                player.getWorld().getPlayers().forEach(a -> a.sendMessage(out[Member.getMember(a).lang]));
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }

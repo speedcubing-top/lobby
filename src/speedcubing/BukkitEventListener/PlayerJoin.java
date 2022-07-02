@@ -14,15 +14,13 @@ import org.bukkit.inventory.Inventory;
 import speedcubing.List.EntityList;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
-import speedcubing.Main;
+import speedcubing.Member;
 import speedcubing.lib.bukkit.SideBar;
 import speedcubing.lib.bukkit.entity.NPC;
-import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 public class PlayerJoin implements Listener {
 
@@ -31,19 +29,19 @@ public class PlayerJoin implements Listener {
         Player player = e.getPlayer();
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
-        UUID uuid = player.getUniqueId();
-        if (!speedcubingServer.isBungeeOnlineMode && Main.haveToLogin.contains(uuid)) {
+        Member member = Member.getMember(player);
+        if (!speedcubingServer.isBungeeOnlineMode && member.haveToLogin) {
             player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
             player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
-            if (speedcubingServer.connection.selectString("playersdata", "password", "uuid='" + uuid + "'").equals(""))
+            if (speedcubingServer.connection.selectString("playersdata", "password", "id=" + member.id).equals(""))
                 player.sendMessage("/register <password> <confirm password>");
             else player.sendMessage("/login <password>");
-        } else joinLobby(player, uuid, false);
+        } else joinLobby(player, false);
     }
 
-    public static void joinLobby(Player player, UUID uuid, boolean login) {
-        Main.haveToLogin.remove(uuid);
-        User user = User.getUser(uuid);
+    public static void joinLobby(Player player, boolean login) {
+        Member user = new Member(player.getUniqueId());
+        user.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
         Inventory inventory = player.getInventory();
@@ -55,7 +53,7 @@ public class PlayerJoin implements Listener {
                     .replace("%f0%", format[0])
                     .replace("%f1%", format[2])
                     .replace("%name%", name));
-        player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[User.getUser(a.getUniqueId()).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
+        player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[Member.getMember(a).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
         String[] sidebar = StringList.LobbySideBar[user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)

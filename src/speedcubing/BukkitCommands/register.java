@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import speedcubing.BukkitEventListener.PlayerJoin;
+import speedcubing.Member;
 import speedcubing.server.speedcubingServer;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class register implements CommandExecutor, TabExecutor {
             else if (l < 8)
                 commandSender.sendMessage("The password is too short. You need at least 8 characters");
             else if (strings[0].equals(strings[1])) {
-                speedcubingServer.connection.update("playersdata", "password='" + strings[0] + "'", "uuid='" + ((Player) commandSender).getUniqueId() + "'");
+                speedcubingServer.connection.update("playersdata", "password='" + strings[0] + "'", "id=" + Member.getMember(commandSender).id);
                 commandSender.sendMessage("§6Successful Register!");
-                PlayerJoin.joinLobby((Player) commandSender, ((Player) commandSender).getUniqueId(),true);
+                PlayerJoin.joinLobby((Player) commandSender, true);
             } else commandSender.sendMessage("The password and confirm password do not match.");
         } else commandSender.sendMessage("/register <password> <confirm password>");
         return true;

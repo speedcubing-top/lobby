@@ -13,16 +13,7 @@ import speedcubing.List.ItemStackList;
 import speedcubing.lib.eventbus.LibEventManager;
 import speedcubing.server.speedcubingServer;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-public class Main extends JavaPlugin {
-
-    public static Set<UUID> haveToLogin = new HashSet<>();
-
-    public static Set<UUID> discord = new HashSet<>();
+public class Main extends JavaPlugin {;
 
     public void onEnable() {
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
@@ -45,8 +36,6 @@ public class Main extends JavaPlugin {
             Bukkit.getPluginCommand("register").setExecutor(new register());
             Bukkit.getPluginCommand("register").setTabCompleter(new register());
         }
-        Bukkit.getPluginCommand("login").setTabCompleter((commandSender, command, s, strings) -> new ArrayList<>());
-        Bukkit.getPluginCommand("register").setTabCompleter((commandSender, command, s, strings) -> new ArrayList<>());
         new ItemStackList().Load();
         new EntityList().Load();
         LibEventManager.registerListeners(new ServerEvent());

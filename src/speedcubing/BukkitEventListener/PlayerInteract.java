@@ -10,11 +10,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import speedcubing.List.ItemStackList;
 import speedcubing.List.StringList;
+import speedcubing.Member;
 import speedcubing.lib.bukkit.inventory.ItemBuilder;
-import speedcubing.server.libs.User;
 import speedcubing.server.speedcubingServer;
-
-import java.util.UUID;
 
 public class PlayerInteract implements Listener {
 
@@ -23,16 +21,15 @@ public class PlayerInteract implements Listener {
         Player player = e.getPlayer();
         switch (player.getItemInHand().getType()) {
             case COMPASS:
-                player.openInventory(ItemStackList.navigator[User.getUser(player.getUniqueId()).lang]);
+                player.openInventory(ItemStackList.navigator[Member.getMember(player).lang]);
                 break;
             case REDSTONE_COMPARATOR:
-                UUID uuid = player.getUniqueId();
-                String data = speedcubingServer.connection.selectString("playersdata", "discord", "uuid='" + uuid + "'");
-                int lang = User.getUser(uuid).lang;
-                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 27, StringList.settingstitle[lang]);
-                inv.setItem(11, ItemStackList.lang[lang]);
-                inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[lang]).lore(
-                                data.equals("") ? StringList.discordB[lang] : StringList.discordA[lang].replace("%a%", data), StringList.discordEdit[lang])
+                Member user = Member.getMember(player);
+                String data = speedcubingServer.connection.selectString("playersdata", "discord", "id=" + user.id);
+                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 27, StringList.settingstitle[user.lang]);
+                inv.setItem(11, ItemStackList.lang[user.lang]);
+                inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[user.lang]).lore(
+                                data.equals("") ? StringList.discordB[user.lang] : StringList.discordA[user.lang].replace("%a%", data), StringList.discordEdit[user.lang])
                         .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build());
                 player.openInventory(inv);
                 break;
