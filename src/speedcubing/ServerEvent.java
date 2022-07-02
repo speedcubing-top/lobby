@@ -2,6 +2,7 @@ package speedcubing;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import speedcubing.List.EntityList;
 import speedcubing.List.StringList;
@@ -12,6 +13,10 @@ import speedcubing.lib.eventbus.LibEventHandler;
 import speedcubing.lib.utils.Console;
 import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
+import speedcubing.server.events.player.HubEvent;
+import speedcubing.server.events.player.NickEvent;
+import speedcubing.server.events.player.SkinEvent;
+import speedcubing.server.events.player.ToggleFlyEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.speedcubingServer;
 
@@ -97,5 +102,10 @@ public class ServerEvent {
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }
+    }
+
+    @LibEventHandler
+    public void HubEvent(HubEvent e) {
+        e.player.sendMessage(GlobalString.AlreadyInHub[Member.getMember(e.player).lang]);
     }
 }
