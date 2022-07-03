@@ -99,6 +99,7 @@ public class ServerEvent {
 
     @LibEventHandler
     public void HubEvent(HubEvent e) {
+        e.isCancelled = true;
         e.player.sendMessage(GlobalString.AlreadyInHub[Member.getMember(e.player).lang]);
     }
 }
