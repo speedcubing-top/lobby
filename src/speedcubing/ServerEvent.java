@@ -1,8 +1,6 @@
 package speedcubing;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import speedcubing.List.EntityList;
 import speedcubing.List.StringList;
@@ -14,13 +12,8 @@ import speedcubing.lib.utils.Console;
 import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
 import speedcubing.server.events.player.HubEvent;
-import speedcubing.server.events.player.NickEvent;
-import speedcubing.server.events.player.SkinEvent;
-import speedcubing.server.events.player.ToggleFlyEvent;
 import speedcubing.server.libs.GlobalString;
 import speedcubing.server.speedcubingServer;
-
-import java.util.UUID;
 
 public class ServerEvent {
     @LibEventHandler(priority = 500)
@@ -65,7 +58,7 @@ public class ServerEvent {
                 }
                 break;
             case "reduce":
-                BungeePluginMessage.switchServer(Bukkit.getPlayer(UUID.fromString(rs[1])), "reduce");
+                BungeePluginMessage.switchServer(Member.getMember(Integer.parseInt(rs[1])).player, "reduce");
                 break;
         }
     }

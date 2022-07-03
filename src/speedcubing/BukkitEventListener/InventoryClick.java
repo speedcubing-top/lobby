@@ -122,7 +122,7 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
                 if (RawSlot < 4)
-                    speedcubingServer.tcp.sendClean(Member.getMember(e.getWhoClicked()).tcpPort, "reduce|" + e.getWhoClicked().getUniqueId() + "|" + RawSlot);
+                    speedcubingServer.tcp.sendClean(Member.getMember(e.getWhoClicked()).tcpPort, "reduce|" + Member.getMember((Player) e.getWhoClicked()).id + "|" + RawSlot);
             }
         }
     }
