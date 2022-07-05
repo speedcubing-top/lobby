@@ -101,7 +101,7 @@ public class InventoryClick implements Listener {
                                 player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                                 player.closeInventory();
                                 player.sendMessage(StringList.discord[user.lang]);
-                                user.haveToLogin = true;
+                                user.discord = true;
                                 speedcubingServer.node(true, user.id, user.tcpPort);
                                 break;
                             case PICKUP_HALF:
@@ -111,7 +111,7 @@ public class InventoryClick implements Listener {
                                     speedcubingServer.tcp.send(20000, "a|" + discord);
                                     speedcubingServer.connection.update("playersdata", "discord=''", "id=" + user.id);
                                 }
-                                user.haveToLogin = false;
+                                user.discord = false;
                                 speedcubingServer.node(false, user.id, user.tcpPort);
                                 player.sendMessage(StringList.discordremoved[Member.getMember(player).lang]);
                                 break;
