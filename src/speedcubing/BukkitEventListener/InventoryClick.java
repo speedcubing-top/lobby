@@ -15,6 +15,7 @@ import speedcubing.List.StringList;
 import speedcubing.Member;
 import speedcubing.lib.bukkit.BungeePluginMessage;
 import speedcubing.lib.bukkit.SideBar;
+import speedcubing.lib.utils.SQL.SQLUtils;
 import speedcubing.server.speedcubingServer;
 
 public class InventoryClick implements Listener {
@@ -106,7 +107,7 @@ public class InventoryClick implements Listener {
                                 break;
                             case PICKUP_HALF:
                                 player.closeInventory();
-                                String discord = speedcubingServer.connection.selectString("playersdata", "discord", "id=" + user.id);
+                                String discord = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + user.id));
                                 if (!discord.equals("")) {
                                     speedcubingServer.tcp.send(20000, "a|" + discord);
                                     speedcubingServer.connection.update("playersdata", "discord=''", "id=" + user.id);

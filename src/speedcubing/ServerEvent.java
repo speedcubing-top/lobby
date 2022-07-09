@@ -9,6 +9,7 @@ import speedcubing.lib.bukkit.SideBar;
 import speedcubing.lib.bukkit.event.PlayInEvent;
 import speedcubing.lib.eventbus.LibEventHandler;
 import speedcubing.lib.utils.Console;
+import speedcubing.lib.utils.SQL.SQLUtils;
 import speedcubing.server.events.InputEvent;
 import speedcubing.server.events.SocketEvent;
 import speedcubing.server.events.player.HubEvent;
@@ -72,7 +73,7 @@ public class ServerEvent {
             if (member.discord) {
                 e.isCancelled = true;
                 if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                    String theOldOne = speedcubingServer.connection.selectString("playersdata", "discord", "id=" + member.id);
+                    String theOldOne = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.id));
                     speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "id=" + member.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);

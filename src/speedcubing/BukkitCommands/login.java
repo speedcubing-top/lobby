@@ -7,6 +7,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import speedcubing.BukkitEventListener.PlayerJoin;
 import speedcubing.Member;
+import speedcubing.lib.utils.SQL.SQLUtils;
 import speedcubing.server.speedcubingServer;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 public class login implements CommandExecutor, TabExecutor {
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        String dbpassword = speedcubingServer.connection.selectString("playersdata", "password", "id=" + Member.getMember(commandSender).id);
+        String dbpassword = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + Member.getMember(commandSender).id));
         if (dbpassword.equals(""))
             commandSender.sendMessage("Please register.");
         else if (strings.length == 1) {
