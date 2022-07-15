@@ -13,7 +13,7 @@ import speedcubing.List.ItemStackList;
 import speedcubing.lib.eventbus.LibEventManager;
 import speedcubing.server.speedcubingServer;
 
-public class Main extends JavaPlugin {;
+public class Main extends JavaPlugin {
 
     public void onEnable() {
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
