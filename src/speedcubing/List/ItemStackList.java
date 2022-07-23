@@ -21,14 +21,10 @@ public class ItemStackList {
     public static InventoryHolder SettingsHolder = () -> null;
     public static InventoryHolder LangHolder = () -> null;
     public static Inventory[] Lang = new Inventory[4];
+    public static ItemStack[] dm = new ItemStack[4];
+    public static ItemStack[][] toggle = new ItemStack[2][4];
 
     public void Load() {
-
-        String[][] mapname = {
-                {"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"},
-                {"§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"},
-                {"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"},
-                {"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}};
         for (int i = 0; i < 4; i++) {
             lang[i] = new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build();
             Navigator[i] = new ItemBuilder(Material.COMPASS).name(new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]).build();
@@ -41,11 +37,15 @@ public class ItemStackList {
             navigator[i].setItem(28, new ItemBuilder(Material.DIAMOND_SWORD).name(new String[]{"§bPractice", "§bPractice", "§bPractice", "§bPractice"}[i]).glow().hideAttr().build());
             navigator[i].setItem(34, new ItemBuilder(Material.SANDSTONE_STAIRS).name(new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i]).build());
 
+            dm[i] = new ItemBuilder(Material.SIGN).name(new String[]{"§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message"}[i]).build();
+            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aon", "§aon", "§aon", "§aon"}[i]).build();
+            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§coff", "§coff", "§coff", "§coff"}[i]).build();
+
             GameSelect[i] = Bukkit.createInventory(GameSelectHolder, 18, new String[]{"§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce"}[i]);
-            GameSelect[i].setItem(0, new ItemBuilder(Material.LOG).durability(3).name(mapname[0][i]).build());
-            GameSelect[i].setItem(1, new ItemBuilder(Material.BED).name(mapname[1][i]).build());
-            GameSelect[i].setItem(2, new ItemBuilder(Material.BARRIER).name(mapname[2][i]).build());
-            GameSelect[i].setItem(3, new ItemBuilder(Material.SMOOTH_BRICK).durability(1).name(mapname[3][i]).build());
+            GameSelect[i].setItem(0, new ItemBuilder(Material.LOG).durability(3).name(new String[]{"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"}[i]).build());
+            GameSelect[i].setItem(1, new ItemBuilder(Material.BED).name(new String[]{"§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"}[i]).build());
+            GameSelect[i].setItem(2, new ItemBuilder(Material.BARRIER).name(new String[]{"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"}[i]).build());
+            GameSelect[i].setItem(3, new ItemBuilder(Material.SMOOTH_BRICK).durability(1).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build());
         }
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();

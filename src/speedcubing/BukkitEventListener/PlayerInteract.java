@@ -27,8 +27,10 @@ public class PlayerInteract implements Listener {
             case REDSTONE_COMPARATOR:
                 Member user = Member.getMember(player);
                 String data = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + user.id));
-                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 27, StringList.settingstitle[user.lang]);
+                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 36, StringList.settingstitle[user.lang]);
                 inv.setItem(11, ItemStackList.lang[user.lang]);
+                inv.setItem(13, ItemStackList.dm[user.lang]);
+                inv.setItem(22, ItemStackList.toggle[user.messagetoggled ? 0 : 1][user.lang]);
                 inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[user.lang]).lore(
                                 data.equals("") ? StringList.discordB[user.lang] : StringList.discordA[user.lang].replace("%a%", data), StringList.discordEdit[user.lang])
                         .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build());

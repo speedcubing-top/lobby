@@ -2,7 +2,9 @@ package speedcubing;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import speedcubing.lib.utils.SQL.SQLUtils;
 import speedcubing.server.libs.User;
+import speedcubing.server.speedcubingServer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class Member extends User {
 
     public boolean haveToLogin;
     public boolean discord;
+    public boolean messagetoggled;
 
     public static Member getMember(int id) {
         return users.get(id);
@@ -28,6 +31,7 @@ public class Member extends User {
 
     public Member(UUID uuid) {
         super(uuid);
+        messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + id));
         users.put(id, this);
     }
 }
