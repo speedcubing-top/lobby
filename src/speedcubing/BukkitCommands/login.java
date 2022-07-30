@@ -16,16 +16,18 @@ import java.util.List;
 public class login implements CommandExecutor, TabExecutor {
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        String dbpassword = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + Member.getMember(commandSender).id));
-        if (dbpassword.equals(""))
-            commandSender.sendMessage("Please register.");
-        else if (strings.length == 1) {
-            Player player = (Player) commandSender;
-            if (dbpassword.equals(strings[0])) {
-                commandSender.sendMessage("§6Successful Login!");
-                PlayerJoin.joinLobby(player, true);
-            } else player.kickPlayer("Incorrect password.");
-        } else commandSender.sendMessage("/login <password>");
+        if (((Player) commandSender).getWorld().getName().equals("login")) {
+            String dbpassword = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + Member.getMember(commandSender).id));
+            if (dbpassword.equals(""))
+                commandSender.sendMessage("Please register.");
+            else if (strings.length == 1) {
+                Player player = (Player) commandSender;
+                if (dbpassword.equals(strings[0])) {
+                    commandSender.sendMessage("§6Successful Login!");
+                    PlayerJoin.joinLobby(player, true);
+                } else player.kickPlayer("Incorrect password.");
+            } else commandSender.sendMessage("/login <password>");
+        } else commandSender.sendMessage("You already logged in.");
         return true;
     }
 

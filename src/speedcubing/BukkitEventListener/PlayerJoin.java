@@ -28,9 +28,10 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        Member member = new Member(player.getUniqueId());
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
-        Member member = Member.getMember(player);
+        System.out.println(speedcubingServer.isBungeeOnlineMode);
         if (!speedcubingServer.isBungeeOnlineMode && member.haveToLogin) {
             player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
             player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
@@ -41,7 +42,7 @@ public class PlayerJoin implements Listener {
     }
 
     public static void joinLobby(Player player, boolean login) {
-        Member user = new Member(player.getUniqueId());
+        Member user = Member.getMember(player);
         user.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;

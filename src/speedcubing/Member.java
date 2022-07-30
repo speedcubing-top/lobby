@@ -31,6 +31,8 @@ public class Member extends User {
 
     public Member(UUID uuid) {
         super(uuid);
+        haveToLogin = Main.login.contains(id);
+        Main.login.remove(id);
         messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + id));
         users.put(id, this);
     }

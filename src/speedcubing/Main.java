@@ -13,7 +13,12 @@ import speedcubing.List.ItemStackList;
 import speedcubing.lib.eventbus.LibEventManager;
 import speedcubing.server.speedcubingServer;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class Main extends JavaPlugin {
+    public static Set<Integer> login = new HashSet<>();
 
     public void onEnable() {
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
