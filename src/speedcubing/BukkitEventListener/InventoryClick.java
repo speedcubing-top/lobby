@@ -32,27 +32,46 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.NavigatorHolder) {
                 e.setCancelled(true);
                 switch (RawSlot) {
-                    case 16 -> BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "knockbackffa");
-                    case 10 -> BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
-                    case 28 -> BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "practice");
-                    case 23 -> BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "fastbuilder");
-                    case 34 -> BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "clutch");
-                    case 21 -> {
+                    case 16:
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "knockbackffa");
+                        break;
+                    case 10:
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
+                        break;
+                    case 28:
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "practice");
+                        break;
+                    case 23:
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "fastbuilder");
+                        break;
+                    case 34:
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "clutch");
+                        break;
+                    case 21: {
                         Player player = (Player) e.getWhoClicked();
                         player.closeInventory();
                         player.playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
                         player.teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
                     }
+                    break;
                 }
             } else if (holder == ItemStackList.LangHolder) {
                 e.setCancelled(true);
-                int x = switch (RawSlot) {
-                    case 10 -> 0;
-                    case 12 -> 1;
-                    case 14 -> 2;
-                    case 16 -> 3;
-                    default -> -1;
-                };
+                int x = -1;
+                switch (RawSlot) {
+                    case 10:
+                        x = 0;
+                        break;
+                    case 12:
+                        x = 1;
+                        break;
+                    case 14:
+                        x = 2;
+                        break;
+                    case 16:
+                        x = 3;
+                        break;
+                }
                 if (x != -1) {
                     Player player = (Player) e.getWhoClicked();
                     Member user = Member.getMember(player);
@@ -69,12 +88,13 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.SettingsHolder) {
                 e.setCancelled(true);
                 switch (RawSlot) {
-                    case 11 -> {
+                    case 11: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                         player.openInventory(ItemStackList.Lang[Member.getMember(player).lang]);
                     }
-                    case 13 -> {
+                    break;
+                    case 13: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                         Member user = Member.getMember(player);
@@ -82,18 +102,20 @@ public class InventoryClick implements Listener {
                         e.getClickedInventory().setItem(22, ItemStackList.toggle[user.messagetoggled ? 0 : 1][user.lang]);
                         speedcubingServer.connection.update("playersdata", "messagable=" + (user.messagetoggled ? 1 : 0), "id=" + user.id);
                     }
-                    case 15 -> {
+                    break;
+                    case 15: {
                         Player player = (Player) e.getWhoClicked();
                         Member user = Member.getMember(player);
                         switch (e.getAction()) {
-                            case PICKUP_ALL -> {
+                            case PICKUP_ALL: {
                                 player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                                 player.closeInventory();
                                 player.sendMessage(StringList.discord[user.lang]);
                                 user.discord = true;
                                 speedcubingServer.node(true, user.id, user.tcpPort);
                             }
-                            case PICKUP_HALF -> {
+                            break;
+                            case PICKUP_HALF: {
                                 player.closeInventory();
                                 String discord = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + user.id));
                                 if (!discord.equals("")) {
@@ -104,8 +126,10 @@ public class InventoryClick implements Listener {
                                 speedcubingServer.node(false, user.id, user.tcpPort);
                                 player.sendMessage(StringList.discordremoved[Member.getMember(player).lang]);
                             }
+                            break;
                         }
                     }
+                    break;
                 }
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
