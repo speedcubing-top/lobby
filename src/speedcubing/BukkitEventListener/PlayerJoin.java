@@ -28,34 +28,34 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        Member member = new Member(player.getUniqueId());
+        Member member = new Member(player);
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
         if (!speedcubingServer.isBungeeOnlineMode && member.haveToLogin) {
             player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
             player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
-            if (SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + member.id)).equals(""))
+            if (SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + member.user.id)).equals(""))
                 player.sendMessage("/register <password> <confirm password>");
             else player.sendMessage("/login <password>");
         } else joinLobby(player, false);
     }
 
     public static void joinLobby(Player player, boolean login) {
-        Member user = Member.getMember(player);
-        user.haveToLogin = false;
+        Member member = Member.getMember(player);
+        member.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
         Inventory inventory = player.getInventory();
-        String[] format = speedcubingServer.getFormat(user.rank);
+        String[] format = speedcubingServer.getFormat(member.user.rank);
         String name = player.getName();
         player.getInventory().setHeldItemSlot(0);
         if (!login)
-            player.sendMessage(StringList.LobbyJoinMessage[user.lang]
+            player.sendMessage(StringList.LobbyJoinMessage[member.user.lang]
                     .replace("%f0%", format[0])
                     .replace("%f1%", format[2])
                     .replace("%name%", name));
-        player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[Member.getMember(a).lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
-        String[] sidebar = StringList.LobbySideBar[user.lang];
+        player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[Member.getMember(a).user.lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
+        String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
                 .changeableLine(sidebar[2], 7)
@@ -75,8 +75,8 @@ public class PlayerJoin implements Listener {
             }
         }, 4000);
         inventory.clear();
-        inventory.setItem(0, ItemStackList.Navigator[user.lang]);
-        inventory.setItem(1, ItemStackList.Settings[user.lang]);
+        inventory.setItem(0, ItemStackList.Navigator[member.user.lang]);
+        inventory.setItem(1, ItemStackList.Settings[member.user.lang]);
     }
 }
 

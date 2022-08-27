@@ -49,7 +49,7 @@ public class EntityList {
         npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).lang]));
+                        Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
                 });
         Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
         Lobbys[2].setName("§bReduce");

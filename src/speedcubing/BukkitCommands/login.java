@@ -17,7 +17,7 @@ public class login implements CommandExecutor, TabExecutor {
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (((Player) commandSender).getWorld().getName().equals("login")) {
-            String dbpassword = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + Member.getMember(commandSender).id));
+            String dbpassword = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + Member.getMember(commandSender).user.id));
             if (dbpassword.equals(""))
                 commandSender.sendMessage("Please register.");
             else if (strings.length == 1) {

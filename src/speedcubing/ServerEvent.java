@@ -35,7 +35,7 @@ public class ServerEvent {
                 switch (rs[1]) {
                     case "1":
                         for (SideBar s : SideBar.getSidebars()) {
-                            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).lang][3] + rs[2], 3);
+                            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + rs[2], 3);
                         }
                         break;
                     case "2":
@@ -59,7 +59,7 @@ public class ServerEvent {
                 }
                 break;
             case "reduce":
-                BungeePluginMessage.switchServer(Member.getMember(Integer.parseInt(rs[1])).player, "reduce");
+                BungeePluginMessage.switchServer(Member.getMember(Integer.parseInt(rs[1])).user.player, "reduce");
                 break;
         }
     }
@@ -73,17 +73,17 @@ public class ServerEvent {
             if (member.discord) {
                 e.isCancelled = true;
                 if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                    String theOldOne = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.id));
-                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "id=" + member.id);
+                    String theOldOne = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
+                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "id=" + member.user.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);
                     player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
-                } else player.sendMessage(StringList.discordinvalid[member.lang]);
+                } else player.sendMessage(StringList.discordinvalid[member.user.lang]);
                 member.discord = false;
-                speedcubingServer.node(false, member.id, member.tcpPort);
+                speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {
                 e.isCancelled = true;
-                String[] formats = speedcubingServer.getFormat(member.rank);
+                String[] formats = speedcubingServer.getFormat(member.user.rank);
                 String text = formats[0] + player.getName();
                 String[] str = GlobalString.MessageFormat[0];
                 String[] out = {
@@ -92,7 +92,7 @@ public class ServerEvent {
                         str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
-                player.getWorld().getPlayers().forEach(a -> a.sendMessage(out[Member.getMember(a).lang]));
+                player.getWorld().getPlayers().forEach(a -> a.sendMessage(out[Member.getMember(a).user.lang]));
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }
@@ -101,6 +101,6 @@ public class ServerEvent {
     @LibEventHandler
     public void HubEvent(HubEvent e) {
         e.isCancelled = true;
-        e.player.sendMessage(GlobalString.AlreadyInHub[Member.getMember(e.player).lang]);
+        e.player.sendMessage(GlobalString.AlreadyInHub[Member.getMember(e.player).user.lang]);
     }
 }

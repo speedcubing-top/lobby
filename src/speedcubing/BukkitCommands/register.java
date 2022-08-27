@@ -22,7 +22,7 @@ public class register implements CommandExecutor, TabExecutor {
                 else if (l < 8)
                     commandSender.sendMessage("The password is too short. You need at least 8 characters.");
                 else if (strings[0].equals(strings[1])) {
-                    speedcubingServer.connection.update("playersdata", "password='" + strings[0] + "'", "id=" + Member.getMember(commandSender).id);
+                    speedcubingServer.connection.update("playersdata", "password='" + strings[0] + "'", "id=" + Member.getMember(commandSender).user.id);
                     commandSender.sendMessage("§6Successful Register!");
                     PlayerJoin.joinLobby((Player) commandSender, true);
                 } else commandSender.sendMessage("The password and confirm password do not match.");

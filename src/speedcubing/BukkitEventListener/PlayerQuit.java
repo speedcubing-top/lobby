@@ -8,6 +8,6 @@ import speedcubing.Member;
 public class PlayerQuit implements Listener {
     @EventHandler
     public void PlayerQuitEvent(PlayerQuitEvent e) {
-        Member.users.remove(Member.getMember(e.getPlayer()).id);
+        Member.users.remove(Member.getMember(e.getPlayer()).user.id);
     }
 }

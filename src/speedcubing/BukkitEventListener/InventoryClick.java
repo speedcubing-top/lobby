@@ -74,15 +74,15 @@ public class InventoryClick implements Listener {
                 }
                 if (x != -1) {
                     Player player = (Player) e.getWhoClicked();
-                    Member user = Member.getMember(player);
+                    Member member = Member.getMember(player);
                     String[] sidebar = StringList.LobbySideBar[x];
                     SideBar.getSidebar(player).setLine(sidebar[2], 2)
                             .setLine(sidebar[5], 5)
                             .setLine(sidebar[8], 8);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
                     player.sendMessage(StringList.LangSettings[x]);
-                    speedcubingServer.connection.update("playersdata", "lang=" + x, "id=" + user.id);
-                    user.lang = x;
+                    speedcubingServer.connection.update("playersdata", "lang=" + x, "id=" + member.user.id);
+                    member.user.lang = x;
                     player.closeInventory();
                 }
             } else if (holder == ItemStackList.SettingsHolder) {
@@ -91,40 +91,40 @@ public class InventoryClick implements Listener {
                     case 11: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
-                        player.openInventory(ItemStackList.Lang[Member.getMember(player).lang]);
+                        player.openInventory(ItemStackList.Lang[Member.getMember(player).user.lang]);
                     }
                     break;
                     case 13: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
-                        Member user = Member.getMember(player);
-                        user.messagetoggled = !user.messagetoggled;
-                        e.getClickedInventory().setItem(22, ItemStackList.toggle[user.messagetoggled ? 0 : 1][user.lang]);
-                        speedcubingServer.connection.update("playersdata", "messagable=" + (user.messagetoggled ? 1 : 0), "id=" + user.id);
+                        Member member = Member.getMember(player);
+                        member.messagetoggled = !member.messagetoggled;
+                        e.getClickedInventory().setItem(22, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
+                        speedcubingServer.connection.update("playersdata", "messagable=" + (member.messagetoggled ? 1 : 0), "id=" + member.user.id);
                     }
                     break;
                     case 15: {
                         Player player = (Player) e.getWhoClicked();
-                        Member user = Member.getMember(player);
+                        Member member = Member.getMember(player);
                         switch (e.getAction()) {
                             case PICKUP_ALL: {
                                 player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                                 player.closeInventory();
-                                player.sendMessage(StringList.discord[user.lang]);
-                                user.discord = true;
-                                speedcubingServer.node(true, user.id, user.tcpPort);
+                                player.sendMessage(StringList.discord[member.user.lang]);
+                                member.discord = true;
+                                speedcubingServer.node(true, member.user.id, member.user.tcpPort);
                             }
                             break;
                             case PICKUP_HALF: {
                                 player.closeInventory();
-                                String discord = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + user.id));
+                                String discord = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
                                 if (!discord.equals("")) {
                                     speedcubingServer.tcp.send(20000, "a|" + discord);
-                                    speedcubingServer.connection.update("playersdata", "discord=''", "id=" + user.id);
+                                    speedcubingServer.connection.update("playersdata", "discord=''", "id=" + member.user.id);
                                 }
-                                user.discord = false;
-                                speedcubingServer.node(false, user.id, user.tcpPort);
-                                player.sendMessage(StringList.discordremoved[Member.getMember(player).lang]);
+                                member.discord = false;
+                                speedcubingServer.node(false, member.user.id, member.user.tcpPort);
+                                player.sendMessage(StringList.discordremoved[Member.getMember(player).user.lang]);
                             }
                             break;
                         }
@@ -134,7 +134,7 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
                 if (RawSlot < 4)
-                    speedcubingServer.tcp.sendClean(Member.getMember(e.getWhoClicked()).tcpPort, "reduce|" + Member.getMember((Player) e.getWhoClicked()).id + "|" + RawSlot);
+                    speedcubingServer.tcp.sendClean(Member.getMember(e.getWhoClicked()).user.tcpPort, "reduce|" + Member.getMember((Player) e.getWhoClicked()).user.id + "|" + RawSlot);
             }
         }
     }

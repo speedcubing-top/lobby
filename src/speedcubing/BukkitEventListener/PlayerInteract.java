@@ -22,17 +22,17 @@ public class PlayerInteract implements Listener {
         Player player = e.getPlayer();
         switch (player.getItemInHand().getType()) {
             case COMPASS:
-                player.openInventory(ItemStackList.navigator[Member.getMember(player).lang]);
+                player.openInventory(ItemStackList.navigator[Member.getMember(player).user.lang]);
                 break;
             case REDSTONE_COMPARATOR:
-                Member user = Member.getMember(player);
-                String data = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + user.id));
-                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 36, StringList.settingstitle[user.lang]);
-                inv.setItem(11, ItemStackList.lang[user.lang]);
-                inv.setItem(13, ItemStackList.dm[user.lang]);
-                inv.setItem(22, ItemStackList.toggle[user.messagetoggled ? 0 : 1][user.lang]);
-                inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[user.lang]).lore(
-                                data.equals("") ? StringList.discordB[user.lang] : StringList.discordA[user.lang].replace("%a%", data), StringList.discordEdit[user.lang])
+                Member member = Member.getMember(player);
+                String data = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
+                Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 36, StringList.settingstitle[member.user.lang]);
+                inv.setItem(11, ItemStackList.lang[member.user.lang]);
+                inv.setItem(13, ItemStackList.dm[member.user.lang]);
+                inv.setItem(22, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
+                inv.setItem(15, new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[member.user.lang]).lore(
+                                data.equals("") ? StringList.discordB[member.user.lang] : StringList.discordA[member.user.lang].replace("%a%", data), StringList.discordEdit[member.user.lang])
                         .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build());
                 player.openInventory(inv);
                 break;

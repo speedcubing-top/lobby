@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Member extends User {
+public class Member {
     public static Map<Integer, Member> users = new HashMap<>();
 
     public static Member getMember(CommandSender sender) {
@@ -20,6 +20,7 @@ public class Member extends User {
     public static Member getMember(Player player) {
         return getMember(User.getUser(player).id);
     }
+    public final User user;
 
     public boolean haveToLogin;
     public boolean discord;
@@ -29,11 +30,11 @@ public class Member extends User {
         return users.get(id);
     }
 
-    public Member(UUID uuid) {
-        super(uuid);
-        haveToLogin = Main.login.contains(id);
-        Main.login.remove(id);
-        messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + id));
-        users.put(id, this);
+    public Member(Player player) {
+        this.user = User.getUser(player);
+        haveToLogin = Main.login.contains(user.id);
+        Main.login.remove(user.id);
+        messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + user.id));
+        users.put(user.id, this);
     }
 }
