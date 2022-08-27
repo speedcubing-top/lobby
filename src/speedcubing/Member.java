@@ -8,27 +8,23 @@ import speedcubing.server.speedcubingServer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class Member {
     public static Map<Integer, Member> users = new HashMap<>();
 
     public static Member getMember(CommandSender sender) {
-        return getMember((Player) sender);
+        return getMember(User.getUser(sender).id);
     }
 
-    public static Member getMember(Player player) {
-        return getMember(User.getUser(player).id);
+    public static Member getMember(int id) {
+        return users.get(id);
     }
+
     public final User user;
 
     public boolean haveToLogin;
     public boolean discord;
     public boolean messagetoggled;
-
-    public static Member getMember(int id) {
-        return users.get(id);
-    }
 
     public Member(Player player) {
         this.user = User.getUser(player);
