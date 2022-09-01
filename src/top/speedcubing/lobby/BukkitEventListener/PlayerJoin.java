@@ -1,4 +1,4 @@
-package speedcubing.BukkitEventListener;
+package top.speedcubing.lobby.BukkitEventListener;
 
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
@@ -11,14 +11,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import speedcubing.List.EntityList;
-import speedcubing.List.ItemStackList;
-import speedcubing.List.StringList;
-import speedcubing.Member;
-import speedcubing.lib.bukkit.SideBar;
-import speedcubing.lib.bukkit.entity.NPC;
-import speedcubing.lib.utils.SQL.SQLUtils;
-import speedcubing.server.speedcubingServer;
+import top.speedcubing.lobby.List.EntityList;
+import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.Member;
+import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.entity.NPC;
+import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.server.speedcubingServer;
 
 import java.util.Timer;
 import java.util.TimerTask;

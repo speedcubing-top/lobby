@@ -1,13 +1,13 @@
-package speedcubing.BukkitCommands;
+package top.speedcubing.lobby.BukkitCommands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import speedcubing.BukkitEventListener.PlayerJoin;
-import speedcubing.Member;
-import speedcubing.server.speedcubingServer;
+import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
+import top.speedcubing.lobby.Member;
+import top.speedcubing.server.speedcubingServer;
 
 import java.util.ArrayList;
 import java.util.List;

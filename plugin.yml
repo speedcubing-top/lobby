@@ -1,5 +1,5 @@
 name: Lobby
-main: speedcubing.Main
+main: top.speedcubing.lobby.Main
 version: 1.0
 commands:
   lang:

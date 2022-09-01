@@ -1,7 +1,7 @@
-package speedcubing.BukkitEventListener;
+package top.speedcubing.lobby.BukkitEventListener;
 
 
-import speedcubing.lib.bukkit.PlayerUtils;
+import top.speedcubing.lib.bukkit.PlayerUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;

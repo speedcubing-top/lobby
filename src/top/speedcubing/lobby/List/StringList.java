@@ -1,6 +1,6 @@
-package speedcubing.List;
+package top.speedcubing.lobby.List;
 
-import speedcubing.server.config;
+import top.speedcubing.server.config;
 
 public class StringList {
     public static String[] LobbyJoinMessage = {

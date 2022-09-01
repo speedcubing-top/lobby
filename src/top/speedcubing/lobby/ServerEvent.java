@@ -1,20 +1,20 @@
-package speedcubing;
+package top.speedcubing.lobby;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
-import speedcubing.List.EntityList;
-import speedcubing.List.StringList;
-import speedcubing.lib.bukkit.BungeePluginMessage;
-import speedcubing.lib.bukkit.SideBar;
-import speedcubing.lib.bukkit.event.PlayInEvent;
-import speedcubing.lib.eventbus.LibEventHandler;
-import speedcubing.lib.utils.Console;
-import speedcubing.lib.utils.SQL.SQLUtils;
-import speedcubing.server.events.InputEvent;
-import speedcubing.server.events.SocketEvent;
-import speedcubing.server.events.player.HubEvent;
-import speedcubing.server.libs.GlobalString;
-import speedcubing.server.speedcubingServer;
+import top.speedcubing.lobby.List.EntityList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lib.bukkit.BungeePluginMessage;
+import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.event.PlayInEvent;
+import top.speedcubing.lib.eventbus.LibEventHandler;
+import top.speedcubing.lib.utils.Console;
+import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.server.events.InputEvent;
+import top.speedcubing.server.events.SocketEvent;
+import top.speedcubing.server.events.player.HubEvent;
+import top.speedcubing.server.libs.GlobalString;
+import top.speedcubing.server.speedcubingServer;
 
 public class ServerEvent {
     @LibEventHandler(priority = 500)

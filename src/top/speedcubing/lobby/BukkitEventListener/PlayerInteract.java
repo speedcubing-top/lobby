@@ -1,4 +1,4 @@
-package speedcubing.BukkitEventListener;
+package top.speedcubing.lobby.BukkitEventListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -8,12 +8,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import speedcubing.List.ItemStackList;
-import speedcubing.List.StringList;
-import speedcubing.Member;
-import speedcubing.lib.bukkit.inventory.ItemBuilder;
-import speedcubing.lib.utils.SQL.SQLUtils;
-import speedcubing.server.speedcubingServer;
+import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.Member;
+import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
+import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.server.speedcubingServer;
 
 public class PlayerInteract implements Listener {
 

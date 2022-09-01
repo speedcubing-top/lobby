@@ -1,12 +1,12 @@
-package speedcubing.List;
+package top.speedcubing.lobby.List;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
-import speedcubing.Main;
-import speedcubing.Member;
-import speedcubing.lib.bukkit.BungeePluginMessage;
-import speedcubing.lib.bukkit.entity.Hologram;
-import speedcubing.lib.bukkit.entity.NPC;
+import top.speedcubing.lobby.Main;
+import top.speedcubing.lobby.Member;
+import top.speedcubing.lib.bukkit.BungeePluginMessage;
+import top.speedcubing.lib.bukkit.entity.Hologram;
+import top.speedcubing.lib.bukkit.entity.NPC;
 
 public class EntityList {
     public static Hologram[] Lobbys = new Hologram[13];

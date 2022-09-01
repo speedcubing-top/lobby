@@ -1,10 +1,10 @@
-package speedcubing;
+package top.speedcubing.lobby;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import speedcubing.lib.utils.SQL.SQLUtils;
-import speedcubing.server.libs.User;
-import speedcubing.server.speedcubingServer;
+import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.server.libs.User;
+import top.speedcubing.server.speedcubingServer;
 
 import java.util.HashMap;
 import java.util.Map;
