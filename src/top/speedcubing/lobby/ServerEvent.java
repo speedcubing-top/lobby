@@ -74,7 +74,7 @@ public class ServerEvent {
                 e.isCancelled = true;
                 if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
                     String theOldOne = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
-                    speedcubingServer.connection.update("playersdata", "discord='" + message + "'", "id=" + member.user.id);
+                    speedcubingServer.connection.update("playersdata", "discord=" + message, "id=" + member.user.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);
                     player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
