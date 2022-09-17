@@ -29,11 +29,13 @@ public class ServerEvent {
 
 
     Integer[] onlines;
+    int a;
 
     @LibEventHandler
     public void CubingTickEvent() {
+        a = speedcubingServer.getOnlineCount();
         for (SideBar s : SideBar.getSidebars()) {
-            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + speedcubingServer.getOnlineCount(), 3);
+            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 3);
         }
         onlines = SQLUtils.getIntArray(speedcubingServer.systemConnection.executeQuery("SELECT onlinecount FROM `servers` ORDER BY `name` ASC"));
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
