@@ -27,37 +27,27 @@ public class ServerEvent {
         }
     }
 
+
+    Integer[] onlines;
+
+    @LibEventHandler
+    public void CubingTickEvent() {
+        for (SideBar s : SideBar.getSidebars()) {
+            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + speedcubingServer.getOnlineCount(), 3);
+        }
+        onlines = SQLUtils.getIntArray(speedcubingServer.systemConnection.executeQuery("SELECT onlinecount FROM `servers` ORDER BY `name` ASC"));
+        EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
+        EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
+        EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
+        EntityList.Lobbys[7].setName("§e§l" + onlines[3] + " Players");
+        EntityList.Lobbys[9].setName("§e§l" + onlines[4] + " Players");
+        EntityList.Lobbys[11].setName("§e§l" + onlines[5] + " Players");
+    }
+
     @LibEventHandler
     public void socketEvent(SocketEvent e) {
         String[] rs = e.receive.split("\\|");
         switch (rs[0]) {
-            case "online":
-                switch (rs[1]) {
-                    case "1":
-                        for (SideBar s : SideBar.getSidebars()) {
-                            s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + rs[2], 3);
-                        }
-                        break;
-                    case "2":
-                        EntityList.Lobbys[9].setName("§e§l" + rs[2] + " Players");
-                        break;
-                    case "3":
-                        EntityList.Lobbys[1].setName("§e§l" + rs[2] + " Players");
-                        break;
-                    case "4":
-                        EntityList.Lobbys[5].setName("§e§l" + rs[2] + " Players");
-                        break;
-                    case "5":
-                        EntityList.Lobbys[11].setName("§e§l" + rs[2] + " Players");
-                        break;
-                    case "6":
-                        EntityList.Lobbys[7].setName("§e§l" + rs[2] + " Players");
-                        break;
-                    case "7":
-                        EntityList.Lobbys[3].setName("§e§l" + rs[2] + " Players");
-                        break;
-                }
-                break;
             case "reduce":
                 BungeePluginMessage.switchServer(Member.getMember(Integer.parseInt(rs[1])).user.player, "reduce");
                 break;

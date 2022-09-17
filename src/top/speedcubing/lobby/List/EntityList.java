@@ -2,11 +2,11 @@ package top.speedcubing.lobby.List;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
-import top.speedcubing.lobby.Main;
-import top.speedcubing.lobby.Member;
 import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
+import top.speedcubing.lobby.Main;
+import top.speedcubing.lobby.Member;
 
 public class EntityList {
     public static Hologram[] Lobbys = new Hologram[13];
@@ -41,63 +41,48 @@ public class EntityList {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "mlgrush");
                 });
-        Lobbys[0].setLocation(-1.5, 100.85, 24.5, 0, 0);
-        Lobbys[0].setName("§bMLGRush");
-        Lobbys[1].setLocation(-1.5, 101.15, 24.5, 0, 0);
-        Lobbys[1].setName("§e§l0 Players");
-        //reduce
+        Lobbys[0].setLocation(-4.5, 100.85, 23.5, 0, 0).setName("§bClutch");
+        Lobbys[1].setLocation(-4.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[2].setLocation(2.5, 100.85, 24.5, 0, 0).setName("§bFastBuilder");
+        Lobbys[3].setLocation(2.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0).setName("§bKnockBack FFA");
+        Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[8].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
+        Lobbys[9].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[10].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice");
+        Lobbys[11].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[12].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
+        Lobbys[13].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[14].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bOcean Liner");
         npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
                 });
-        Lobbys[2].setLocation(8.5, 100.85, 22.5, 0, 0);
-        Lobbys[2].setName("§bReduce");
-        Lobbys[3].setLocation(8.5, 101.15, 22.5, 0, 0);
-        Lobbys[3].setName("§e§l0 Players");
         //ffa
         npcs[2].setAutoSpawn(true).hideNametag().setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "knockbackffa");
                 });
-        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0);
-        Lobbys[4].setName("§bKnockBack FFA");
-        Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0);
-        Lobbys[5].setName("§e§l0 Players");
         //clutch
         npcs[3].setAutoSpawn(true).hideNametag().setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(-4.5, 99, 23.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "clutch");
                 });
-        Lobbys[6].setLocation(-4.5, 100.85, 23.5, 0, 0);
-        Lobbys[6].setName("§bClutch");
-        Lobbys[7].setLocation(-4.5, 101.15, 23.5, 0, 0);
-        Lobbys[7].setName("§e§l0 Players");
         //fb
         npcs[4].setAutoSpawn(true).hideNametag().setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(2.5, 99, 24.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "fastbuilder");
                 });
-        Lobbys[8].setLocation(2.5, 100.85, 24.5, 0, 0);
-        Lobbys[8].setName("§bFastBuilder");
-        Lobbys[9].setLocation(2.5, 101.15, 24.5, 0, 0);
-        Lobbys[9].setName("§e§l0 Players");
         //practice
         npcs[5].setAutoSpawn(true).hideNametag().setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(5.5, 99, 23.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "practice");
                 });
-        Lobbys[10].setLocation(5.5, 100.85, 23.5, 0, 0);
-        Lobbys[10].setName("§bPractice");
-        Lobbys[11].setLocation(5.5, 101.15, 23.5, 0, 0);
-        Lobbys[11].setName("§e§l0 Players");
-
-        Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0);
-        Lobbys[12].setName("§bOcean Liner");
         npcs[6].setAutoSpawn(true).hideNametag().setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
                 .setClickEvent(((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
