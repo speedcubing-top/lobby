@@ -10,6 +10,7 @@ import top.speedcubing.lib.utils.Console;
 import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.server.events.CubingTickEvent;
 import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.SocketEvent;
 import top.speedcubing.server.events.player.HubEvent;
@@ -32,7 +33,7 @@ public class ServerEvent {
     int a;
 
     @LibEventHandler
-    public void CubingTickEvent() {
+    public void CubingTickEvent(CubingTickEvent e) {
         a = speedcubingServer.getOnlineCount();
         for (SideBar s : SideBar.getSidebars()) {
             s.setLine(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 3);
