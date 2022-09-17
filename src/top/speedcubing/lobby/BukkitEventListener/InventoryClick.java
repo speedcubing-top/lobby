@@ -10,12 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import top.speedcubing.lobby.List.ItemStackList;
-import top.speedcubing.lobby.List.StringList;
-import top.speedcubing.lobby.Member;
 import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.Member;
 import top.speedcubing.server.speedcubingServer;
 
 public class InventoryClick implements Listener {
@@ -134,7 +134,7 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
                 if (RawSlot < 4)
-                    speedcubingServer.tcp.sendClean(Member.getMember(e.getWhoClicked()).user.tcpPort, "reduce|" + Member.getMember((Player) e.getWhoClicked()).user.id + "|" + RawSlot);
+                    speedcubingServer.tcp.sendClean(25604 - Bukkit.getPort() % 2, "reduce|" + Member.getMember(e.getWhoClicked()).user.id + "|" + RawSlot + "|" + speedcubingServer.tcp.socket.getLocalPort());
             }
         }
     }

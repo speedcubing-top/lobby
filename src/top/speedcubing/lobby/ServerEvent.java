@@ -2,14 +2,14 @@ package top.speedcubing.lobby;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
-import top.speedcubing.lobby.List.EntityList;
-import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.event.PlayInEvent;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lib.utils.Console;
 import top.speedcubing.lib.utils.SQL.SQLUtils;
+import top.speedcubing.lobby.List.EntityList;
+import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.SocketEvent;
 import top.speedcubing.server.events.player.HubEvent;
