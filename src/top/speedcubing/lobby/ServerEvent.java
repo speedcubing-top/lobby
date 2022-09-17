@@ -42,9 +42,9 @@ public class ServerEvent {
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
         EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
-        EntityList.Lobbys[7].setName("§e§l" + onlines[3] + " Players");
-        EntityList.Lobbys[9].setName("§e§l" + onlines[4] + " Players");
-        EntityList.Lobbys[11].setName("§e§l" + onlines[5] + " Players");
+        EntityList.Lobbys[7].setName("§e§l" + onlines[4] + " Players");
+        EntityList.Lobbys[9].setName("§e§l" + onlines[5] + " Players");
+        EntityList.Lobbys[11].setName("§e§l" + onlines[6] + " Players");
     }
 
     @LibEventHandler
