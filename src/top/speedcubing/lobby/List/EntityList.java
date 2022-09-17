@@ -47,13 +47,13 @@ public class EntityList {
         Lobbys[3].setLocation(2.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
         Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0).setName("§bKnockBack FFA");
         Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[8].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
-        Lobbys[9].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[10].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice");
-        Lobbys[11].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[12].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
-        Lobbys[13].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[14].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bOcean Liner");
+        Lobbys[6].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
+        Lobbys[7].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[8].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice");
+        Lobbys[9].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
+        Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
+        Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bOcean Liner");
         npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
