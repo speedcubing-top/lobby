@@ -59,7 +59,7 @@ public class PlayerJoin implements Listener {
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
                 .changeableLine(sidebar[2], 7)
-                .changeableLine(sidebar[3] + "loading...", 6)
+                .changeableLine(sidebar[3] + speedcubingServer.getOnlineCount(), 6)
                 .staticLine(sidebar[4], 5)
                 .changeableLine(sidebar[5], 4)
                 .staticLine(sidebar[6].replace("%player%", format[0] + format[1] + name), 3)
