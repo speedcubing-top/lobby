@@ -11,13 +11,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.entity.NPC;
+import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
-import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.bukkit.entity.NPC;
-import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.server.speedcubingServer;
 
 import java.util.Timer;
@@ -50,11 +50,8 @@ public class PlayerJoin implements Listener {
         String name = player.getName();
         player.getInventory().setHeldItemSlot(0);
         if (!login)
-            player.sendMessage(StringList.LobbyJoinMessage[member.user.lang]
-                    .replace("%f0%", format[0])
-                    .replace("%f1%", format[2])
-                    .replace("%name%", name));
-        player.getWorld().getPlayers().forEach(a -> a.sendMessage(StringList.LobbyJoinMessage[Member.getMember(a).user.lang].replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name)));
+            member.user.langMessageSender(StringList.LobbyJoinMessage).replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name).send();
+        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.langMessageSender(StringList.LobbyJoinMessage).replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name).send());
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)

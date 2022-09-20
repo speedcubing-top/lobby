@@ -70,8 +70,8 @@ public class ServerEvent {
                     speedcubingServer.connection.update("playersdata", "discord=" + message, "id=" + member.user.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);
-                    player.sendMessage("§aSuccessfully updated the discord. (§6" + message + "§a)\nYou can now verify your minecraft account in the Discord Server!");
-                } else player.sendMessage(StringList.discordinvalid[member.user.lang]);
+                    member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
+                } else member.user.sendLangMessage(StringList.discordinvalid);
                 member.discord = false;
                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {
@@ -85,7 +85,7 @@ public class ServerEvent {
                         str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
-                player.getWorld().getPlayers().forEach(a -> a.sendMessage(out[Member.getMember(a).user.lang]));
+                player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendLangMessage(out));
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }
@@ -94,6 +94,6 @@ public class ServerEvent {
     @LibEventHandler
     public void HubEvent(HubEvent e) {
         e.isCancelled = true;
-        e.player.sendMessage(GlobalString.AlreadyInHub[Member.getMember(e.player).user.lang]);
+        Member.getMember(e.player).user.sendLangMessage(GlobalString.AlreadyInHub);
     }
 }

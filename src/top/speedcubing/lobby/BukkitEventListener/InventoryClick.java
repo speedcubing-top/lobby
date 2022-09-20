@@ -75,14 +75,14 @@ public class InventoryClick implements Listener {
                 if (x != -1) {
                     Player player = (Player) e.getWhoClicked();
                     Member member = Member.getMember(player);
+                    member.user.lang = x;
                     String[] sidebar = StringList.LobbySideBar[x];
                     SideBar.getSidebar(player).setLine(sidebar[2], 2)
                             .setLine(sidebar[5], 5)
                             .setLine(sidebar[8], 8);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
-                    player.sendMessage(StringList.LangSettings[x]);
+                    member.user.sendLangMessage(StringList.LangSettings);
                     speedcubingServer.connection.update("playersdata", "lang=" + x, "id=" + member.user.id);
-                    member.user.lang = x;
                     player.closeInventory();
                 }
             } else if (holder == ItemStackList.SettingsHolder) {
@@ -110,7 +110,7 @@ public class InventoryClick implements Listener {
                             case PICKUP_ALL: {
                                 player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                                 player.closeInventory();
-                                player.sendMessage(StringList.discord[member.user.lang]);
+                                member.user.sendLangMessage(StringList.discord);
                                 member.discord = true;
                                 speedcubingServer.node(true, member.user.id, member.user.tcpPort);
                             }
@@ -124,7 +124,7 @@ public class InventoryClick implements Listener {
                                 }
                                 member.discord = false;
                                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
-                                player.sendMessage(StringList.discordremoved[Member.getMember(player).user.lang]);
+                                member.user.sendLangMessage(StringList.discordremoved);
                             }
                             break;
                         }

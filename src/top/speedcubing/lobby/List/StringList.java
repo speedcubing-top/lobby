@@ -14,11 +14,11 @@ public class StringList {
             "§8[§e系統§8] §a成功切換為中文!\n§8[§e系統§8] §c伺服器目前尚未完全翻譯",
             "§8[§e系统§8] §a成功切换为简体中文!\n§8[§e系统§8] §c伺服器目前尚未完全翻译"};
 
-    public static String[] NameMc = {
-            "§8[§eNameMC§8] §a Make sure to leave a like on NameMc! §bhttps://namemc.com/server/speedcubing.serveftp.net",
-            "§8[§eNameMC§8] §a Make sure to leave a like on NameMc! §bhttps://namemc.com/server/speedcubing.serveftp.net",
-            "§8[§eNameMC§8] §a Make sure to leave a like on NameMc! §bhttps://namemc.com/server/speedcubing.serveftp.net",
-            "§8[§eNameMC§8] §a Make sure to leave a like on NameMc! §bhttps://namemc.com/server/speedcubing.serveftp.net"};
+    public static String[] updatedDiscord = {
+            "§aSuccessfully updated the discord. (§6%a%§a)\nYou can now verify your minecraft account in the Discord Server!",
+            "§aSuccessfully updated the discord. (§6%a%§a)\nYou can now verify your minecraft account in the Discord Server!",
+            "§aSuccessfully updated the discord. (§6%a%§a)\nYou can now verify your minecraft account in the Discord Server!",
+            "§aSuccessfully updated the discord. (§6%a%§a)\nYou can now verify your minecraft account in the Discord Server!"};
     public static String[] discord = {
             "§aPlease input a valid discord id in the chat:",
             "§aPlease input a valid discord id in the chat:",
