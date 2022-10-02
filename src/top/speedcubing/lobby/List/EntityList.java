@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
-import top.speedcubing.lobby.Main;
+import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
 
 public class EntityList {
@@ -35,12 +35,6 @@ public class EntityList {
             Lobbys[i] = new Hologram("", 0, 0, 0, 0, 0).setAutoSpawn(true);
             Lobbys[i].world.add("world");
         }
-        //rush
-        npcs[0].setAutoSpawn(true).hideNametag().setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "mlgrush");
-                });
         Lobbys[0].setLocation(-4.5, 100.85, 23.5, 0, 0).setName("§bClutch");
         Lobbys[1].setLocation(-4.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
         Lobbys[2].setLocation(2.5, 100.85, 24.5, 0, 0).setName("§bFastBuilder");
@@ -57,7 +51,7 @@ public class EntityList {
         npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        Bukkit.getScheduler().runTask(Main.getPlugin(Main.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
+                        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
                 });
         //ffa
         npcs[2].setAutoSpawn(true).hideNametag().setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
@@ -88,5 +82,13 @@ public class EntityList {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "oceanliner");
                 }));
+
+        //rush
+        npcs[0].setAutoSpawn(true).hideNametag().setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
+                .setClickEvent((player, action) -> {
+                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
+                        Lobby.inv(player);
+                    }
+                });
     }
 }

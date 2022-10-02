@@ -28,8 +28,8 @@ public class Member {
 
     public Member(Player player) {
         this.user = User.getUser(player);
-        haveToLogin = Main.login.contains(user.id);
-        Main.login.remove(user.id);
+        haveToLogin = Lobby.login.contains(user.id);
+        Lobby.login.remove(user.id);
         messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + user.id));
         users.put(user.id, this);
     }

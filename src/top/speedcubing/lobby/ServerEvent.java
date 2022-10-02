@@ -23,7 +23,7 @@ public class ServerEvent {
         String[] rs = e.receive.split("\\|");
         switch (rs[3]) {
             case "login":
-                Main.login.add(Integer.parseInt(rs[4]));
+                Lobby.login.add(Integer.parseInt(rs[4]));
                 break;
         }
     }
