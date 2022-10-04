@@ -84,9 +84,7 @@ public class InventoryClick implements Listener {
                     Member member = Member.getMember(player);
                     member.user.lang = x;
                     String[] sidebar = StringList.LobbySideBar[x];
-                    SideBar.getSidebar(player).setLine(sidebar[2], 2)
-                            .setLine(sidebar[5], 5)
-                            .setLine(sidebar[8], 8);
+                    SideBar.getSidebar(player).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
                     member.user.sendLangMessage(StringList.LangSettings);
                     speedcubingServer.connection.update("playersdata", "lang=" + x, "id=" + member.user.id);
