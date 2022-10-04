@@ -28,7 +28,7 @@ public class EntityList {
         String A = "ewogICJ0aW1lc3RhbXAiIDogMTY0NjA0NDI1NDgzNiwKICAicHJvZmlsZUlkIiA6ICJmMTYwZTMxMzJjYWM0YjRiOWM5OTk2NDQ1OGIxOWM0ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb255S0tLIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2M5OWNmYzQ1NzkwODc3ZTUxNDI5M2VmOTgxNTBkZmVlNGE5MzEyMmFhNGRiZmRlMmQyMWYxMjZhZmJlMTE1MjEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
         String B = "jEMxIC3o/0uJkwgMlpBceLmnlcxuw2ENqUedCFBhu36vFj2YKxYfc9ZkD+H8lyikQX1sxHpEyj+v0qA26n+cKm1AXRdjov2BVi3n2Bf2F5JkXP0Vo8PATX9Pwocfq7vAryK4VyE1rHSk3Bw0feJh25aUhpCXIgQxbUEAZkaSicTXSympYATWfa01ngca+psFX2Hq6onDeQfD5SDAFJskZlOYrsWTHJXs40RvJSojUUtRX5Tokb4jAfG2q36BfKRoufAY803Wh2unhcAMFqRjp13CWPQFLCGxwiDOJVMcNVnrs1CJGQHQPjJJLDmuuCxeaf0jKZ/s9QPl5fE7gdgNqGMT8gpZ4nFGh6yMH2RB7o8RSVmFf5THWSfzf1kpOiiQV8ddJ821CR108RIrNKDqLOQZHAHvWzPu8uPynFSp2paxHP+8/IzYc1WGS/lxstrXbKiYJQ3vCzzug40uhvqHumO65qqbSdiiwfgdXBXJItW4fhuhljAeLuZZyyixVi68Hd5V0hPG09zwQXPxqizzv5BK3xcdKf9hkInysbheR5+PeYAEnHm2UkNSbO6EJpX4yTUdfbiio8VMJSePHYPpjQEZfySJelBgplbZi8LFP3PDQHJcT6nYQaCEuf4Dkk0u6igyvVp5pLn8Wtbd0rD2Gc2q1ngcHFIxq2V+tZv9KaI=";
         for (int i = 0; i < npcs.length; i++) {
-            npcs[i] = new NPC(" ", null, true);
+            npcs[i] = new NPC(" ", null, true).setAutoSpawn(true).hideNametag();
             npcs[i].world.add("world");
         }
         for (int i = 0; i < Lobbys.length; i++) {
@@ -48,43 +48,43 @@ public class EntityList {
         Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bOcean Liner");
-        npcs[1].setAutoSpawn(true).hideNametag().setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
+        npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
                 });
         //ffa
-        npcs[2].setAutoSpawn(true).hideNametag().setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
+        npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "knockbackffa");
                 });
         //clutch
-        npcs[3].setAutoSpawn(true).hideNametag().setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(-4.5, 99, 23.5, 180, 0)
+        npcs[3].setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(-4.5, 99, 23.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "clutch");
                 });
         //fb
-        npcs[4].setAutoSpawn(true).hideNametag().setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(2.5, 99, 24.5, 180, 0)
+        npcs[4].setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(2.5, 99, 24.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "fastbuilder");
                 });
         //practice
-        npcs[5].setAutoSpawn(true).hideNametag().setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(5.5, 99, 23.5, 180, 0)
+        npcs[5].setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(5.5, 99, 23.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "practice");
                 });
-        npcs[6].setAutoSpawn(true).hideNametag().setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
+        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
                 .setClickEvent(((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(player, "oceanliner");
                 }));
 
         //rush
-        npcs[0].setAutoSpawn(true).hideNametag().setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
+        npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
                         Lobby.inv(player);
