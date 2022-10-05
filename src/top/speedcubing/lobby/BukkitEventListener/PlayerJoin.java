@@ -1,27 +1,19 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.bukkit.entity.NPC;
 import top.speedcubing.lib.utils.SQL.SQLUtils;
-import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.speedcubingServer;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PlayerJoin implements Listener {
 
@@ -44,7 +36,6 @@ public class PlayerJoin implements Listener {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
-        PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
         Inventory inventory = player.getInventory();
         String[] format = speedcubingServer.getFormat(member.user.rank);
         String name = player.getName();
@@ -63,14 +54,6 @@ public class PlayerJoin implements Listener {
                 .staticLine(sidebar[7], 2)
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                for (NPC npc : EntityList.npcs) {
-                    connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npc.entityPlayer));
-                }
-            }
-        }, 4000);
         inventory.clear();
         inventory.setItem(0, ItemStackList.Navigator[member.user.lang]);
         inventory.setItem(1, ItemStackList.Settings[member.user.lang]);
