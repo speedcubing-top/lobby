@@ -2,7 +2,6 @@ package top.speedcubing.lobby;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.server.libs.User;
 import top.speedcubing.server.speedcubingServer;
 
@@ -30,7 +29,7 @@ public class Member {
         this.user = User.getUser(player);
         haveToLogin = Lobby.login.contains(user.id);
         Lobby.login.remove(user.id);
-        messagetoggled = SQLUtils.getBoolean(speedcubingServer.connection.select("playersdata", "messagable", "id=" + user.id));
+        messagetoggled = speedcubingServer.connection.select("messagable").from("playersdata").where("id=" + user.id).getBoolean();
         users.put(user.id, this);
     }
 }

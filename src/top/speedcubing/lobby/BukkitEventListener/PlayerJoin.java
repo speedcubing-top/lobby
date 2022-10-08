@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
@@ -26,7 +25,7 @@ public class PlayerJoin implements Listener {
         if (!speedcubingServer.isBungeeOnlineMode && member.haveToLogin) {
             player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
             player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
-            if (SQLUtils.getString(speedcubingServer.connection.select("playersdata", "password", "id=" + member.user.id)).equals(""))
+            if (speedcubingServer.connection.select("password").from("playersdata").where("id=" + member.user.id).getString().equals(""))
                 player.sendMessage("/register <password> <confirm password>");
             else player.sendMessage("/login <password>");
         } else joinLobby(player, false);

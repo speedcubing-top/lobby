@@ -7,7 +7,6 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.event.PlayInEvent;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lib.utils.Console;
-import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.server.events.CubingTickEvent;
@@ -38,7 +37,7 @@ public class ServerEvent {
         for (SideBar s : SideBar.getSidebars()) {
             s.setLineByScore(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 6);
         }
-        onlines = SQLUtils.getIntArray(speedcubingServer.systemConnection.executeQuery("SELECT onlinecount FROM `servers` ORDER BY `name` ASC"));
+        onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").orderBy("name", "ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
         EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
@@ -66,7 +65,7 @@ public class ServerEvent {
             if (member.discord) {
                 e.isCancelled = true;
                 if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                    String theOldOne = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
+                    String theOldOne = speedcubingServer.connection.select("discord").from("playersdata").where("id=" + member.user.id).getString();
                     speedcubingServer.connection.update("playersdata", "discord=" + message, "id=" + member.user.id);
                     if (!theOldOne.equals("") && !theOldOne.equals(message))
                         speedcubingServer.tcp.send(20000, "a|" + theOldOne);

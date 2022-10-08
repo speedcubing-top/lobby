@@ -12,7 +12,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.utils.SQL.SQLUtils;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Lobby;
@@ -122,7 +121,7 @@ public class InventoryClick implements Listener {
                             break;
                             case PICKUP_HALF: {
                                 player.closeInventory();
-                                String discord = SQLUtils.getString(speedcubingServer.connection.select("playersdata", "discord", "id=" + member.user.id));
+                                String discord = speedcubingServer.connection.select("discord").from("playersdata").where("id=" + member.user.id).getString();
                                 if (!discord.equals("0")) {
                                     speedcubingServer.tcp.send(20000, "a|" + discord);
                                     speedcubingServer.connection.update("playersdata", "discord=0", "id=" + member.user.id);
