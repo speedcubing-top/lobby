@@ -32,7 +32,7 @@ public class EntityList {
             npcs[i].world.add("world");
         }
         for (int i = 0; i < Lobbys.length; i++) {
-            Lobbys[i] = new Hologram("", 0, 0, 0, 0, 0).setAutoSpawn(true);
+            Lobbys[i] = new Hologram("").setAutoSpawn(true);
             Lobbys[i].world.add("world");
         }
         Lobbys[0].setLocation(-4.5, 100.85, 23.5, 0, 0).setName("§bClutch");
