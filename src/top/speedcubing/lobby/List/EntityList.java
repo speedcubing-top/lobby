@@ -28,10 +28,10 @@ public class EntityList {
         String A = "ewogICJ0aW1lc3RhbXAiIDogMTY0NjA0NDI1NDgzNiwKICAicHJvZmlsZUlkIiA6ICJmMTYwZTMxMzJjYWM0YjRiOWM5OTk2NDQ1OGIxOWM0ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb255S0tLIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2M5OWNmYzQ1NzkwODc3ZTUxNDI5M2VmOTgxNTBkZmVlNGE5MzEyMmFhNGRiZmRlMmQyMWYxMjZhZmJlMTE1MjEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
         String B = "jEMxIC3o/0uJkwgMlpBceLmnlcxuw2ENqUedCFBhu36vFj2YKxYfc9ZkD+H8lyikQX1sxHpEyj+v0qA26n+cKm1AXRdjov2BVi3n2Bf2F5JkXP0Vo8PATX9Pwocfq7vAryK4VyE1rHSk3Bw0feJh25aUhpCXIgQxbUEAZkaSicTXSympYATWfa01ngca+psFX2Hq6onDeQfD5SDAFJskZlOYrsWTHJXs40RvJSojUUtRX5Tokb4jAfG2q36BfKRoufAY803Wh2unhcAMFqRjp13CWPQFLCGxwiDOJVMcNVnrs1CJGQHQPjJJLDmuuCxeaf0jKZ/s9QPl5fE7gdgNqGMT8gpZ4nFGh6yMH2RB7o8RSVmFf5THWSfzf1kpOiiQV8ddJ821CR108RIrNKDqLOQZHAHvWzPu8uPynFSp2paxHP+8/IzYc1WGS/lxstrXbKiYJQ3vCzzug40uhvqHumO65qqbSdiiwfgdXBXJItW4fhuhljAeLuZZyyixVi68Hd5V0hPG09zwQXPxqizzv5BK3xcdKf9hkInysbheR5+PeYAEnHm2UkNSbO6EJpX4yTUdfbiio8VMJSePHYPpjQEZfySJelBgplbZi8LFP3PDQHJcT6nYQaCEuf4Dkk0u6igyvVp5pLn8Wtbd0rD2Gc2q1ngcHFIxq2V+tZv9KaI=";
         for (int i = 0; i < npcs.length; i++) {
-            npcs[i] = new NPC("§8[NPC]", null, true).setAutoSpawn(true).world("world").hideNametag();
+            npcs[i] = new NPC("§8[NPC]", null, true, true, true).world("world").hideNametag();
         }
         for (int i = 0; i < Lobbys.length; i++) {
-            Lobbys[i] = new Hologram("").setAutoSpawn(true).world("world");
+            Lobbys[i] = new Hologram("", true, true).world("world");
         }
         Lobbys[0].setLocation(-4.5, 100.85, 23.5, 0, 0).setName("§bClutch");
         Lobbys[1].setLocation(-4.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
