@@ -37,7 +37,7 @@ public class ServerEvent {
         for (SideBar s : SideBar.getSidebars()) {
             s.setLineByScore(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 6);
         }
-        onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%online'").orderBy("name ASC").getIntArray();
+        onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%" + speedcubingServer.onlineOroFfline + "'").orderBy("name ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
         EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
