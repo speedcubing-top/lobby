@@ -34,9 +34,7 @@ public class ServerEvent {
     @LibEventHandler
     public void CubingTickEvent(CubingTickEvent e) {
         a = speedcubingServer.getOnlineCount();
-        for (SideBar s : SideBar.getSidebars()) {
-            s.setLineByScore(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 6);
-        }
+        Member.users.values().forEach(m -> SideBar.getSidebar(m.user.player).setLineByScore(StringList.LobbySideBar[m.user.lang][3] + a, 6));
         onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%" + speedcubingServer.onlineOroFfline + "%'").orderBy("name ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
@@ -68,7 +66,7 @@ public class ServerEvent {
                     Long.parseLong(message);
                     if (message.split(" ").length == 1) {
                         String theOldOne = member.user.dbSelect("discord").getString();
-                        member.user.dbUpdate("discord="+message);
+                        member.user.dbUpdate("discord=" + message);
                         if (!theOldOne.equals("") && !theOldOne.equals(message))
                             speedcubingServer.tcp.send(20000, "a|" + theOldOne);
                         member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
