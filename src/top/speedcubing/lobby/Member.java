@@ -28,7 +28,7 @@ public class Member {
         this.user = User.getUser(player);
         haveToLogin = Lobby.login.contains(user.id);
         Lobby.login.remove(user.id);
-        messagetoggled = user.dbSelect("messageable").getBoolean();
+        messagetoggled = user.dbSelect("messagable").getBoolean();
         users.put(user.id, this);
     }
 }
