@@ -12,7 +12,6 @@ import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
-import top.speedcubing.server.speedcubingServer;
 
 public class PlayerInteract implements Listener {
 
@@ -25,7 +24,7 @@ public class PlayerInteract implements Listener {
                 break;
             case REDSTONE_COMPARATOR:
                 Member member = Member.getMember(player);
-                String data = speedcubingServer.connection.select("discord").from("playersdata").where("id=" + member.user.id).getString();
+                String data = member.user.dbSelect("discord").getString();
                 Inventory inv = Bukkit.createInventory(ItemStackList.SettingsHolder, 36, StringList.settingstitle[member.user.lang]);
                 inv.setItem(11, ItemStackList.lang[member.user.lang]);
                 inv.setItem(13, ItemStackList.dm[member.user.lang]);

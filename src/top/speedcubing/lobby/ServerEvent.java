@@ -64,13 +64,18 @@ public class ServerEvent {
             Member member = Member.getMember(player);
             if (member.discord) {
                 e.isCancelled = true;
-                if (message.split(" ").length == 1 && message.matches("[0-9]{18}")) {
-                    String theOldOne = speedcubingServer.connection.select("discord").from("playersdata").where("id=" + member.user.id).getString();
-                    speedcubingServer.connection.update("playersdata", "discord=" + message, "id=" + member.user.id);
-                    if (!theOldOne.equals("") && !theOldOne.equals(message))
-                        speedcubingServer.tcp.send(20000, "a|" + theOldOne);
-                    member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
-                } else member.user.sendLangMessage(StringList.discordinvalid);
+                try {
+                    Long.parseLong(message);
+                    if (message.split(" ").length == 1) {
+                        String theOldOne = member.user.dbSelect("discord").getString();
+                        member.user.dbUpdate("discord="+message);
+                        if (!theOldOne.equals("") && !theOldOne.equals(message))
+                            speedcubingServer.tcp.send(20000, "a|" + theOldOne);
+                        member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
+                    } else member.user.sendLangMessage(StringList.discordinvalid);
+                } catch (Exception exception) {
+                    member.user.sendLangMessage(StringList.discordinvalid);
+                }
                 member.discord = false;
                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {

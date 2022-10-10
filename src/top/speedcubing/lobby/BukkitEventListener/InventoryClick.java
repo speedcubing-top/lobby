@@ -86,7 +86,7 @@ public class InventoryClick implements Listener {
                     SideBar.getSidebar(player).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
                     member.user.sendLangMessage(StringList.LangSettings);
-                    speedcubingServer.connection.update("playersdata", "lang=" + x, "id=" + member.user.id);
+                    member.user.dbUpdate("lang=" + x);
                     player.closeInventory();
                 }
             } else if (holder == ItemStackList.SettingsHolder) {
@@ -104,7 +104,7 @@ public class InventoryClick implements Listener {
                         Member member = Member.getMember(player);
                         member.messagetoggled = !member.messagetoggled;
                         e.getClickedInventory().setItem(22, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
-                        speedcubingServer.connection.update("playersdata", "messagable=" + (member.messagetoggled ? 1 : 0), "id=" + member.user.id);
+                        member.user.dbUpdate("messagable=" + (member.messagetoggled ? 1 : 0));
                     }
                     break;
                     case 15: {
@@ -121,10 +121,10 @@ public class InventoryClick implements Listener {
                             break;
                             case PICKUP_HALF: {
                                 player.closeInventory();
-                                String discord = speedcubingServer.connection.select("discord").from("playersdata").where("id=" + member.user.id).getString();
+                                String discord = member.user.dbSelect("discord").getString();
                                 if (!discord.equals("0")) {
                                     speedcubingServer.tcp.send(20000, "a|" + discord);
-                                    speedcubingServer.connection.update("playersdata", "discord=0", "id=" + member.user.id);
+                                    member.user.dbUpdate("discord=0");
                                 }
                                 member.discord = false;
                                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
