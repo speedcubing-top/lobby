@@ -39,7 +39,7 @@ public class PlayerJoin implements Listener {
         Inventory inventory = player.getInventory();
         String[] format = speedcubingServer.getFormat(member.user.rank);
         String name = player.getName();
-        String text1 = format[0] + format[2] + name;
+        String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
         if (!login)
             member.user.langMessageSender(GlobalString.LobbyJoinMessage).replace("%t%", text1).send();
@@ -51,7 +51,7 @@ public class PlayerJoin implements Listener {
                 .changeableLine(sidebar[3] + speedcubingServer.getOnlineCount(), 6)
                 .staticLine(sidebar[4], 5)
                 .changeableLine(sidebar[5], 4)
-                .staticLine(sidebar[6].replace("%player%", format[0] + format[1] + name), 3)
+                .staticLine(sidebar[6].replace("%player%", format[0] + name), 3)
                 .staticLine(sidebar[7], 2)
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
