@@ -3,11 +3,6 @@ package top.speedcubing.lobby.List;
 import top.speedcubing.server.config;
 
 public class StringList {
-    public static String[] LobbyJoinMessage = {
-            "%f0%%name%%f1% has joined the Lobby!",
-            "%f0%%name%%f1% has joined the Lobby!",
-            "%f0%%name%%f1% has joined the Lobby!",
-            "%f0%%name%%f1% has joined the Lobby!"};
     public static String[] LangSettings = {
             "§8[§eSystem§8] §aErfolgreich auf Deutsch geändert!\n§8[§eSystem§8] §cDer Server ist noch nicht vollständig übersetzt.",
             "§8[§eSystem§8] §aSuccessfully changed to English!\n§8[§eSystem§8] §cThe server is not fully translated yet.",

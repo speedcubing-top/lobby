@@ -12,6 +12,7 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
@@ -38,10 +39,11 @@ public class PlayerJoin implements Listener {
         Inventory inventory = player.getInventory();
         String[] format = speedcubingServer.getFormat(member.user.rank);
         String name = player.getName();
+        String text1 = format[0] + format[2] + name;
         player.getInventory().setHeldItemSlot(0);
         if (!login)
-            member.user.langMessageSender(StringList.LobbyJoinMessage).replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name).send();
-        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.langMessageSender(StringList.LobbyJoinMessage).replace("%f0%", format[0]).replace("%f1%", format[2]).replace("%name%", name).send());
+            member.user.langMessageSender(GlobalString.LobbyJoinMessage).replace("%t%", text1).send();
+        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.langMessageSender(GlobalString.LobbyJoinMessage).replace("%t%", text1).send());
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
