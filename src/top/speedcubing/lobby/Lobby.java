@@ -3,13 +3,8 @@ package top.speedcubing.lobby;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.Material;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
-import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.eventbus.LibEventManager;
 import top.speedcubing.lobby.BukkitCommands.lang;
 import top.speedcubing.lobby.BukkitCommands.login;
@@ -50,19 +45,5 @@ public class Lobby extends JavaPlugin {
         new ItemStackList().Load();
         new EntityList().Load();
         LibEventManager.registerListeners(new ServerEvent());
-    }
-
-
-    public static InventoryHolder inv = () -> null;
-    public static void inv(Player player) {
-        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> {
-            Inventory inventory = Bukkit.createInventory(inv, 9, "MLGRush");
-            inventory.setItem(0, new ItemBuilder(Material.STICK).name("§bKB type 1").amount(1).build());
-            inventory.setItem(1, new ItemBuilder(Material.STICK).name("§bKB type 2").amount(2).build());
-            inventory.setItem(2, new ItemBuilder(Material.STICK).name("§bKB type 3").amount(3).build());
-            inventory.setItem(3, new ItemBuilder(Material.STICK).name("§bKB type 4").amount(4).build());
-            inventory.setItem(4, new ItemBuilder(Material.STICK).name("§bKB type 5").amount(5).build());
-            player.openInventory(inventory);
-        });
     }
 }

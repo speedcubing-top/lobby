@@ -29,12 +29,6 @@ public class InventoryClick implements Listener {
             if (inventory.getName().equals("container.crafting")) {
                 if (e.getWhoClicked().getGameMode() == GameMode.ADVENTURE)
                     e.setCancelled(true);
-            } else if (holder == Lobby.inv) {
-                e.setCancelled(true);
-                Player player = (Player) e.getWhoClicked();
-                if (RawSlot < 5) {
-                    BungeePluginMessage.switchServer(player, "mlgrush" + (RawSlot + 1));
-                }
             } else if (holder == ItemStackList.NavigatorHolder) {
                 e.setCancelled(true);
                 switch (RawSlot) {
@@ -42,7 +36,7 @@ public class InventoryClick implements Listener {
                         BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "knockbackffa");
                         break;
                     case 10:
-                        Lobby.inv((Player) e.getWhoClicked());
+                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
                         break;
                     case 28:
                         BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "practice");

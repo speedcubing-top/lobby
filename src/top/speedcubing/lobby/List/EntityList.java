@@ -85,7 +85,7 @@ public class EntityList {
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
-                        Lobby.inv(player);
+                        BungeePluginMessage.switchServer(player, "mlgrush");
                     }
                 });
     }
