@@ -2,7 +2,7 @@ package top.speedcubing.lobby.List;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
-import top.speedcubing.lib.bukkit.BungeePluginMessage;
+import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
 import top.speedcubing.lobby.Lobby;

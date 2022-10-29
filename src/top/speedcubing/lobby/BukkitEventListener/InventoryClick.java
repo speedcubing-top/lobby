@@ -10,11 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import top.speedcubing.lib.bukkit.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
-import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.speedcubingServer;
 
