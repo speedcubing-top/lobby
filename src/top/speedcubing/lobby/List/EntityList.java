@@ -37,7 +37,7 @@ public class EntityList {
         Lobbys[1].setLocation(-4.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
         Lobbys[2].setLocation(2.5, 100.85, 24.5, 0, 0).setName("§bFastBuilder");
         Lobbys[3].setLocation(2.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0).setName("§bKnockBack FFA");
+        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0).setName("§bKnockBackFFA");
         Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[6].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
         Lobbys[7].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
