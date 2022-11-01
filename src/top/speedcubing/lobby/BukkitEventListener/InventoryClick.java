@@ -116,7 +116,7 @@ public class InventoryClick implements Listener {
                                 player.closeInventory();
                                 String discord = member.user.dbSelect("discord").getString();
                                 if (!discord.equals("0")) {
-                                    speedcubingServer.tcp.send(20000, "a|" + discord);
+                                    speedcubingServer.tcpClient.send(20000, "a|" + discord);
                                     member.user.dbUpdate("discord=0");
                                 }
                                 member.discord = false;
@@ -131,7 +131,7 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
                 if (RawSlot < 4)
-                    speedcubingServer.tcp.sendClean(25604 - Bukkit.getPort() % 2, "reduce|" + Member.getMember(e.getWhoClicked()).user.id + "|" + RawSlot + "|" + speedcubingServer.tcp.socket.getLocalPort());
+                    speedcubingServer.tcpClient.sendClean(25604 - Bukkit.getPort() % 2, "reduce|" + Member.getMember(e.getWhoClicked()).user.id + "|" + RawSlot + "|" + speedcubingServer.tcpServer.getLocalPort());
             }
         }
     }

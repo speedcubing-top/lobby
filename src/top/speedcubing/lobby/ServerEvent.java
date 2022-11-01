@@ -70,7 +70,7 @@ public class ServerEvent {
                         String theOldOne = member.user.dbSelect("discord").getString();
                         member.user.dbUpdate("discord=" + message);
                         if (!theOldOne.equals("") && !theOldOne.equals(message))
-                            speedcubingServer.tcp.send(20000, "a|" + theOldOne);
+                            speedcubingServer.tcpClient.send(20000, "a|" + theOldOne);
                         member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
                     } else member.user.sendLangMessage(StringList.discordinvalid);
                 } catch (Exception exception) {
