@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
+import top.speedcubing.lib.utils.ByteArrayDataBuilder;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
@@ -115,10 +116,8 @@ public class InventoryClick implements Listener {
                             case PICKUP_HALF: {
                                 player.closeInventory();
                                 String discord = member.user.dbSelect("discord").getString();
-                                if (!discord.equals("0")) {
-                                    speedcubingServer.tcpClient.send(20000, "a|" + discord);
+                                if (!discord.equals("0"))
                                     member.user.dbUpdate("discord=0");
-                                }
                                 member.discord = false;
                                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
                                 member.user.sendLangMessage(StringList.discordremoved);
@@ -131,7 +130,7 @@ public class InventoryClick implements Listener {
             } else if (holder == ItemStackList.GameSelectHolder) {
                 e.setCancelled(true);
                 if (RawSlot < 4)
-                    speedcubingServer.tcpClient.sendClean(25604 - Bukkit.getPort() % 2, "reduce|" + Member.getMember(e.getWhoClicked()).user.id + "|" + RawSlot + "|" + speedcubingServer.tcpServer.getLocalPort());
+                    speedcubingServer.tcpClient.send(25604 - Bukkit.getPort() % 2, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(e.getWhoClicked()).user.id).writeInt(RawSlot).writeInt(speedcubingServer.tcpServer.getLocalPort()).toByteArray());
             }
         }
     }

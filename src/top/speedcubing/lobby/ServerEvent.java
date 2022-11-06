@@ -2,9 +2,9 @@ package top.speedcubing.lobby;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
-import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.event.PlayInEvent;
+import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lib.utils.Console;
 import top.speedcubing.lobby.List.EntityList;
@@ -16,28 +16,27 @@ import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
+import java.io.IOException;
+
 public class ServerEvent {
     @LibEventHandler(priority = 500)
     public void InputEvent(InputEvent e) {
-        String[] rs = e.receive.split("\\|");
-        switch (rs[3]) {
+        switch (e.header) {
             case "login":
-                Lobby.login.add(Integer.parseInt(rs[4]));
+                try {
+                    Lobby.login.add(e.receive.readInt());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
                 break;
         }
     }
 
-
-    Integer[] onlines;
-    int a;
-
     @LibEventHandler
     public void CubingTickEvent(CubingTickEvent e) {
-        a = speedcubingServer.getOnlineCount();
-        for (SideBar s : SideBar.getSidebars()) {
-            s.setLineByScore(StringList.LobbySideBar[Member.getMember(s.player).user.lang][3] + a, 6);
-        }
-        onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%" + speedcubingServer.onlineOroFfline + "%'").orderBy("name ASC").getIntArray();
+        int onlineCount = speedcubingServer.getOnlineCount();
+        SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + onlineCount, 6));
+        Integer[] onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%" + speedcubingServer.onlineOroFfline + "%'").orderBy("name ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
         EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
@@ -48,10 +47,13 @@ public class ServerEvent {
 
     @LibEventHandler
     public void socketEvent(SocketEvent e) {
-        String[] rs = e.receive.split("\\|");
-        switch (rs[0]) {
+        switch (e.header) {
             case "reduce":
-                BungeePluginMessage.switchServer(Member.getMember(Integer.parseInt(rs[1])).user.player, "reduce");
+                try {
+                    BungeePluginMessage.switchServer(Member.getMember(e.receive.readInt()).user.player, "reduce");
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
                 break;
         }
     }
@@ -69,8 +71,6 @@ public class ServerEvent {
                     if (message.split(" ").length == 1) {
                         String theOldOne = member.user.dbSelect("discord").getString();
                         member.user.dbUpdate("discord=" + message);
-                        if (!theOldOne.equals("") && !theOldOne.equals(message))
-                            speedcubingServer.tcpClient.send(20000, "a|" + theOldOne);
                         member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
                     } else member.user.sendLangMessage(StringList.discordinvalid);
                 } catch (Exception exception) {
