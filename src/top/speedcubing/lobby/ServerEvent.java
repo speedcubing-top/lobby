@@ -25,9 +25,7 @@ public class ServerEvent {
     @LibEventHandler
     public void ConfigReloadEvent(ConfigReloadEvent e) {
         PlayerJoin.joinCrash.clear();
-        config.config.get("onlinecrash").getAsJsonArray().forEach(a -> {
-            PlayerJoin.joinCrash.add(a.getAsString().toLowerCase());
-        });
+        config.config.get("onlinecrash").getAsJsonArray().forEach(a -> PlayerJoin.joinCrash.add(a.getAsString().toLowerCase()));
     }
 
     @LibEventHandler(priority = 500)

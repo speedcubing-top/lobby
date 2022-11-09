@@ -18,6 +18,8 @@ import top.speedcubing.server.speedcubingServer;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PlayerJoin implements Listener {
 
@@ -26,8 +28,14 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        System.out.print(joinCrash + " " + joinCrash.contains(player.getName().toLowerCase()) + " " + player.getName());
         if (joinCrash.contains(player.getName().toLowerCase()))
-            PlayerUtils.explosionCrash(player);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    PlayerUtils.explosionCrash(player);
+                }
+            }, 1000);
         Member member = new Member(player);
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
