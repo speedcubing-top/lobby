@@ -12,6 +12,7 @@ import top.speedcubing.lobby.BukkitCommands.register;
 import top.speedcubing.lobby.BukkitEventListener.*;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.server.config;
 import top.speedcubing.server.speedcubingServer;
 
 import java.util.HashSet;
@@ -45,5 +46,6 @@ public class Lobby extends JavaPlugin {
         new ItemStackList().Load();
         new EntityList().Load();
         LibEventManager.registerListeners(new ServerEvent());
+        config.event.call();
     }
 }

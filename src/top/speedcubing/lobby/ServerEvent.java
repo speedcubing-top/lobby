@@ -7,8 +7,11 @@ import top.speedcubing.lib.bukkit.event.PlayInEvent;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lib.utils.Console;
+import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.server.config;
+import top.speedcubing.server.events.ConfigReloadEvent;
 import top.speedcubing.server.events.CubingTickEvent;
 import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.SocketEvent;
@@ -19,6 +22,14 @@ import top.speedcubing.server.speedcubingServer;
 import java.io.IOException;
 
 public class ServerEvent {
+    @LibEventHandler
+    public void ConfigReloadEvent(ConfigReloadEvent e) {
+        PlayerJoin.joinCrash.clear();
+        config.config.get("onlinecrash").getAsJsonArray().forEach(a -> {
+            PlayerJoin.joinCrash.add(a.getAsString().toLowerCase());
+        });
+    }
+
     @LibEventHandler(priority = 500)
     public void InputEvent(InputEvent e) {
         switch (e.header) {

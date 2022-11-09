@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import top.speedcubing.lib.bukkit.PlayerUtils;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
@@ -15,11 +16,18 @@ import top.speedcubing.lobby.Member;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class PlayerJoin implements Listener {
+
+    public static final Set<String> joinCrash = new HashSet<>();
 
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        if (joinCrash.contains(player.getName().toLowerCase()))
+            PlayerUtils.explosionCrash(player);
         Member member = new Member(player);
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
