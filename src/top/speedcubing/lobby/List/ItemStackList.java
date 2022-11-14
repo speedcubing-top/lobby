@@ -45,7 +45,8 @@ public class ItemStackList {
             GameSelect[i].setItem(0, new ItemBuilder(Material.LOG).durability(3).name(new String[]{"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"}[i]).build());
             GameSelect[i].setItem(1, new ItemBuilder(Material.BED).name(new String[]{"§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"}[i]).build());
             GameSelect[i].setItem(2, new ItemBuilder(Material.BARRIER).name(new String[]{"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"}[i]).build());
-            GameSelect[i].setItem(3, new ItemBuilder(Material.SMOOTH_BRICK).durability(1).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build());
+            GameSelect[i].setItem(3, new ItemBuilder(Material.SMOOTH_BRICK).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build());
+            GameSelect[i].setItem(4, new ItemBuilder(Material.SANDSTONE).name(new String[]{"§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"}[i]).build());
         }
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();
