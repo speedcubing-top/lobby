@@ -28,7 +28,6 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        System.out.print(joinCrash + " " + joinCrash.contains(player.getName().toLowerCase()) + " " + player.getName());
         if (joinCrash.contains(player.getName().toLowerCase()))
             new Timer().schedule(new TimerTask() {
                 @Override
