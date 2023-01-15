@@ -17,6 +17,7 @@ import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.SocketEvent;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.libs.GlobalString;
+import top.speedcubing.server.share.Chat;
 import top.speedcubing.server.speedcubingServer;
 
 import java.io.IOException;
@@ -78,7 +79,6 @@ public class ServerEvent {
                 try {
                     Long.parseLong(message);
                     if (message.split(" ").length == 1) {
-                        String theOldOne = member.user.dbSelect("discord").getString();
                         member.user.dbUpdate("discord=" + message);
                         member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
                     } else member.user.sendLangMessage(StringList.discordinvalid);
@@ -88,17 +88,26 @@ public class ServerEvent {
                 member.discord = false;
                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {
+                if (Chat.filt(message)) {
+
+                }
                 e.isCancelled = true;
                 String[] formats = speedcubingServer.getFormat(member.user.rank);
                 String text = formats[0] + player.getName();
-                String[] str = GlobalString.MessageFormat[0];
+                String[] str = GlobalString.MessageFormat;
                 String[] out = {
                         str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
-                speedcubingServer.globalChat(player.getWorld().getPlayers(), player, out);
+                String[] out2 = {
+                        str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
+                        str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
+                };
+                speedcubingServer.globalChat(player.getWorld().getPlayers(), player, out, out2);
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }

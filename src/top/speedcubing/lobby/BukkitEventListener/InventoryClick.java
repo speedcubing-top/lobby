@@ -92,6 +92,11 @@ public class InventoryClick implements Listener {
                         player.openInventory(ItemStackList.Lang[Member.getMember(player).user.lang]);
                     }
                     break;
+                    case 12: {
+                        Player player = (Player) e.getWhoClicked();
+                        player.openInventory(ItemStackList.ResetConfirm[Member.getMember(player).user.lang]);
+                    }
+                    break;
                     case 13: {
                         Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
@@ -131,6 +136,82 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 if (RawSlot < 5)
                     speedcubingServer.tcpClient.send(25604 - Bukkit.getPort() % 2, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(e.getWhoClicked()).user.id).writeInt(RawSlot).writeInt(speedcubingServer.tcpServer.getLocalPort()).toByteArray());
+            } else if (holder == ItemStackList.confirm){
+                e.setCancelled(true);
+                switch (RawSlot){
+                    case 11:
+                        Member member = Member.getMember(e.getWhoClicked());
+                    {
+                        speedcubingServer.connection.update("playersdata",
+                                "api=default(api)," +
+                                        "chatfilt=default(chatfilt)," +
+                                        "messagable=default(messagable)," +
+                                        "chat=default(chat)," +
+                                        "lang=default(lang)," +
+                                        "skinvalue=default(skinvalue)," +
+                                        "skinsignature=default(skinsignature)," +
+                                        "mlgrush_stick=default(mlgrush_stick)," +
+                                        "mlgrush_pickaxe=default(mlgrush_pickaxe)," +
+                                        "mlgrush_block=default(mlgrush_block)," +
+                                        "mlgrush_stickskin=default(mlgrush_stickskin)," +
+                                        "mlgrush_blockskin=default(mlgrush_blockskin)," +
+                                        "mlgrush_autoreset=default(mlgrush_autoreset)," +
+                                        "mlgrush_hitdelay=default(mlgrush_hitdelay)," +
+                                        "mlgrush_falldamage=default(mlgrush_falldamage)," +
+                                        "mlgrush_autoremove=default(mlgrush_autoremove)," +
+                                        "mlgrush_oldkb=default(mlgrush_oldkb)," +
+                                        "reduce_stick=default(reduce_stick)," +
+                                        "reduce_setting=default(reduce_setting)," +
+                                        "reduce_reach=default(reduce_reach)," +
+                                        "reduce_ver=default(reduce_ver)," +
+                                        "reduce_hor=default(reduce_hor)," +
+                                        "reduce_vanilla_reach=default(reduce_vanilla_reach)," +
+                                        "reduce_vanilla_hor=default(reduce_vanilla_hor)," +
+                                        "reduce_block=default(reduce_block)," +
+                                        "reduce_stickskin=default(reduce_stickskin)," +
+                                        "reduce_blockskin=default(reduce_blockskin)," +
+                                        "reduce_npcstick=default(reduce_npcstick)," +
+                                        "reduce_spec=default(reduce_spec)," +
+                                        "reduce_allowspec=default(reduce_allowspec)," +
+                                        "reduce_npccolor=default(reduce_npccolor)," +
+                                        "reduce_npcsound=default(reduce_npcsound)," +
+                                        "reduce_npcswing=default(reduce_npcswing)," +
+                                        "reduce_vanilla=default(reduce_vanilla)," +
+                                        "kbffa_inventory=default(kbffa_inventory)," +
+                                        "kbffa_kill=default(kbffa_kill)," +
+                                        "kbffa_death=default(kbffa_death)," +
+                                        "kbffa_killstreak=default(kbffa_killstreak)," +
+                                        "kbffa_dailykill=default(kbffa_dailykill)," +
+                                        "duels_nodebuff=default(duels_nodebuff)," +
+                                        "duels_combo=default(duels_combo)," +
+                                        "duels_nodamage=default(duels_nodamage)," +
+                                        "duels_boxing=default(duels_boxing)," +
+                                        "duels_gapple=default(duels_gapple)," +
+                                        "duels_bow=default(duels_bow)," +
+                                        "fb_0_pb=default(fb_0_pb)," +
+                                        "fb_1_pb=default(fb_1_pb)," +
+                                        "fb_2_pb=default(fb_2_pb)," +
+                                        "fb_3_pb=default(fb_3_pb)," +
+                                        "fb_4_pb=default(fb_4_pb)," +
+                                        "fastbuild_blockskin=default(fastbuild_blockskin)," +
+                                        "fastbuild_falldelay=default(fastbuild_falldelay)," +
+                                        "clutch_blockskin=default(clutch_blockskin)," +
+                                        "clutch_normal_hits=default(clutch_normal_hits)," +
+                                        "clutch_inclined_hits=default(clutch_inclined_hits)," +
+                                        "clutch_normal_ver=default(clutch_normal_ver)," +
+                                        "clutch_inclined_ver=default(clutch_inclined_ver)," +
+                                        "clutch_normal_hitdelay=default(clutch_normal_hitdelay)," +
+                                        "clutch_inclined_hitdelay=default(clutch_inclined_hitdelay)," +
+                                        "customfb_x=default(customfb_x)," +
+                                        "customfb_y=default(customfb_y)," +
+                                        "nickpriority=default(nickpriority)", "id=" + member.user.id);
+                    }
+                    ((Player) e.getWhoClicked()).kickPlayer("Sucessfully reset your stats.\nPlease rejoin.");
+                        break;
+                    case 15:
+                        e.getWhoClicked().closeInventory();
+                        break;
+                }
             }
         }
     }
