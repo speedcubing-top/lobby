@@ -94,19 +94,14 @@ public class InventoryClick implements Listener {
                     break;
                     case 12: {
                         Player player = (Player) e.getWhoClicked();
-                        player.openInventory(ItemStackList.ResetConfirm[Member.getMember(player).user.lang]);
-                    }
-                    break;
-                    case 13: {
-                        Player player = (Player) e.getWhoClicked();
                         player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                         Member member = Member.getMember(player);
                         member.messagetoggled = !member.messagetoggled;
-                        e.getClickedInventory().setItem(22, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
+                        e.getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
                         member.user.dbUpdate("messagable=" + (member.messagetoggled ? 1 : 0));
                     }
                     break;
-                    case 15: {
+                    case 13: {
                         Player player = (Player) e.getWhoClicked();
                         Member member = Member.getMember(player);
                         switch (e.getAction()) {
@@ -129,6 +124,16 @@ public class InventoryClick implements Listener {
                             }
                             break;
                         }
+                    }
+                    break;
+                    case 14: {
+                        Player player = (Player) e.getWhoClicked();
+                        player.openInventory(ItemStackList.ResetConfirm[Member.getMember(player).user.lang]);
+                    }
+                    break;
+                    case 15: {
+                        Player player = (Player) e.getWhoClicked();
+                        player.openInventory(ItemStackList.ResetConfirmStat[Member.getMember(player).user.lang]);
                     }
                     break;
                 }
@@ -178,21 +183,12 @@ public class InventoryClick implements Listener {
                                         "reduce_npcswing=default(reduce_npcswing)," +
                                         "reduce_vanilla=default(reduce_vanilla)," +
                                         "kbffa_inventory=default(kbffa_inventory)," +
-                                        "kbffa_kill=default(kbffa_kill)," +
-                                        "kbffa_death=default(kbffa_death)," +
-                                        "kbffa_killstreak=default(kbffa_killstreak)," +
-                                        "kbffa_dailykill=default(kbffa_dailykill)," +
                                         "duels_nodebuff=default(duels_nodebuff)," +
                                         "duels_combo=default(duels_combo)," +
                                         "duels_nodamage=default(duels_nodamage)," +
                                         "duels_boxing=default(duels_boxing)," +
                                         "duels_gapple=default(duels_gapple)," +
                                         "duels_bow=default(duels_bow)," +
-                                        "fb_0_pb=default(fb_0_pb)," +
-                                        "fb_1_pb=default(fb_1_pb)," +
-                                        "fb_2_pb=default(fb_2_pb)," +
-                                        "fb_3_pb=default(fb_3_pb)," +
-                                        "fb_4_pb=default(fb_4_pb)," +
                                         "fastbuild_blockskin=default(fastbuild_blockskin)," +
                                         "fastbuild_falldelay=default(fastbuild_falldelay)," +
                                         "clutch_blockskin=default(clutch_blockskin)," +
@@ -206,8 +202,31 @@ public class InventoryClick implements Listener {
                                         "customfb_y=default(customfb_y)," +
                                         "nickpriority=default(nickpriority)", "id=" + member.user.id);
                     }
-                    ((Player) e.getWhoClicked()).kickPlayer("Sucessfully reset your stats.\nPlease rejoin.");
+                    member.user.sendLangMessage(StringList.reset);
                         break;
+                    case 15:
+                        e.getWhoClicked().closeInventory();
+                        break;
+                }
+            } else if (holder == ItemStackList.confirmStat){
+                e.setCancelled(true);
+                switch (RawSlot){
+                    case 11:
+                        Member member = Member.getMember(e.getWhoClicked());
+                    {
+                        speedcubingServer.connection.update("playersdata",
+                                        "kbffa_kill=default(kbffa_kill)," +
+                                        "kbffa_death=default(kbffa_death)," +
+                                        "kbffa_killstreak=default(kbffa_killstreak)," +
+                                        "kbffa_dailykill=default(kbffa_dailykill)," +
+                                        "fb_0_pb=default(fb_0_pb)," +
+                                        "fb_1_pb=default(fb_1_pb)," +
+                                        "fb_2_pb=default(fb_2_pb)," +
+                                        "fb_3_pb=default(fb_3_pb)," +
+                                        "fb_4_pb=default(fb_4_pb),", "id=" + member.user.id);
+                    }
+                    ((Player) e.getWhoClicked()).kickPlayer("Sucessfully reset your settings.\nPlease rejoin.");
+                    break;
                     case 15:
                         e.getWhoClicked().closeInventory();
                         break;

@@ -9,6 +9,13 @@ public class StringList {
             "§8[§e系統§8] §a成功切換為中文!\n§8[§e系統§8] §c伺服器目前尚未完全翻譯",
             "§8[§e系统§8] §a成功切换为简体中文!\n§8[§e系统§8] §c伺服器目前尚未完全翻译"};
 
+    public static String[] reset = {
+            "Successfully reset your stats.",
+            "Successfully reset your stats.",
+            "Successfully reset your stats.",
+            "Successfully reset your stats."
+    };
+
     public static String[] AlreadyInHub = {
             "§cDu befindest dich bereits in der hub.",
             "§cYou are already in hub.",

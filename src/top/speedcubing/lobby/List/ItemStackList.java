@@ -24,8 +24,11 @@ public class ItemStackList {
     public static ItemStack[] dm = new ItemStack[4];
     public static ItemStack[][] toggle = new ItemStack[2][4];
     public static final InventoryHolder confirm = () -> null;
-
+    public static final InventoryHolder confirmStat = () -> null;
+    public static ItemStack[] Reset = new ItemStack[4];
+    public static ItemStack[] ResetStat = new ItemStack[4];
     public static final Inventory[] ResetConfirm = new Inventory[4];
+    public static final Inventory[] ResetConfirmStat = new Inventory[4];
 
     public void Load() {
         String[] yes = {"§aYes", "§aYes", "§aYes", "§aYes"};
@@ -34,7 +37,11 @@ public class ItemStackList {
             ResetConfirm[i] = Bukkit.createInventory(confirm, 27, new String[]{"§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?"}[i]);
             ResetConfirm[i].setItem(11, new ItemBuilder(Material.STAINED_CLAY).durability(13).name(yes[i]).build());
             ResetConfirm[i].setItem(15, new ItemBuilder(Material.STAINED_CLAY).durability(14).name(no[i]).build());
-
+            ResetConfirmStat[i] = Bukkit.createInventory(confirmStat, 27, new String[]{"§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?"}[i]);
+            ResetConfirmStat[i].setItem(11, new ItemBuilder(Material.STAINED_CLAY).durability(13).name(yes[i]).build());
+            ResetConfirmStat[i].setItem(15, new ItemBuilder(Material.STAINED_CLAY).durability(14).name(no[i]).build());
+            Reset[i] = new ItemBuilder(Material.BARRIER).name(new String[]{"§cReset your settings"}[i]).build();
+            ResetStat[i] = new ItemBuilder(Material.BARRIER).name(new String[]{"§cReset your stats"}[i]).build();
             lang[i] = new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build();
             Navigator[i] = new ItemBuilder(Material.COMPASS).name(new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]).build();
             Settings[i] = new ItemBuilder(Material.REDSTONE_COMPARATOR).name(new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]).build();
