@@ -141,9 +141,32 @@ public class InventoryClick implements Listener {
                 e.setCancelled(true);
                 if (RawSlot < 5)
                     speedcubingServer.tcpClient.send(25604 - Bukkit.getPort() % 2, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(e.getWhoClicked()).user.id).writeInt(RawSlot).writeInt(speedcubingServer.tcpServer.getLocalPort()).toByteArray());
-            } else if (holder == ItemStackList.confirm){
+            } else if (holder == ItemStackList.confirmStat) {
                 e.setCancelled(true);
-                switch (RawSlot){
+                switch (RawSlot) {
+                    case 11:
+                        Member member = Member.getMember(e.getWhoClicked());
+                    {
+                        speedcubingServer.connection.update("playersdata",
+                                "kbffa_kill=default(kbffa_kill)," +
+                                        "kbffa_death=default(kbffa_death)," +
+                                        "kbffa_killstreak=default(kbffa_killstreak)," +
+                                        "kbffa_dailykill=default(kbffa_dailykill)," +
+                                        "fb_0_pb=default(fb_0_pb)," +
+                                        "fb_1_pb=default(fb_1_pb)," +
+                                        "fb_2_pb=default(fb_2_pb)," +
+                                        "fb_3_pb=default(fb_3_pb)," +
+                                        "fb_4_pb=default(fb_4_pb)", "id=" + member.user.id);
+                    }
+                    member.user.sendLangMessage(StringList.reset);
+                    break;
+                    case 15:
+                        e.getWhoClicked().closeInventory();
+                        break;
+                }
+            } else if (holder == ItemStackList.confirm) {
+                e.setCancelled(true);
+                switch (RawSlot) {
                     case 11:
                         Member member = Member.getMember(e.getWhoClicked());
                     {
@@ -202,30 +225,8 @@ public class InventoryClick implements Listener {
                                         "customfb_y=default(customfb_y)," +
                                         "nickpriority=default(nickpriority)", "id=" + member.user.id);
                     }
-                    member.user.sendLangMessage(StringList.reset);
-                        break;
-                    case 15:
-                        e.getWhoClicked().closeInventory();
-                        break;
-                }
-            } else if (holder == ItemStackList.confirmStat){
-                e.setCancelled(true);
-                switch (RawSlot){
-                    case 11:
-                        Member member = Member.getMember(e.getWhoClicked());
-                    {
-                        speedcubingServer.connection.update("playersdata",
-                                        "kbffa_kill=default(kbffa_kill)," +
-                                        "kbffa_death=default(kbffa_death)," +
-                                        "kbffa_killstreak=default(kbffa_killstreak)," +
-                                        "kbffa_dailykill=default(kbffa_dailykill)," +
-                                        "fb_0_pb=default(fb_0_pb)," +
-                                        "fb_1_pb=default(fb_1_pb)," +
-                                        "fb_2_pb=default(fb_2_pb)," +
-                                        "fb_3_pb=default(fb_3_pb)," +
-                                        "fb_4_pb=default(fb_4_pb),", "id=" + member.user.id);
-                    }
                     ((Player) e.getWhoClicked()).kickPlayer("Sucessfully reset your settings.\nPlease rejoin.");
+                    e.getWhoClicked().closeInventory();
                     break;
                     case 15:
                         e.getWhoClicked().closeInventory();
