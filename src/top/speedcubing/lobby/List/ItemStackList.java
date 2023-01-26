@@ -7,8 +7,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
@@ -24,8 +24,6 @@ public class ItemStackList {
     public static ItemStack[] lang = new ItemStack[4];
     public static Inventory[] GameSelect = new Inventory[4];
     public static Inventory[] navigator = new Inventory[4];
-    public static InventoryHolder SettingsHolder = () -> null;
-    public static InventoryHolder LangHolder = () -> null;
     public static Inventory[] Lang = new Inventory[4];
     public static ItemStack[] dm = new ItemStack[4];
     public static ItemStack[][] toggle = new ItemStack[2][4];
@@ -83,26 +81,30 @@ public class ItemStackList {
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();
         ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").build();
         ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").build();
-        Lang[0] = Bukkit.createInventory(LangHolder, 27, "§cSprache");
-        Lang[0].setItem(10, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected[0]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build());
-        Lang[0].setItem(12, English);
-        Lang[0].setItem(14, Mandarin);
-        Lang[0].setItem(16, Chinese);
-        Lang[1] = Bukkit.createInventory(LangHolder, 27, "§cLanguage");
-        Lang[1].setItem(10, Deutsch);
-        Lang[1].setItem(12, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected[1]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build());
-        Lang[1].setItem(14, Mandarin);
-        Lang[1].setItem(16, Chinese);
-        Lang[2] = Bukkit.createInventory(LangHolder, 27, "§c語言");
-        Lang[2].setItem(10, Deutsch);
-        Lang[2].setItem(12, English);
-        Lang[2].setItem(14, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected[2]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build());
-        Lang[2].setItem(16, Chinese);
-        Lang[3] = Bukkit.createInventory(LangHolder, 27, "§c语言");
-        Lang[3].setItem(10, Deutsch);
-        Lang[3].setItem(12, English);
-        Lang[3].setItem(14, Mandarin);
-        Lang[3].setItem(16, new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected[3]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build());
+        Lang[0] = new InventoryBuilder(27, "§cSprache")
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected[0]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build(), (p, event) -> c(p, 0), 10)
+                .setItem(English, (p, event) -> c(p, 1), 12)
+                .setItem(Mandarin, (p, event) -> c(p, 2), 14)
+                .setItem(Chinese, (p, event) -> c(p, 3), 16)
+                .getInventory();
+        Lang[1] = new InventoryBuilder(27, "§cLanguage")
+                .setItem(Deutsch, (p, event) -> c(p, 0), 10)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected[1]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (p, event) -> c(p, 1), 12)
+                .setItem(Mandarin, (p, event) -> c(p, 2), 14)
+                .setItem(Chinese, (p, event) -> c(p, 3), 16)
+                .getInventory();
+        Lang[2] = new InventoryBuilder(27, "§c語言")
+                .setItem(Deutsch, (p, event) -> c(p, 0), 10)
+                .setItem(English, (p, event) -> c(p, 1), 12)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected[2]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (p, event) -> c(p, 2), 14)
+                .setItem(Chinese, (p, event) -> c(p, 3), 16)
+                .getInventory();
+        Lang[3] = new InventoryBuilder(27, "§c语言")
+                .setItem(Deutsch, (p, event) -> c(p, 0), 10)
+                .setItem(English, (p, event) -> c(p, 1), 12)
+                .setItem(Mandarin, (p, event) -> c(p, 2), 14)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected[3]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (p, event) -> c(p, 3), 16)
+                .getInventory();
     }
 
     public void a(Player player, InventoryClickEvent e) {
@@ -182,5 +184,16 @@ public class ItemStackList {
                             "fb_4_pb=default(fb_4_pb)", "id=" + member.user.id);
         }
         member.user.sendLangMessage(StringList.reset);
+    }
+
+    public void c(Player player, int x) {
+        Member member = Member.getMember(player);
+        member.user.lang = x;
+        String[] sidebar = StringList.LobbySideBar[x];
+        SideBar.getSidebar(player).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
+        player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
+        member.user.sendLangMessage(StringList.LangSettings);
+        member.user.dbUpdate("lang=" + x);
+        player.closeInventory();
     }
 }
