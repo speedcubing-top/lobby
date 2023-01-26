@@ -88,10 +88,10 @@ public class ServerEvent {
                 member.discord = false;
                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {
-                if (Chat.filt(message)) {
-
-                }
                 e.isCancelled = true;
+                if (Chat.checkBlockedText(message))
+                    return;
+                String filtered = Chat.filter(message);
                 String[] formats = speedcubingServer.getFormat(member.user.rank);
                 String text = formats[0] + player.getName();
                 String[] str = GlobalString.MessageFormat;
@@ -102,12 +102,12 @@ public class ServerEvent {
                         str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
                 };
                 String[] out2 = {
-                        str[0].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[1].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[2].replace("%text%", text).replace("%text2%", formats[2] + message),
-                        str[3].replace("%text%", text).replace("%text2%", formats[2] + message)
+                        str[0].replace("%text%", text).replace("%text2%", formats[2] + filtered),
+                        str[1].replace("%text%", text).replace("%text2%", formats[2] + filtered),
+                        str[2].replace("%text%", text).replace("%text2%", formats[2] + filtered),
+                        str[3].replace("%text%", text).replace("%text2%", formats[2] + filtered)
                 };
-                speedcubingServer.globalChat(player.getWorld().getPlayers(), player, out, out2);
+                Chat.globalChat(player.getWorld().getPlayers(), player, out, out2);
                 Console.sendColoredConsole("§7[§aChatLog§7] [§b" + player.getWorld().getName() + "§7] " + out[1]);
             }
         }

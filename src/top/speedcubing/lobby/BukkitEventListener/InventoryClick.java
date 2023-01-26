@@ -1,8 +1,6 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +9,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
-import top.speedcubing.lib.utils.ByteArrayDataBuilder;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
@@ -29,32 +25,6 @@ public class InventoryClick implements Listener {
             if (inventory.getName().equals("container.crafting")) {
                 if (e.getWhoClicked().getGameMode() == GameMode.ADVENTURE)
                     e.setCancelled(true);
-            } else if (holder == ItemStackList.NavigatorHolder) {
-                e.setCancelled(true);
-                switch (RawSlot) {
-                    case 16:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "knockbackffa");
-                        break;
-                    case 10:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "mlgrush");
-                        break;
-                    case 28:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "practice");
-                        break;
-                    case 23:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "fastbuilder");
-                        break;
-                    case 34:
-                        BungeePluginMessage.switchServer((Player) e.getWhoClicked(), "clutch");
-                        break;
-                    case 21: {
-                        Player player = (Player) e.getWhoClicked();
-                        player.closeInventory();
-                        player.playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-                        player.teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
-                    }
-                    break;
-                }
             } else if (holder == ItemStackList.LangHolder) {
                 e.setCancelled(true);
                 int x = -1;
@@ -136,101 +106,6 @@ public class InventoryClick implements Listener {
                         player.openInventory(ItemStackList.ResetConfirmStat[Member.getMember(player).user.lang]);
                     }
                     break;
-                }
-            } else if (holder == ItemStackList.GameSelectHolder) {
-                e.setCancelled(true);
-                if (RawSlot < 5)
-                    speedcubingServer.tcpClient.send(25604 - Bukkit.getPort() % 2, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(e.getWhoClicked()).user.id).writeInt(RawSlot).writeInt(speedcubingServer.tcpServer.getLocalPort()).toByteArray());
-            } else if (holder == ItemStackList.confirmStat) {
-                e.setCancelled(true);
-                switch (RawSlot) {
-                    case 11:
-                        Member member = Member.getMember(e.getWhoClicked());
-                    {
-                        speedcubingServer.connection.update("playersdata",
-                                "kbffa_kill=default(kbffa_kill)," +
-                                        "kbffa_death=default(kbffa_death)," +
-                                        "kbffa_killstreak=default(kbffa_killstreak)," +
-                                        "kbffa_dailykill=default(kbffa_dailykill)," +
-                                        "fb_0_pb=default(fb_0_pb)," +
-                                        "fb_1_pb=default(fb_1_pb)," +
-                                        "fb_2_pb=default(fb_2_pb)," +
-                                        "fb_3_pb=default(fb_3_pb)," +
-                                        "fb_4_pb=default(fb_4_pb)", "id=" + member.user.id);
-                    }
-                    member.user.sendLangMessage(StringList.reset);
-                    break;
-                    case 15:
-                        e.getWhoClicked().closeInventory();
-                        break;
-                }
-            } else if (holder == ItemStackList.confirm) {
-                e.setCancelled(true);
-                switch (RawSlot) {
-                    case 11:
-                        Member member = Member.getMember(e.getWhoClicked());
-                    {
-                        speedcubingServer.connection.update("playersdata",
-                                "api=default(api)," +
-                                        "chatfilt=default(chatfilt)," +
-                                        "messagable=default(messagable)," +
-                                        "chat=default(chat)," +
-                                        "lang=default(lang)," +
-                                        "skinvalue=default(skinvalue)," +
-                                        "skinsignature=default(skinsignature)," +
-                                        "mlgrush_stick=default(mlgrush_stick)," +
-                                        "mlgrush_pickaxe=default(mlgrush_pickaxe)," +
-                                        "mlgrush_block=default(mlgrush_block)," +
-                                        "mlgrush_stickskin=default(mlgrush_stickskin)," +
-                                        "mlgrush_blockskin=default(mlgrush_blockskin)," +
-                                        "mlgrush_autoreset=default(mlgrush_autoreset)," +
-                                        "mlgrush_hitdelay=default(mlgrush_hitdelay)," +
-                                        "mlgrush_falldamage=default(mlgrush_falldamage)," +
-                                        "mlgrush_autoremove=default(mlgrush_autoremove)," +
-                                        "mlgrush_oldkb=default(mlgrush_oldkb)," +
-                                        "reduce_stick=default(reduce_stick)," +
-                                        "reduce_setting=default(reduce_setting)," +
-                                        "reduce_reach=default(reduce_reach)," +
-                                        "reduce_ver=default(reduce_ver)," +
-                                        "reduce_hor=default(reduce_hor)," +
-                                        "reduce_vanilla_reach=default(reduce_vanilla_reach)," +
-                                        "reduce_vanilla_hor=default(reduce_vanilla_hor)," +
-                                        "reduce_block=default(reduce_block)," +
-                                        "reduce_stickskin=default(reduce_stickskin)," +
-                                        "reduce_blockskin=default(reduce_blockskin)," +
-                                        "reduce_npcstick=default(reduce_npcstick)," +
-                                        "reduce_spec=default(reduce_spec)," +
-                                        "reduce_allowspec=default(reduce_allowspec)," +
-                                        "reduce_npccolor=default(reduce_npccolor)," +
-                                        "reduce_npcsound=default(reduce_npcsound)," +
-                                        "reduce_npcswing=default(reduce_npcswing)," +
-                                        "reduce_vanilla=default(reduce_vanilla)," +
-                                        "kbffa_inventory=default(kbffa_inventory)," +
-                                        "duels_nodebuff=default(duels_nodebuff)," +
-                                        "duels_combo=default(duels_combo)," +
-                                        "duels_nodamage=default(duels_nodamage)," +
-                                        "duels_boxing=default(duels_boxing)," +
-                                        "duels_gapple=default(duels_gapple)," +
-                                        "duels_bow=default(duels_bow)," +
-                                        "fastbuild_blockskin=default(fastbuild_blockskin)," +
-                                        "fastbuild_falldelay=default(fastbuild_falldelay)," +
-                                        "clutch_blockskin=default(clutch_blockskin)," +
-                                        "clutch_normal_hits=default(clutch_normal_hits)," +
-                                        "clutch_inclined_hits=default(clutch_inclined_hits)," +
-                                        "clutch_normal_ver=default(clutch_normal_ver)," +
-                                        "clutch_inclined_ver=default(clutch_inclined_ver)," +
-                                        "clutch_normal_hitdelay=default(clutch_normal_hitdelay)," +
-                                        "clutch_inclined_hitdelay=default(clutch_inclined_hitdelay)," +
-                                        "customfb_x=default(customfb_x)," +
-                                        "customfb_y=default(customfb_y)," +
-                                        "nickpriority=default(nickpriority)", "id=" + member.user.id);
-                    }
-                    ((Player) e.getWhoClicked()).kickPlayer("Sucessfully reset your settings.\nPlease rejoin.");
-                    e.getWhoClicked().closeInventory();
-                    break;
-                    case 15:
-                        e.getWhoClicked().closeInventory();
-                        break;
                 }
             }
         }
