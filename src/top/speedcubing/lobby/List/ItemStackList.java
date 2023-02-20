@@ -191,7 +191,7 @@ public class ItemStackList {
         member.user.lang = x;
         String[] sidebar = StringList.LobbySideBar[x];
         SideBar.getSidebar(player).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
-        player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1F);
+        member.user.sound(Sound.NOTE_PLING);
         member.user.sendLangMessage(StringList.LangSettings);
         member.user.dbUpdate("lang=" + x);
         player.closeInventory();
