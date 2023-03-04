@@ -22,6 +22,7 @@ public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
 
     public void onEnable() {
+        BadApple.init();
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
         Bukkit.getPluginCommand("lang").setTabCompleter(new lang());

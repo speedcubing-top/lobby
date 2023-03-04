@@ -8,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 
 public class InventoryClick implements Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void InventoryClickEvent(InventoryClickEvent e) {
         Inventory inventory = e.getInventory();
         int RawSlot = e.getRawSlot();

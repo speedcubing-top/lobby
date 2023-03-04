@@ -8,6 +8,8 @@ commands:
     usage: /register
   login:
     usage: /login
+  badapple:
+    usage: /ba
 depend:
   - speedcubingServer
   - speedcubingLib
