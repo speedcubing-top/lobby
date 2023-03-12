@@ -6,7 +6,6 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.event.PlayInEvent;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.eventbus.LibEventHandler;
-import top.speedcubing.lib.utils.Console;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
@@ -46,7 +45,7 @@ public class ServerEvent {
     public void CubingTickEvent(CubingTickEvent e) {
         int onlineCount = speedcubingServer.getOnlineCount();
         SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + onlineCount, 6));
-        Integer[] onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").where("`name` LIKE '%" + speedcubingServer.onlineOroFfline + "%'").orderBy("name ASC").getIntArray();
+        Integer[] onlines = speedcubingServer.systemConnection.select("onlinecount").from("servers").orderBy("name ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
         EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
