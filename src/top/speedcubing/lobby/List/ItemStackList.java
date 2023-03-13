@@ -14,6 +14,7 @@ import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.utils.ByteArrayDataBuilder;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.server.database.Database;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
@@ -110,7 +111,7 @@ public class ItemStackList {
     public void a(Player player, InventoryClickEvent e) {
         Member member = Member.getMember(e.getWhoClicked());
         {
-            speedcubingServer.connection.update("playersdata",
+            Database.connection.update("playersdata",
                     "api=default(api)," +
                             "chatfilt=default(chatfilt)," +
                             "messagable=default(messagable)," +
@@ -171,18 +172,16 @@ public class ItemStackList {
 
     public void b(Player player, InventoryClickEvent e) {
         Member member = Member.getMember(e.getWhoClicked());
-        {
-            speedcubingServer.connection.update("playersdata",
-                    "kbffa_kill=default(kbffa_kill)," +
-                            "kbffa_death=default(kbffa_death)," +
-                            "kbffa_killstreak=default(kbffa_killstreak)," +
-                            "kbffa_dailykill=default(kbffa_dailykill)," +
-                            "fb_0_pb=default(fb_0_pb)," +
-                            "fb_1_pb=default(fb_1_pb)," +
-                            "fb_2_pb=default(fb_2_pb)," +
-                            "fb_3_pb=default(fb_3_pb)," +
-                            "fb_4_pb=default(fb_4_pb)", "id=" + member.user.id);
-        }
+        member.user.dbUpdate(
+                "kbffa_kill=default(kbffa_kill)," +
+                        "kbffa_death=default(kbffa_death)," +
+                        "kbffa_killstreak=default(kbffa_killstreak)," +
+                        "kbffa_dailykill=default(kbffa_dailykill)," +
+                        "fb_0_pb=default(fb_0_pb)," +
+                        "fb_1_pb=default(fb_1_pb)," +
+                        "fb_2_pb=default(fb_2_pb)," +
+                        "fb_3_pb=default(fb_3_pb)," +
+                        "fb_4_pb=default(fb_4_pb)");
         member.user.sendLangMessage(StringList.reset);
     }
 

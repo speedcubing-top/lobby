@@ -13,6 +13,7 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.server.database.DataCenter;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
@@ -45,7 +46,7 @@ public class PlayerJoin implements Listener {
 //                player.sendMessage("/register <password> <confirm password>");
 //            else player.sendMessage("/login <password>");
 //        } else
-            joinLobby(player, false);
+        joinLobby(player, false);
     }
 
     public static void joinLobby(Player player, boolean login) {
@@ -64,7 +65,7 @@ public class PlayerJoin implements Listener {
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
                 .changeableLine(sidebar[2], 7)
-                .changeableLine(sidebar[3] + speedcubingServer.getOnlineCount(), 6)
+                .changeableLine(sidebar[3] + DataCenter.onlineCount, 6)
                 .staticLine(sidebar[4], 5)
                 .changeableLine(sidebar[5], 4)
                 .staticLine(sidebar[6].replace("%player%", format[0] + name), 3)
