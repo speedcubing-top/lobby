@@ -14,6 +14,7 @@ import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.database.DataCenter;
+import top.speedcubing.server.database.Rank;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
@@ -54,7 +55,7 @@ public class PlayerJoin implements Listener {
         member.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
         Inventory inventory = player.getInventory();
-        String[] format = speedcubingServer.getFormat(member.user.rank);
+        String[] format = Rank.getFormat(member.user.rank);
         String name = player.getName();
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
