@@ -55,7 +55,7 @@ public class PlayerJoin implements Listener {
         member.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
         Inventory inventory = player.getInventory();
-        String[] format = Rank.getFormat(member.user.rank);
+        String[] format = member.user.getFormat();
         String name = player.getName();
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
