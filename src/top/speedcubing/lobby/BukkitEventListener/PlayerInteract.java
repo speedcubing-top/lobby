@@ -34,9 +34,11 @@ public class PlayerInteract implements Listener {
                         }, 11)
                         .setItem(ItemStackList.dm[member.user.lang], (p, event) -> {
                             member.user.sound(Sound.CLICK);
-                            member.messagetoggled = !member.messagetoggled;
-                            event.getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang]);
-                            member.user.dbUpdate("messagable=" + (member.messagetoggled ? 1 : 0));
+                            member.messagetoggled++;
+                            if (member.messagetoggled > 2)
+                                member.messagetoggled = 0;
+                            event.getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled][member.user.lang]);
+                            member.user.dbUpdate("messagable=" + (member.messagetoggled));
                         }, 12)
                         .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[member.user.lang]).lore(
                                                 data.equals("0") ? StringList.discordB[member.user.lang] : StringList.discordA[member.user.lang].replace("%a%", data), StringList.discordEdit[member.user.lang])
@@ -69,7 +71,7 @@ public class PlayerInteract implements Listener {
                         .setItem(ItemStackList.ResetStat[member.user.lang],
                                 (p, event) -> p.openInventory(ItemStackList.ResetConfirmStat[member.user.lang]),
                                 15)
-                        .setItem(ItemStackList.toggle[member.messagetoggled ? 0 : 1][member.user.lang], 21).getInventory();
+                        .setItem(ItemStackList.toggle[member.messagetoggled][member.user.lang], 21).getInventory();
                 player.openInventory(inv);
                 break;
         }

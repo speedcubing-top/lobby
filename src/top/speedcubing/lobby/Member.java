@@ -22,13 +22,13 @@ public class Member {
 
     public boolean haveToLogin;
     public boolean discord;
-    public boolean messagetoggled;
+    public int messagetoggled;
 
     public Member(Player player) {
         this.user = User.getUser(player);
         haveToLogin = Lobby.login.contains(user.id);
         Lobby.login.remove(user.id);
-        messagetoggled = user.dbSelect("messagable").getBoolean();
+        messagetoggled = user.dbSelect("messagable").getInt();
         users.put(user.id, this);
     }
 }

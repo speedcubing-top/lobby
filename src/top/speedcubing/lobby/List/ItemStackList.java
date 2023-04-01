@@ -27,7 +27,7 @@ public class ItemStackList {
     public static Inventory[] navigator = new Inventory[4];
     public static Inventory[] Lang = new Inventory[4];
     public static ItemStack[] dm = new ItemStack[4];
-    public static ItemStack[][] toggle = new ItemStack[2][4];
+    public static ItemStack[][] toggle = new ItemStack[3][4];
     public static ItemStack[] Reset = new ItemStack[4];
     public static ItemStack[] ResetStat = new ItemStack[4];
     public static final Inventory[] ResetConfirm = new Inventory[4];
@@ -65,8 +65,9 @@ public class ItemStackList {
                     .setItem(new ItemBuilder(Material.SANDSTONE_STAIRS).name(new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i]).build(), (a, b) -> BungeePluginMessage.switchServer(a, "clutch"), 34)
                     .getInventory();
             dm[i] = new ItemBuilder(Material.SIGN).name(new String[]{"§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message"}[i]).build();
-            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aon", "§aon", "§aon", "§aon"}[i]).build();
-            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§coff", "§coff", "§coff", "§coff"}[i]).build();
+            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§cNo one can message you.", "§cNo one can message you.","§cNo one can message you.","§cNo one can message you."}[i]).build();
+            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(14).name(new String[]{"§6Only friends can message you.", "§6Only friends can message you.","§6Only friends can message you.","§6Only friends can message you."}[i]).build();
+            toggle[2][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aEveryone can message you.","§aEveryone can message you.","§aEveryone can message you.","§aEveryone can message you."}[i]).build();
 
             GameSelect[i] = new InventoryBuilder(18, new String[]{"§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce"}[i])
                     .setItem(new ItemBuilder(Material.LOG).durability(3).name(new String[]{"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"}[i]).build(), 0)
