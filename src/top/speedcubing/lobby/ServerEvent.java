@@ -4,22 +4,15 @@ import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.event.PlayInEvent;
-import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
-import top.speedcubing.lobby.List.EntityList;
-import top.speedcubing.lobby.List.StringList;
-import top.speedcubing.server.config;
-import top.speedcubing.server.database.DataCenter;
-import top.speedcubing.server.database.Database;
-import top.speedcubing.server.events.ConfigReloadEvent;
-import top.speedcubing.server.events.CubingTickEvent;
-import top.speedcubing.server.events.InputEvent;
-import top.speedcubing.server.events.SocketEvent;
+import top.speedcubing.lobby.List.*;
+import top.speedcubing.server.*;
+import top.speedcubing.server.database.*;
+import top.speedcubing.server.events.*;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.libs.GlobalString;
 import top.speedcubing.server.share.Chat;
-import top.speedcubing.server.speedcubingServer;
 
 import java.io.IOException;
 
@@ -53,19 +46,6 @@ public class ServerEvent {
         EntityList.Lobbys[7].setName("§e§l" + onlines[4] + " Players");
         EntityList.Lobbys[9].setName("§e§l" + onlines[5] + " Players");
         EntityList.Lobbys[11].setName("§e§l" + onlines[6] + " Players");
-    }
-
-    @LibEventHandler
-    public void socketEvent(SocketEvent e) {
-        switch (e.header) {
-            case "reduce":
-                try {
-                    BungeePluginMessage.switchServer(Member.getMember(e.receive.readInt()).user.player, "reduce");
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-                break;
-        }
     }
 
     @LibEventHandler
