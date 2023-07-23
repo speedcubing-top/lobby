@@ -23,7 +23,7 @@ public class BadApple implements Listener, CommandExecutor {
         Bukkit.getPluginManager().registerEvents(new BadApple(), speedcubingServer.getPlugin(speedcubingServer.class));
         Bukkit.getPluginCommand("badapple").setExecutor(new BadApple());
         try {
-            File file = new File("../../../datas.txt");
+            File file = new File("../../datas.txt");
             BufferedReader input = new BufferedReader(new FileReader(file));
             String line = "";
             boolean a = true;
