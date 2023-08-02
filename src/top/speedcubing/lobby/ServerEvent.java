@@ -25,7 +25,7 @@ public class ServerEvent {
 
     @LibEventHandler(priority = 500)
     public void InputEvent(InputEvent e) {
-        switch (e.header) {
+        switch (e.subHeader) {
             case "login":
                 try {
                     Lobby.login.add(e.receive.readInt());

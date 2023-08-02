@@ -45,7 +45,7 @@ public class EntityList {
         Lobbys[9].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
         Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bOcean Liner");
+        Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bidk");
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
@@ -78,7 +78,7 @@ public class EntityList {
         npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
                 .setClickEvent(((player, action) -> {
                     if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "oceanliner");
+                        BungeePluginMessage.switchServer(player, "highversionbuilding");
                 }));
 
         //rush
