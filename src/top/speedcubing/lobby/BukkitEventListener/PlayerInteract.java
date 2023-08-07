@@ -41,7 +41,7 @@ public class PlayerInteract implements Listener {
                             member.user.dbUpdate("messagable=" + (member.messagetoggled));
                         }, 12)
                         .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc.get(member.user.lang)).lore(
-                                                data.equals("0") ? StringList.discordB.get(member.user.lang) : StringList.discordA.get(member.user.lang).replace("%a%", data), StringList.discordEdit.get(member.user.lang))
+                                                data == null ? StringList.discordB.get(member.user.lang) : StringList.discordA.get(member.user.lang).replace("%a%", data), StringList.discordEdit.get(member.user.lang))
                                         .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build(),
                                 (p, event) -> {
                                     switch (event.getAction()) {

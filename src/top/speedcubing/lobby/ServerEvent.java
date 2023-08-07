@@ -58,9 +58,8 @@ public class ServerEvent {
             if (member.discord) {
                 e.isCancelled = true;
                 try {
-                    Long.parseLong(message);
-                    if (message.split(" ").length == 1) {
-                        member.user.dbUpdate("discord=" + message);
+                    if (message.matches("^.{3,32}#[0-9]{4}$") || message.matches("^[0-9,a-z_.]*$")) {
+                        member.user.dbUpdate("discord='" + message+"'");
                         member.user.sendLangMessage(StringList.updatedDiscord, message);
                     } else member.user.sendLangMessage(StringList.discordinvalid);
                 } catch (Exception exception) {
