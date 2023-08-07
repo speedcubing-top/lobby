@@ -1,27 +1,17 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import top.speedcubing.lib.bukkit.PlayerUtils;
-import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lobby.List.ItemStackList;
-import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lib.bukkit.*;
+import top.speedcubing.lobby.List.*;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.database.DataCenter;
-import top.speedcubing.server.database.Rank;
-import top.speedcubing.server.libs.GlobalString;
-import top.speedcubing.server.speedcubingServer;
+import top.speedcubing.server.lang.GlobalString;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class PlayerJoin implements Listener {
 
@@ -60,8 +50,8 @@ public class PlayerJoin implements Listener {
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
         if (!login)
-            member.user.langMessageSender(GlobalString.LobbyJoinMessage).replace("%t%", text1).send();
-        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.langMessageSender(GlobalString.LobbyJoinMessage).replace("%t%", text1).send());
+            member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);
+        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendLangMessage(GlobalString.LobbyJoinMessage, text1));
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)

@@ -27,7 +27,7 @@ public class PlayerInteract implements Listener {
             case REDSTONE_COMPARATOR:
                 Member member = Member.getMember(player);
                 String data = member.user.dbSelect("discord").getString();
-                Inventory inv = new InventoryBuilder(36, StringList.settingstitle[member.user.lang]).deleteOnClose(true)
+                Inventory inv = new InventoryBuilder(36, StringList.settingstitle.get(member.user.lang)).deleteOnClose(true)
                         .setItem(ItemStackList.lang[member.user.lang], (p, event) -> {
                             member.user.sound(Sound.CLICK);
                             p.openInventory(ItemStackList.Lang[member.user.lang]);
@@ -40,8 +40,8 @@ public class PlayerInteract implements Listener {
                             event.getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled][member.user.lang]);
                             member.user.dbUpdate("messagable=" + (member.messagetoggled));
                         }, 12)
-                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc[member.user.lang]).lore(
-                                                data.equals("0") ? StringList.discordB[member.user.lang] : StringList.discordA[member.user.lang].replace("%a%", data), StringList.discordEdit[member.user.lang])
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc.get(member.user.lang)).lore(
+                                                data.equals("0") ? StringList.discordB.get(member.user.lang) : StringList.discordA.get(member.user.lang).replace("%a%", data), StringList.discordEdit.get(member.user.lang))
                                         .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build(),
                                 (p, event) -> {
                                     switch (event.getAction()) {

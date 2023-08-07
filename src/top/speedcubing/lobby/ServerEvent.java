@@ -7,12 +7,13 @@ import top.speedcubing.lib.bukkit.event.PlayInEvent;
 import top.speedcubing.lib.eventbus.LibEventHandler;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.*;
-import top.speedcubing.server.*;
 import top.speedcubing.server.database.*;
 import top.speedcubing.server.events.*;
 import top.speedcubing.server.events.player.HubEvent;
-import top.speedcubing.server.libs.GlobalString;
+import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.share.Chat;
+import top.speedcubing.server.speedcubingServer;
+import top.speedcubing.server.utils.config;
 
 import java.io.IOException;
 
@@ -60,7 +61,7 @@ public class ServerEvent {
                     Long.parseLong(message);
                     if (message.split(" ").length == 1) {
                         member.user.dbUpdate("discord=" + message);
-                        member.user.langMessageSender(StringList.updatedDiscord).replace("%a%", message).send();
+                        member.user.sendLangMessage(StringList.updatedDiscord, message);
                     } else member.user.sendLangMessage(StringList.discordinvalid);
                 } catch (Exception exception) {
                     member.user.sendLangMessage(StringList.discordinvalid);

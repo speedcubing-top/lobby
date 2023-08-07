@@ -1,22 +1,15 @@
 package top.speedcubing.lobby;
 
 import net.minecraft.server.v1_8_R3.MinecraftServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.speedcubing.lib.eventbus.LibEventManager;
 import top.speedcubing.lobby.BukkitCommands.lang;
-import top.speedcubing.lobby.BukkitCommands.login;
-import top.speedcubing.lobby.BukkitCommands.register;
 import top.speedcubing.lobby.BukkitEventListener.*;
-import top.speedcubing.lobby.List.EntityList;
-import top.speedcubing.lobby.List.ItemStackList;
-import top.speedcubing.server.config;
-import top.speedcubing.server.speedcubingServer;
+import top.speedcubing.lobby.List.*;
+import top.speedcubing.server.utils.config;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();

@@ -1,21 +1,16 @@
 package top.speedcubing.lobby.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 import top.speedcubing.lib.bukkit.SideBar;
-import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
-import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
+import top.speedcubing.lib.bukkit.inventory.*;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.utils.ByteArrayDataBuilder;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.database.Database;
-import top.speedcubing.server.libs.GlobalString;
+import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
 public class ItemStackList {
@@ -65,9 +60,9 @@ public class ItemStackList {
                     .setItem(new ItemBuilder(Material.SANDSTONE_STAIRS).name(new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i]).build(), (a, b) -> BungeePluginMessage.switchServer(a, "clutch"), 34)
                     .getInventory();
             dm[i] = new ItemBuilder(Material.SIGN).name(new String[]{"§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message"}[i]).build();
-            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§cNo one can message you.", "§cNo one can message you.","§cNo one can message you.","§cNo one can message you."}[i]).build();
-            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(14).name(new String[]{"§6Only friends can message you.", "§6Only friends can message you.","§6Only friends can message you.","§6Only friends can message you."}[i]).build();
-            toggle[2][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aEveryone can message you.","§aEveryone can message you.","§aEveryone can message you.","§aEveryone can message you."}[i]).build();
+            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you."}[i]).build();
+            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(14).name(new String[]{"§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you."}[i]).build();
+            toggle[2][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you."}[i]).build();
 
             GameSelect[i] = new InventoryBuilder(18, new String[]{"§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce"}[i])
                     .setItem(new ItemBuilder(Material.LOG).durability(3).name(new String[]{"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"}[i]).build(), 0)
@@ -84,28 +79,28 @@ public class ItemStackList {
         ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").build();
         ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").build();
         Lang[0] = new InventoryBuilder(27, "§cSprache")
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected[0]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build(), (p, event) -> c(p, 0), 10)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build(), (p, event) -> c(p, 0), 10)
                 .setItem(English, (p, event) -> c(p, 1), 12)
                 .setItem(Mandarin, (p, event) -> c(p, 2), 14)
                 .setItem(Chinese, (p, event) -> c(p, 3), 16)
                 .getInventory();
         Lang[1] = new InventoryBuilder(27, "§cLanguage")
                 .setItem(Deutsch, (p, event) -> c(p, 0), 10)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected[1]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (p, event) -> c(p, 1), 12)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected.get(1)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (p, event) -> c(p, 1), 12)
                 .setItem(Mandarin, (p, event) -> c(p, 2), 14)
                 .setItem(Chinese, (p, event) -> c(p, 3), 16)
                 .getInventory();
         Lang[2] = new InventoryBuilder(27, "§c語言")
                 .setItem(Deutsch, (p, event) -> c(p, 0), 10)
                 .setItem(English, (p, event) -> c(p, 1), 12)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected[2]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (p, event) -> c(p, 2), 14)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected.get(2)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (p, event) -> c(p, 2), 14)
                 .setItem(Chinese, (p, event) -> c(p, 3), 16)
                 .getInventory();
         Lang[3] = new InventoryBuilder(27, "§c语言")
                 .setItem(Deutsch, (p, event) -> c(p, 0), 10)
                 .setItem(English, (p, event) -> c(p, 1), 12)
                 .setItem(Mandarin, (p, event) -> c(p, 2), 14)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected[3]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (p, event) -> c(p, 3), 16)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected.get(3)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (p, event) -> c(p, 3), 16)
                 .getInventory();
     }
 

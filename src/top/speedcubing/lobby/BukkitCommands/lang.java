@@ -1,16 +1,11 @@
 package top.speedcubing.lobby.BukkitCommands;
 
-import top.speedcubing.lobby.Member;
-import top.speedcubing.server.libs.User;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.Member;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class lang implements CommandExecutor, TabCompleter {
 
@@ -18,7 +13,7 @@ public class lang implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (strings.length == 0)
             ((Player) commandSender).openInventory(ItemStackList.Lang[Member.getMember(commandSender).user.lang]);
-         else commandSender.sendMessage("/lang");
+        else commandSender.sendMessage("/lang");
         return true;
     }
 
