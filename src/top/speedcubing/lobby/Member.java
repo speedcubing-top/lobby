@@ -23,11 +23,15 @@ public class Member {
     public boolean discord;
     public int messagetoggled;
 
+    public boolean agree;
+
     public Member(Player player) {
         this.user = User.getUser(player);
         haveToLogin = Lobby.login.contains(user.id);
         Lobby.login.remove(user.id);
-        messagetoggled = user.dbSelect("messagable").getInt();
+        String[] s = user.dbSelect("agreement,messagable").getStringArray();
+        agree = s[0].equals("1");
+        messagetoggled = Integer.parseInt(s[1]);
         users.put(user.id, this);
     }
 }

@@ -22,7 +22,7 @@ public class login implements CommandExecutor, TabExecutor {
                 Player player = (Player) commandSender;
                 if (dbpassword.equals(strings[0])) {
                     commandSender.sendMessage("§6Successful Login!");
-                    PlayerJoin.joinLobby(player, true);
+                    PlayerJoin.joinLobby(player, false);
                 } else player.kickPlayer("Incorrect password.");
             } else commandSender.sendMessage("/login <password>");
         } else commandSender.sendMessage("You already logged in.");

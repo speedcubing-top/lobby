@@ -23,7 +23,7 @@ public class register implements CommandExecutor, TabExecutor {
                 else if (strings[0].equals(strings[1])) {
                     Member.getMember(commandSender).user.dbUpdate("password='" + strings[0] + "'");
                     commandSender.sendMessage("§6Successful Register!");
-                    PlayerJoin.joinLobby((Player) commandSender, true);
+                    PlayerJoin.joinLobby((Player) commandSender, false);
                 } else commandSender.sendMessage("The password and confirm password do not match.");
             } else commandSender.sendMessage("/register <password> <confirm password>");
         } else commandSender.sendMessage("You already registered.");

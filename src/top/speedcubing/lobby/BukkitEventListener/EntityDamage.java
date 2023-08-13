@@ -3,7 +3,7 @@ package top.speedcubing.lobby.BukkitEventListener;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.*;
 
 public class EntityDamage implements Listener {
     @EventHandler

@@ -8,6 +8,8 @@ commands:
     usage: /register
   login:
     usage: /login
+  terms:
+    usage: /terms
   badapple:
     usage: /ba
 depend:

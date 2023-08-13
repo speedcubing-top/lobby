@@ -1,10 +1,10 @@
 package top.speedcubing.lobby;
 
-import net.minecraft.server.v1_8_R3.MinecraftServer;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.speedcubing.lib.eventbus.LibEventManager;
-import top.speedcubing.lobby.BukkitCommands.lang;
+import top.speedcubing.lobby.BukkitCommands.*;
 import top.speedcubing.lobby.BukkitEventListener.*;
 import top.speedcubing.lobby.List.*;
 import top.speedcubing.server.utils.config;
@@ -17,6 +17,8 @@ public class Lobby extends JavaPlugin {
     public void onEnable() {
         BadApple.init();
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
+        Bukkit.getPluginCommand("terms").setExecutor(new terms());
+        Bukkit.getPluginCommand("terms").setTabCompleter(new terms());
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
         Bukkit.getPluginCommand("lang").setTabCompleter(new lang());
         Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
@@ -28,6 +30,9 @@ public class Lobby extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuit(), this);
         Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
         Bukkit.getWorld("world").setTime(6000);
+        getServer().createWorld(new WorldCreator("agreement"));
+        Bukkit.getWorld("agreement").setDifficulty(Difficulty.PEACEFUL);
+        Bukkit.getWorld("agreement").setTime(6000);
 //        if (!speedcubingServer.isBungeeOnlineMode) {
 //            Bukkit.createWorld(new WorldCreator("login"));
 //            Bukkit.getWorld("login").setDifficulty(Difficulty.PEACEFUL);
