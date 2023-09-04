@@ -1,9 +1,9 @@
 package top.speedcubing.lobby;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
-import top.speedcubing.lib.eventbus.LibEventManager;
+import top.speedcubing.lib.eventbus.CubingEventManager;
 import top.speedcubing.lobby.BukkitCommands.*;
 import top.speedcubing.lobby.BukkitEventListener.*;
 import top.speedcubing.lobby.List.*;
@@ -44,7 +44,7 @@ public class Lobby extends JavaPlugin {
 //        }
         new ItemStackList().Load();
         new EntityList().Load();
-        LibEventManager.registerListeners(new ServerEvent());
+        CubingEventManager.registerListeners(new ServerEvent());
         config.event.call();
     }
 }
