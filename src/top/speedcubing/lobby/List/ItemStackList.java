@@ -71,7 +71,7 @@ public class ItemStackList {
                     .setItem(new ItemBuilder(Material.SMOOTH_BRICK).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build(), 3)
                     .setItem(new ItemBuilder(Material.SANDSTONE).name(new String[]{"§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"}[i]).build(), 4)
                     .setClickEvent(
-                            (a, b) -> speedcubingServer.tcpClient.send(25584, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(a).user.id).writeInt(b.getRawSlot()).writeInt(Member.getMember(a).user.tcpPort).toByteArray()), 0, 4)
+                            (a, b) -> speedcubingServer.tcpClient.send(25571 + 1000, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(a).user.id).writeInt(b.getRawSlot()).writeInt(Member.getMember(a).user.tcpPort).toByteArray()), 0, 4)
                     .getInventory();
         }
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
