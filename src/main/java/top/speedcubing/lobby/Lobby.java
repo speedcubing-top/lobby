@@ -1,5 +1,6 @@
 package top.speedcubing.lobby;
 
+import net.minecraft.server.v1_8_R3.Block;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,14 +14,17 @@ import java.util.*;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
+    public static Lobby instance;
 
     public void onEnable() {
+        instance = this;
         BadApple.init();
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
         Bukkit.getPluginCommand("terms").setExecutor(new terms());
         Bukkit.getPluginCommand("terms").setTabCompleter(new terms());
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
         Bukkit.getPluginCommand("lang").setTabCompleter(new lang());
+        Bukkit.getPluginCommand("easteregg").setExecutor(new easteregg());
         Bukkit.getPluginManager().registerEvents(new EntityDamage(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), this);

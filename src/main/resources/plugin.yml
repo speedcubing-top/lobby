@@ -12,6 +12,8 @@ commands:
     usage: /terms
   badapple:
     usage: /ba
+  easteregg:
+    usage: /easteregg
 depend:
   - speedcubingServer
   - speedcubingLib

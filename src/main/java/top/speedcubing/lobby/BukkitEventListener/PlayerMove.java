@@ -18,7 +18,7 @@ public class PlayerMove implements Listener {
                 Location to = e.getTo();
                 if (Math.abs(to.getX()) > 501 || Math.abs(to.getZ()) > 501)
                     player.teleport(e.getFrom());
-                if (to.getY() <= 80) {
+                if (to.getY() <= 50) {
                     player.closeInventory();
                     player.teleport(new Location(player.getWorld(), 0.5, 100, 0.5, 0, 0));
                 }

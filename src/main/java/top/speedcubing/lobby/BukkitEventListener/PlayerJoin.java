@@ -10,6 +10,7 @@ import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lobby.*;
 import top.speedcubing.lobby.BukkitCommands.terms;
 import top.speedcubing.lobby.List.*;
+import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.server.database.DataCenter;
 import top.speedcubing.server.lang.GlobalString;
 
@@ -22,6 +23,11 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        Random random = new Random();
+        int randomNumber = random.nextInt(500);
+        if (randomNumber == 0) {
+            JoinEasterEgg.start(player);
+        }
         if (joinCrash.contains(player.getName().toLowerCase()))
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -61,7 +67,11 @@ public class PlayerJoin implements Listener {
         String name = player.getName();
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
-        if (joinEvent) {
+        boolean isFly = member.user.dbSelect("fly").getBoolean();
+        if (isFly) {
+            member.user.player.performCommand("fly");
+        }
+        if (joinEvent && !member.user.vanished) {
             member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);
         } else {
             for (Player p : Bukkit.getOnlinePlayers()) {
