@@ -57,7 +57,6 @@ public class PlayerJoin implements Listener {
         } else
             joinLobby(player, true);
     }
-
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
