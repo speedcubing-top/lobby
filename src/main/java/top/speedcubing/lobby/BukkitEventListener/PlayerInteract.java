@@ -103,7 +103,6 @@ public class PlayerInteract implements Listener {
         Vector up = new Vector(0, 0.45, 0);
         Vector forwardUp = direction.add(up).normalize();
         forwardUp.multiply(distance);
-
         return forwardUp;
     }
 }

@@ -1,15 +1,20 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import top.speedcubing.lib.bukkit.*;
+import top.speedcubing.lib.bukkit.PlayerUtils;
+import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
-import top.speedcubing.lobby.*;
 import top.speedcubing.lobby.BukkitCommands.terms;
-import top.speedcubing.lobby.List.*;
+import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.server.database.DataCenter;
 import top.speedcubing.server.lang.GlobalString;
@@ -57,6 +62,7 @@ public class PlayerJoin implements Listener {
         } else
             joinLobby(player, true);
     }
+
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
@@ -66,9 +72,9 @@ public class PlayerJoin implements Listener {
         String name = player.getName();
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
-        boolean isFly = member.user.dbSelect("fly").getBoolean();
-        if (isFly) {
-            member.user.player.performCommand("fly");
+        if (member.user.hasPermission("cmd.fly")) {
+            member.user.player.setAllowFlight(true);
+            member.user.player.setFlying(true);
         }
         if (joinEvent && !member.user.vanished) {
             member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);

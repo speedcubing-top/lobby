@@ -20,10 +20,15 @@ public class EntityDamage implements Listener {
             if (player.getGameMode() == GameMode.ADVENTURE) {
                 e.setCancelled(true);
             }
-        } else if (e.getEntity() instanceof ItemFrame && e.getDamager() instanceof Arrow || e.getDamager() instanceof TNTPrimed || e.getDamager() instanceof Fireball || e.getDamager() instanceof FishHook
-                || e.getDamager() instanceof Snowball || e.getDamager() instanceof Egg) {
-            e.setCancelled(true);
-        }
+        } else if (e.getEntity() instanceof ItemFrame &&
+                (e.getDamager() instanceof Arrow ||
+                 e.getDamager() instanceof TNTPrimed ||
+                 e.getDamager() instanceof Fireball ||
+                 e.getDamager() instanceof FishHook ||
+                 e.getDamager() instanceof Snowball ||
+                 e.getDamager() instanceof Egg)) {
+        e.setCancelled(true);
     }
+ }
 }
 
