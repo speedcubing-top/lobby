@@ -45,7 +45,6 @@ public class PlayerJoin implements Listener {
 //                player.sendMessage("/register <password> <confirm password>");
 //            else player.sendMessage("/login <password>");
 //        } else
-
         if (!member.agree) {
             player.getInventory().clear();
             player.getInventory().setItem(0, terms.book);
