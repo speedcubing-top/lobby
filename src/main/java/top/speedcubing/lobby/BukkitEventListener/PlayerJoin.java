@@ -66,9 +66,13 @@ public class PlayerJoin implements Listener {
         String name = player.getName();
         String text1 = format[0] + name + format[2];
         player.getInventory().setHeldItemSlot(0);
+        //fly
         boolean isFly = member.user.dbSelect("fly").getBoolean();
-        if (isFly) {
+        if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
             member.user.player.performCommand("fly");
+        }
+        if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
+            member.user.dbUpdate("fly=" + 0);
         }
         if (joinEvent && !member.user.vanished) {
             member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);

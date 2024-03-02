@@ -18,7 +18,7 @@ public class PlayerInteract implements Listener {
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (!(e.getAction() == Action.PHYSICAL)) {
+        if (!(e.getAction() == Action.PHYSICAL) && e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             switch (player.getItemInHand().getType()) {
                 case COMPASS:
                     player.openInventory(ItemStackList.navigator[Member.getMember(player).user.lang]);
