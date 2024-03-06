@@ -2,9 +2,9 @@ package top.speedcubing.lobby.List;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
-import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
+import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
 
@@ -47,45 +47,45 @@ public class EntityList {
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bidk");
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> player.openInventory(ItemStackList.GameSelect[Member.getMember(player).user.lang]));
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> r.getPlayer().openInventory(ItemStackList.GameSelect[Member.getMember(r.getPlayer()).user.lang]));
                 });
         //ffa
         npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "knockbackffa");
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa");
                 });
         //clutch
         npcs[3].setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(-4.5, 99, 23.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "clutch");
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "clutch");
                 });
         //fb
         npcs[4].setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(2.5, 99, 24.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "fastbuilder");
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder");
                 });
         //practice
         npcs[5].setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(5.5, 99, 23.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "practice");
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "practice");
                 });
         npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
-                .setClickEvent(((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(player, "highversionbuilding");
+                .setClickEvent(((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "highversionbuilding");
                 }));
 
         //rush
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
-                .setClickEvent((player, action) -> {
-                    if (player.getItemInHand().getType() == org.bukkit.Material.AIR && action.equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
-                        BungeePluginMessage.switchServer(player, "mlgrush");
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
+                        BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush");
                     }
                 });
     }

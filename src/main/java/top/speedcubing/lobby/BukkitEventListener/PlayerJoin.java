@@ -1,20 +1,30 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import org.bukkit.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import top.speedcubing.lib.bukkit.*;
+import top.speedcubing.lib.bukkit.PlayerUtils;
+import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
-import top.speedcubing.lobby.*;
 import top.speedcubing.lobby.BukkitCommands.terms;
-import top.speedcubing.lobby.List.*;
+import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.server.database.DataCenter;
 import top.speedcubing.server.lang.GlobalString;
-
-import java.util.*;
+import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
 
@@ -29,12 +39,7 @@ public class PlayerJoin implements Listener {
             JoinEasterEgg.start(player);
         }
         if (joinCrash.contains(player.getName().toLowerCase()))
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PlayerUtils.explosionCrash(player);
-                }
-            }, 1000);
+            speedcubingServer.scheduledPool.schedule(() -> PlayerUtils.explosionCrash(player), 1000, TimeUnit.MILLISECONDS);
         Member member = new Member(player);
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);

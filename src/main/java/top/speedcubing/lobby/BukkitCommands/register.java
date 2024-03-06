@@ -1,5 +1,7 @@
 package top.speedcubing.lobby.BukkitCommands;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,9 +9,6 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.Member;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class register implements CommandExecutor, TabExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {

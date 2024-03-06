@@ -1,28 +1,33 @@
 package top.speedcubing.lobby.BukkitCommands;
 
-import org.bukkit.command.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
-import top.speedcubing.lib.minecraft.text.*;
-import top.speedcubing.lobby.*;
+import top.speedcubing.lib.minecraft.text.TextBuilder;
+import top.speedcubing.lib.minecraft.text.TextClickEvent;
+import top.speedcubing.lib.minecraft.text.TextHoverEvent;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
+import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.GlobalString;
-
-import java.util.*;
 
 public class terms implements CommandExecutor, TabCompleter {
 
     public static ItemStack book = new BookBuilder("a", "b")
             .addPage(new TextBuilder()
                     .str("§0Welcome to\n§6speedcubing.top\n\n§0Before you can play on this server, you have to accept our: \n- ")
-                    .both("§8[§5rules§8]", ClickEvent.openURL("https://speedcubing.top/serverrules"), HoverEvent.showText("§eclick here to open the §5rules §epage."))
+                    .both("§8[§5rules§8]", TextClickEvent.openURL("https://speedcubing.top/serverrules"), TextHoverEvent.showText("§eclick here to open the §5rules §epage."))
                     .str("§0\n- ")
-                    .both("§8[§5privacy policy§8]", ClickEvent.openURL("https://speedcubing.top/privacypolicy"), HoverEvent.showText("§eclick here to open the §5privacy and policy §epage."))
+                    .both("§8[§5privacy policy§8]", TextClickEvent.openURL("https://speedcubing.top/privacypolicy"), TextHoverEvent.showText("§eclick here to open the §5privacy and policy §epage."))
                     .str("\n\n")
-                    .both("§8[§2Accept§8]", ClickEvent.runCommand("/terms accept"), HoverEvent.showText("§eclick here to §2accept§e."))
+                    .both("§8[§2Accept§8]", TextClickEvent.runCommand("/terms accept"), TextHoverEvent.showText("§eclick here to §2accept§e."))
                     .str(" ")
-                    .both("§8[§4Deny§8]", ClickEvent.runCommand("/terms deny"), HoverEvent.showText("§eclick here to §4deny§e.")).toBungee()).build();
+                    .both("§8[§4Deny§8]", TextClickEvent.runCommand("/terms deny"), TextHoverEvent.showText("§eclick here to §4deny§e.")).toBungee()).build();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
