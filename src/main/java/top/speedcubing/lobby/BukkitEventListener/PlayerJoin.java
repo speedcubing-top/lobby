@@ -3,8 +3,6 @@ package top.speedcubing.lobby.BukkitEventListener;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
