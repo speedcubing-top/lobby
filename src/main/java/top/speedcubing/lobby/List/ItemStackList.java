@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import top.speedcubing.common.database.Database;
+import top.speedcubing.common.io.SocketWriter;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
@@ -13,9 +15,7 @@ import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.utils.ByteArrayDataBuilder;
 import top.speedcubing.lobby.Member;
-import top.speedcubing.server.database.Database;
 import top.speedcubing.server.lang.GlobalString;
-import top.speedcubing.server.speedcubingServer;
 
 public class ItemStackList {
 
@@ -75,7 +75,7 @@ public class ItemStackList {
                     .setItem(new ItemBuilder(Material.SMOOTH_BRICK).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build(), 3)
                     .setItem(new ItemBuilder(Material.SANDSTONE).name(new String[]{"§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"}[i]).build(), 4)
                     .setClickEvent(
-                            (r) -> speedcubingServer.tcpClient.send(25571 + 1000, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(r.getPlayer()).user.id).writeInt(r.getEvent().getRawSlot()).writeInt(Member.getMember(r.getPlayer()).user.tcpPort).toByteArray()), 0, 4)
+                            (r) -> SocketWriter.writeResponse(25571 + 1000, new ByteArrayDataBuilder().writeUTF("reduce").writeInt(Member.getMember(r.getPlayer()).user.id).writeInt(r.getEvent().getRawSlot()).writeInt(Member.getMember(r.getPlayer()).user.tcpPort).toByteArray()), 0, 4)
                     .getInventory();
         }
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();

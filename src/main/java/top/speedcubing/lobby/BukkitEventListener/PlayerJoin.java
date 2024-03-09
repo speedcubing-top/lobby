@@ -12,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import top.speedcubing.common.database.DatabaseData;
+import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.lib.bukkit.PlayerUtils;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
@@ -20,7 +22,6 @@ import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.easteregg.JoinEasterEgg;
-import top.speedcubing.server.database.DataCenter;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.speedcubingServer;
 
@@ -60,6 +61,7 @@ public class PlayerJoin implements Listener {
         } else
             joinLobby(player, true);
     }
+
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
@@ -67,9 +69,9 @@ public class PlayerJoin implements Listener {
         player.setHealth(player.getMaxHealth());
         player.setSaturation(20);
         Inventory inventory = player.getInventory();
-        String[] format = member.user.getFormat();
+        RankFormat format = member.user.getFormat(false);
         String name = player.getName();
-        String text1 = format[0] + name + format[2];
+        String text1 = format.getPrefix() + name + format.getChatColor();
         player.getInventory().setHeldItemSlot(0);
         //fly
         boolean isFly = member.user.dbSelect("fly").getBoolean();
@@ -93,10 +95,10 @@ public class PlayerJoin implements Listener {
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
                 .changeableLine(sidebar[2], 7)
-                .changeableLine(sidebar[3] + DataCenter.onlineCount, 6)
+                .changeableLine(sidebar[3] + DatabaseData.onlineCount, 6)
                 .staticLine(sidebar[4], 5)
                 .changeableLine(sidebar[5], 4)
-                .staticLine(sidebar[6].replace("%player%", format[0] + name), 3)
+                .staticLine(sidebar[6].replace("%player%", format.getPrefix() + name), 3)
                 .staticLine(sidebar[7], 2)
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();

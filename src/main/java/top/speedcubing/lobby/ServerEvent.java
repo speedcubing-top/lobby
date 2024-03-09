@@ -3,14 +3,15 @@ package top.speedcubing.lobby;
 import java.io.IOException;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
+import top.speedcubing.common.database.Database;
+import top.speedcubing.common.database.DatabaseData;
+import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
 import top.speedcubing.lib.events.packet.PlayInEvent;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
-import top.speedcubing.server.database.DataCenter;
-import top.speedcubing.server.database.Database;
 import top.speedcubing.server.events.ConfigReloadEvent;
 import top.speedcubing.server.events.CubingTickEvent;
 import top.speedcubing.server.events.InputEvent;
@@ -42,7 +43,7 @@ public class ServerEvent {
 
     @CubingEventHandler
     public void CubingTickEvent(CubingTickEvent e) {
-        SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DataCenter.onlineCount, 6));
+        SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
         Integer[] onlines = Database.systemConnection.select("onlinecount").from("servers").orderBy("name ASC").getIntArray();
         EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
         EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
@@ -72,8 +73,8 @@ public class ServerEvent {
                 speedcubingServer.node(false, member.user.id, member.user.tcpPort);
             } else if (message.charAt(0) != '/') {
                 e.isCancelled = true;
-                String[] formats = member.user.getFormat();
-                Chat.globalChat(player.getWorld().getPlayers(), player, GlobalString.MessageFormat, message, formats[0] + player.getName(), formats[2]);
+                RankFormat format = member.user.getFormat(false);
+                Chat.globalChat(player.getWorld().getPlayers(), player, GlobalString.MessageFormat, message, format.getPrefix() + player.getName(), format.getChatColor());
             }
         }
     }
