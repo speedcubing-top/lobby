@@ -70,7 +70,7 @@ public class ServerEvent {
                     member.user.sendLangMessage(StringList.discordinvalid);
                 }
                 member.discord = false;
-                speedcubingServer.node(false, member.user.id, member.user.tcpPort);
+                member.user.setInput(false);
             } else if (message.charAt(0) != '/') {
                 e.isCancelled = true;
                 RankFormat format = member.user.getFormat(false);

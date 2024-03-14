@@ -55,7 +55,7 @@ public class PlayerInteract implements Listener {
                                                 player.closeInventory();
                                                 member.user.sendLangMessage(StringList.discord);
                                                 member.discord = true;
-                                                speedcubingServer.node(true, member.user.id, member.user.tcpPort);
+                                                member.user.setInput(true);
                                             }
                                             break;
                                             case PICKUP_HALF: {
@@ -64,7 +64,7 @@ public class PlayerInteract implements Listener {
                                                 if (!discord.equals("0"))
                                                     member.user.dbUpdate("discord=0");
                                                 member.discord = false;
-                                                speedcubingServer.node(false, member.user.id, member.user.tcpPort);
+                                                member.user.setInput(false);
                                                 member.user.sendLangMessage(StringList.discordremoved);
                                             }
                                             break;
