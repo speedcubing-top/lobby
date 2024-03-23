@@ -7,16 +7,19 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.lib.bukkit.PlayerUtils;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
+import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.BukkitCommands.terms;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
@@ -105,6 +108,9 @@ public class PlayerJoin implements Listener {
         inventory.clear();
         inventory.setItem(0, ItemStackList.Navigator[member.user.lang]);
         inventory.setItem(1, ItemStackList.Settings[member.user.lang]);
+        //profile
+        ItemStack profile = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§6Profile").owner(member.user.realName).build();
+        inventory.setItem(2, profile);
     }
 }
 
