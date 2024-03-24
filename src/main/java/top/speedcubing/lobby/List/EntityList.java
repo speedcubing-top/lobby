@@ -6,7 +6,7 @@ import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lobby.Lobby;
-import top.speedcubing.lobby.Member;
+import top.speedcubing.server.player.User;
 
 public class EntityList {
     public static Hologram[] Lobbys = new Hologram[13];
@@ -49,7 +49,7 @@ public class EntityList {
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> r.getPlayer().openInventory(ItemStackList.GameSelect[Member.getMember(r.getPlayer()).user.lang]));
+                        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> User.getUser(r.getPlayer()).openLangInventory(ItemStackList.GameSelect));
                 });
         //ffa
         npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)

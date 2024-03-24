@@ -18,31 +18,30 @@ import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.player.User;
-import top.speedcubing.server.speedcubingServer;
 
 public class PlayerInteract implements Listener {
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent e) {
         Player player = e.getPlayer();
+        Member member = Member.getMember(player);
         if (!(e.getAction() == Action.PHYSICAL) && e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             switch (player.getItemInHand().getType()) {
                 case COMPASS:
-                    player.openInventory(ItemStackList.navigator[Member.getMember(player).user.lang]);
+                    member.user.openLangInventory(ItemStackList.navigator);
                     break;
                 case REDSTONE_COMPARATOR:
-                    Member member = Member.getMember(player);
                     String data = member.user.dbSelect("discord").getString();
                     Inventory inv = new InventoryBuilder(36, StringList.settingstitle.get(member.user.lang)).deleteOnClose(true)
-                            .setItem(ItemStackList.lang[member.user.lang], (r) -> {
+                            .setItem(ItemStackList.lang.get(member.user), (r) -> {
                                 member.user.sound(Sound.CLICK);
-                                r.getPlayer().openInventory(ItemStackList.Lang[member.user.lang]);
+                                member.user.openLangInventory(ItemStackList.Lang);
                             }, 11)
-                            .setItem(ItemStackList.dm[member.user.lang], (r) -> {
+                            .setItem(ItemStackList.dm.get(member.user), (r) -> {
                                 member.user.sound(Sound.CLICK);
                                 member.messagetoggled++;
                                 if (member.messagetoggled > 2)
                                     member.messagetoggled = 0;
-                                r.getEvent().getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled][member.user.lang]);
+                                r.getEvent().getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled].get(member.user));
                                 member.user.dbUpdate("messagable=" + (member.messagetoggled));
                             }, 12)
                             .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc.get(member.user.lang)).lore(
@@ -70,13 +69,13 @@ public class PlayerInteract implements Listener {
                                             break;
                                         }
                                     }, 13)
-                            .setItem(ItemStackList.Reset[member.user.lang],
-                                    (r) -> r.getPlayer().openInventory(ItemStackList.ResetConfirm[member.user.lang]),
+                            .setItem(ItemStackList.Reset.get(member.user),
+                                    (r) -> member.user.openLangInventory(ItemStackList.ResetConfirm),
                                     14)
-                            .setItem(ItemStackList.ResetStat[member.user.lang],
-                                    (r) -> r.getPlayer().openInventory(ItemStackList.ResetConfirmStat[member.user.lang]),
+                            .setItem(ItemStackList.ResetStat.get(member.user),
+                                    (r) -> member.user.openLangInventory(ItemStackList.ResetConfirmStat),
                                     15)
-                            .setItem(ItemStackList.toggle[member.messagetoggled][member.user.lang], 21).getInventory();
+                            .setItem(ItemStackList.toggle[member.messagetoggled].get(member.user), 21).getInventory();
                     player.openInventory(inv);
                     break;
             }
@@ -84,6 +83,7 @@ public class PlayerInteract implements Listener {
         if (e.getClickedBlock() != null && player.getGameMode() == GameMode.ADVENTURE)
             e.setCancelled(true);
     }
+
     @EventHandler
     public void onPlayerInteractionEntity(PlayerInteractEntityEvent e) {
         if (e.getRightClicked() instanceof ItemFrame) {
@@ -93,17 +93,19 @@ public class PlayerInteract implements Listener {
             }
         }
     }
+
     @EventHandler
     public void onPlayerUsePressurePlate(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (e.getAction() == Action.PHYSICAL) {
             if (e.getClickedBlock().getType() != null && e.getClickedBlock().getType() == Material.GOLD_PLATE) {
                 User user = User.getUser(p);
-                Vector vector = getPlayerForwardUpVector(p,2.0);
+                Vector vector = getPlayerForwardUpVector(p, 2.0);
                 user.knockback(vector);
             }
         }
     }
+
     public static Vector getPlayerForwardUpVector(Player player, double distance) {
         Vector direction = player.getLocation().getDirection();
         Vector up = new Vector(0, 0.45, 0);

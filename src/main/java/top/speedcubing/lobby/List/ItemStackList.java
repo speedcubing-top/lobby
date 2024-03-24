@@ -4,10 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import top.speedcubing.common.database.Database;
-import top.speedcubing.common.io.SocketWriter;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
@@ -15,111 +13,88 @@ import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.utils.ByteArrayDataBuilder;
-import top.speedcubing.lib.utils.internet.HostAndPort;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.GlobalString;
+import top.speedcubing.server.lang.LangInventory;
+import top.speedcubing.server.lang.LangItemStack;
 
 public class ItemStackList {
 
-    public static ItemStack[] Navigator = new ItemStack[4];
-    public static ItemStack[] Settings = new ItemStack[4];
-    public static ItemStack[] lang = new ItemStack[4];
-    public static Inventory[] GameSelect = new Inventory[4];
-    public static Inventory[] navigator = new Inventory[4];
-    public static Inventory[] Lang = new Inventory[4];
-    public static ItemStack[] dm = new ItemStack[4];
-    public static ItemStack[][] toggle = new ItemStack[3][4];
-    public static ItemStack[] Reset = new ItemStack[4];
-    public static ItemStack[] ResetStat = new ItemStack[4];
-    public static final Inventory[] ResetConfirm = new Inventory[4];
-    public static final Inventory[] ResetConfirmStat = new Inventory[4];
+    public static LangItemStack Navigator = new LangItemStack(new ItemBuilder(Material.COMPASS), "§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单");
+    public static LangItemStack Settings = new LangItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR), "§cEinstellungen", "§cSettings", "§c設定", "§c设置");
+    public static LangItemStack lang = new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0="), "§cSprache", "§cLanguage", "§c語言", "§c语言");
+    public static LangItemStack dm = new LangItemStack(new ItemBuilder(Material.SIGN), "§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message");
+
+    public static LangItemStack[] toggle = {
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(1), "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you."),
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(14), "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you."),
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(10), "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you."),
+    };
+    public static LangItemStack Reset = new LangItemStack(new ItemBuilder(Material.BARRIER), "§cReset your settings", "§cReset your settings", "§cReset your settings", "§cReset your settings");
+    public static LangItemStack ResetStat = new LangItemStack(new ItemBuilder(Material.BARRIER), "§cReset your stats", "§cReset your stats", "§cReset your stats", "§cReset your stats");
+    public static LangInventory GameSelect = new LangInventory(18, "§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce")
+            .setItem(new LangItemStack(new ItemBuilder(Material.LOG).durability(3), "§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"), 0)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BED), "§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"), 1)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BARRIER), "§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"), 2)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SMOOTH_BRICK), "§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"), 3)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE), "§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"), 4)
+            .setClickEvent((r) -> {
+                Member member = Member.getMember(r.getPlayer());
+                MinecraftServer.getServer("reduce").write(new ByteArrayDataBuilder()
+                        .writeUTF("reduce")
+                        .writeInt(member.user.id)
+                        .writeInt(r.getEvent().getRawSlot())
+                        .writeUTF(member.user.proxy.getHost())
+                        .writeInt(member.user.proxy.getPort())
+                        .toByteArray());
+            }, 0, 4);
+    public static LangInventory navigator = new LangInventory(45, "§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单")
+            .setItem(new LangItemStack(new ItemBuilder(Material.STICK), "§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
+            .setItem(new LangItemStack(new ItemBuilder(Material.WOOD_SWORD).glow().hideAttr(), "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BLAZE_ROD).glow(), "§bReduce", "§bReduce", "§bReduce", "§bReduce"), (r) -> {
+                r.getPlayer().closeInventory();
+                r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
+                r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
+            }, 21)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE).glow(), "§bFastBuilder", "§bFastBuilder", "§bFastBuilder", "§bFastBuilder"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
+            .setItem(new LangItemStack(new ItemBuilder(Material.DIAMOND_SWORD).glow().hideAttr(), "§bPractice", "§bPractice", "§bPractice", "§bPractice"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE_STAIRS), "§bClutch", "§bClutch", "§bClutch", "§bClutch"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
+    public static LangInventory Lang = new LangInventory();
+    public static final LangInventory ResetConfirm = new LangInventory(27, "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?")
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), "§aYes", "§aYes", "§aYes", "§aYes"), ItemStackList::a, 11)
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), "§cNo", "§cNo", "§cNo", "§cNo"), (r) -> r.getPlayer().closeInventory(), 15);
+    public static final LangInventory ResetConfirmStat = new LangInventory(27, "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?")
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), "§aYes", "§aYes", "§aYes", "§aYes"), ItemStackList::b, 11)
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), "§cNo", "§cNo", "§cNo", "§cNo"), (r) -> r.getPlayer().closeInventory(), 15);
 
     public void Load() {
-        String[] yes = {"§aYes", "§aYes", "§aYes", "§aYes"};
-        String[] no = {"§cNo", "§cNo", "§cNo", "§cNo"};
-        for (int i = 0; i < 4; i++) {
-            ResetConfirm[i] =
-                    new InventoryBuilder(27, new String[]{"§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?"}[i])
-                            .setItem(new ItemBuilder(Material.STAINED_CLAY).durability(13).name(yes[i]).build(), this::a, 11)
-                            .setItem(new ItemBuilder(Material.STAINED_CLAY).durability(14).name(no[i]).build(), (r) -> r.getPlayer().closeInventory(), 15)
-                            .getInventory();
-            ResetConfirmStat[i] =
-                    new InventoryBuilder(27, new String[]{"§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?"}[i])
-                            .setItem(new ItemBuilder(Material.STAINED_CLAY).durability(13).name(yes[i]).build(), this::b, 11)
-                            .setItem(new ItemBuilder(Material.STAINED_CLAY).durability(14).name(no[i]).build(), (r) -> r.getPlayer().closeInventory(), 15)
-                            .getInventory();
-            Reset[i] = new ItemBuilder(Material.BARRIER).name(new String[]{"§cReset your settings", "§cReset your settings", "§cReset your settings", "§cReset your settings"}[i]).build();
-            ResetStat[i] = new ItemBuilder(Material.BARRIER).name(new String[]{"§cReset your stats", "§cReset your stats", "§cReset your stats", "§cReset your stats"}[i]).build();
-            lang[i] = new ItemBuilder(Material.SKULL_ITEM).durability(3).name(new String[]{"§cSprache", "§cLanguage", "§c語言", "§c语言"}[i]).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=").build();
-            Navigator[i] = new ItemBuilder(Material.COMPASS).name(new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i]).build();
-            Settings[i] = new ItemBuilder(Material.REDSTONE_COMPARATOR).name(new String[]{"§cEinstellungen", "§cSettings", "§c設定", "§c设置"}[i]).build();
-            navigator[i] = new InventoryBuilder(45, new String[]{"§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单"}[i])
-                    .setItem(new ItemBuilder(Material.STICK).name(new String[]{"§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"}[i]).glow().build(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
-                    .setItem(new ItemBuilder(Material.WOOD_SWORD).name(new String[]{"§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"}[i]).glow().hideAttr().build(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
-                    .setItem(new ItemBuilder(Material.BLAZE_ROD).name(new String[]{"§bReduce", "§bReduce", "§bReduce", "§bReduce"}[i]).glow().build(), (r) -> {
-                        r.getPlayer().closeInventory();
-                        r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-                        r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
-                    }, 21)
-                    .setItem(new ItemBuilder(Material.SANDSTONE).name(new String[]{"§bFastBuilder", "§bFastBuilder", "§bFastBuilder", "§bFastBuilder"}[i]).glow().build(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
-                    .setItem(new ItemBuilder(Material.DIAMOND_SWORD).name(new String[]{"§bPractice", "§bPractice", "§bPractice", "§bPractice"}[i]).glow().hideAttr().build(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
-                    .setItem(new ItemBuilder(Material.SANDSTONE_STAIRS).name(new String[]{"§bClutch", "§bClutch", "§bClutch", "§bClutch"}[i]).build(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34)
-                    .getInventory();
-            dm[i] = new ItemBuilder(Material.SIGN).name(new String[]{"§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message"}[i]).build();
-            toggle[0][i] = new ItemBuilder(Material.INK_SACK).durability(1).name(new String[]{"§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you."}[i]).build();
-            toggle[1][i] = new ItemBuilder(Material.INK_SACK).durability(14).name(new String[]{"§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you."}[i]).build();
-            toggle[2][i] = new ItemBuilder(Material.INK_SACK).durability(10).name(new String[]{"§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you."}[i]).build();
-
-            GameSelect[i] = new InventoryBuilder(18, new String[]{"§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce"}[i])
-                    .setItem(new ItemBuilder(Material.LOG).durability(3).name(new String[]{"§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"}[i]).build(), 0)
-                    .setItem(new ItemBuilder(Material.BED).name(new String[]{"§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"}[i]).build(), 1)
-                    .setItem(new ItemBuilder(Material.BARRIER).name(new String[]{"§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"}[i]).build(), 2)
-                    .setItem(new ItemBuilder(Material.SMOOTH_BRICK).name(new String[]{"§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"}[i]).build(), 3)
-                    .setItem(new ItemBuilder(Material.SANDSTONE).name(new String[]{"§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"}[i]).build(), 4)
-                    .setClickEvent(
-                            (r) -> {
-                                Member member = Member.getMember(r.getPlayer());
-                                MinecraftServer.getServer("reduce").write(new ByteArrayDataBuilder()
-                                        .writeUTF("reduce")
-                                        .writeInt(member.user.id)
-                                        .writeInt(r.getEvent().getRawSlot())
-                                        .writeUTF(member.user.proxy.getHost())
-                                        .writeInt(member.user.proxy.getPort())
-                                        .toByteArray());
-                            }, 0, 4)
-                    .getInventory();
-        }
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();
         ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").build();
         ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").build();
-        Lang[0] = new InventoryBuilder(27, "§cSprache")
+        Lang = new LangInventory(new InventoryBuilder(27, "§cSprache")
                 .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build(), (r) -> c(r, 0), 10)
                 .setItem(English, (r) -> c(r, 1), 12)
                 .setItem(Mandarin, (r) -> c(r, 2), 14)
-                .setItem(Chinese, (r) -> c(r, 3), 16)
-                .getInventory();
-        Lang[1] = new InventoryBuilder(27, "§cLanguage")
-                .setItem(Deutsch, (r) -> c(r, 0), 10)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected.get(1)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (r) -> c(r, 1), 12)
-                .setItem(Mandarin, (r) -> c(r, 2), 14)
-                .setItem(Chinese, (r) -> c(r, 3), 16)
-                .getInventory();
-        Lang[2] = new InventoryBuilder(27, "§c語言")
-                .setItem(Deutsch, (r) -> c(r, 0), 10)
-                .setItem(English, (r) -> c(r, 1), 12)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected.get(2)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (r) -> c(r, 2), 14)
-                .setItem(Chinese, (r) -> c(r, 3), 16)
-                .getInventory();
-        Lang[3] = new InventoryBuilder(27, "§c语言")
-                .setItem(Deutsch, (r) -> c(r, 0), 10)
-                .setItem(English, (r) -> c(r, 1), 12)
-                .setItem(Mandarin, (r) -> c(r, 2), 14)
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected.get(3)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (r) -> c(r, 3), 16)
-                .getInventory();
+                .setItem(Chinese, (r) -> c(r, 3), 16),
+                new InventoryBuilder(27, "§cLanguage")
+                        .setItem(Deutsch, (r) -> c(r, 0), 10)
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected.get(1)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (r) -> c(r, 1), 12)
+                        .setItem(Mandarin, (r) -> c(r, 2), 14)
+                        .setItem(Chinese, (r) -> c(r, 3), 16),
+                new InventoryBuilder(27, "§c語言")
+                        .setItem(Deutsch, (r) -> c(r, 0), 10)
+                        .setItem(English, (r) -> c(r, 1), 12)
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected.get(2)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (r) -> c(r, 2), 14)
+                        .setItem(Chinese, (r) -> c(r, 3), 16),
+                new InventoryBuilder(27, "§c语言")
+                        .setItem(Deutsch, (r) -> c(r, 0), 10)
+                        .setItem(English, (r) -> c(r, 1), 12)
+                        .setItem(Mandarin, (r) -> c(r, 2), 14)
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected.get(3)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (r) -> c(r, 3), 16));
     }
 
-    public void a(ClickInventoryEvent e) {
+    public static void a(ClickInventoryEvent e) {
         Member member = Member.getMember(e.getPlayer());
         {
             Database.connection.update("playersdata",
@@ -181,7 +156,7 @@ public class ItemStackList {
         e.getPlayer().closeInventory();
     }
 
-    public void b(ClickInventoryEvent e) {
+    public static void b(ClickInventoryEvent e) {
         Member member = Member.getMember(e.getPlayer());
         member.user.dbUpdate(
                 "kbffa_kill=default(kbffa_kill)," +

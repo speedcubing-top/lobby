@@ -106,8 +106,8 @@ public class PlayerJoin implements Listener {
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
         inventory.clear();
-        inventory.setItem(0, ItemStackList.Navigator[member.user.lang]);
-        inventory.setItem(1, ItemStackList.Settings[member.user.lang]);
+        inventory.setItem(0, ItemStackList.Navigator.get(member.user));
+        inventory.setItem(1, ItemStackList.Settings.get(member.user));
         //profile
         ItemStack profile = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§6Profile").owner(member.user.realName).build();
         inventory.setItem(2, profile);
