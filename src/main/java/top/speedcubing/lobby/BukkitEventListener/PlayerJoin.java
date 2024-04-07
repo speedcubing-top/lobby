@@ -1,5 +1,6 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
+import com.google.gson.JsonParser;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -109,7 +110,11 @@ public class PlayerJoin implements Listener {
         inventory.setItem(0, ItemStackList.Navigator.get(member.user));
         inventory.setItem(1, ItemStackList.Settings.get(member.user));
         //profile
-        ItemStack profile = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§6Profile").owner(member.user.realName).build();
+        ItemStack profile = new ItemBuilder(Material.SKULL_ITEM)
+                .durability(3)
+                .name("§6Profile")
+                .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString())
+                .build();
         inventory.setItem(2, profile);
     }
 }

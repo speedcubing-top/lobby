@@ -29,6 +29,9 @@ public class PlayerInteract implements Listener {
                 case COMPASS:
                     member.user.openLangInventory(ItemStackList.navigator);
                     break;
+                case SKULL_ITEM:
+                    System.out.println("test");
+                    break;
                 case REDSTONE_COMPARATOR:
                     String data = member.user.dbSelect("discord").getString();
                     Inventory inv = new InventoryBuilder(36, StringList.settingstitle.get(member.user.lang)).deleteOnClose(true)
@@ -46,7 +49,7 @@ public class PlayerInteract implements Listener {
                             }, 12)
                             .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name(StringList.dc.get(member.user.lang)).lore(
                                                     data == null ? StringList.discordB.get(member.user.lang) : StringList.discordA.get(member.user.lang).replace("%a%", data), StringList.discordEdit.get(member.user.lang))
-                                            .url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19").build(),
+                                    .skullFromURL("http://textures.minecraft.net/texture/7873c12bffb5251a0b88d5ae75c7247cb39a75ff1a81cbe4c8a39b311ddeda").build(),
                                     (r) -> {
                                         switch (r.getEvent().getAction()) {
                                             case PICKUP_ALL: {

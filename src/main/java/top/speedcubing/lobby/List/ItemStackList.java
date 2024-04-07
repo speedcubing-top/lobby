@@ -22,7 +22,7 @@ public class ItemStackList {
 
     public static LangItemStack Navigator = new LangItemStack(new ItemBuilder(Material.COMPASS), "§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单");
     public static LangItemStack Settings = new LangItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR), "§cEinstellungen", "§cSettings", "§c設定", "§c设置");
-    public static LangItemStack lang = new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0="), "§cSprache", "§cLanguage", "§c語言", "§c语言");
+    public static LangItemStack lang = new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece"), "§cSprache", "§cLanguage", "§c語言", "§c语言");
     public static LangItemStack dm = new LangItemStack(new ItemBuilder(Material.SIGN), "§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message");
 
     public static LangItemStack[] toggle = {
@@ -68,30 +68,30 @@ public class ItemStackList {
             .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), "§cNo", "§cNo", "§cNo", "§cNo"), (r) -> r.getPlayer().closeInventory(), 15);
 
     public void Load() {
-        ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").build();
-        ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").build();
-        ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").build();
-        ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").build();
+        ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").skullFromURL("http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f").build();
+        ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").skullFromURL("http://textures.minecraft.net/texture/702a4afb2e1e2e3a1894a8b74272f95cfa994ce53907f9ac140bd3c932f9f").build();
+        ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").skullFromURL("http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc").build();
+        ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").skullFromURL("http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4").build();
         Lang = new LangInventory(new InventoryBuilder(27, "§cSprache")
-                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==").glow().build(), (r) -> c(r, 0), 10)
+                .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).skullFromURL("http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f").glow().build(), (r) -> c(r, 0), 10)
                 .setItem(English, (r) -> c(r, 1), 12)
                 .setItem(Mandarin, (r) -> c(r, 2), 14)
                 .setItem(Chinese, (r) -> c(r, 3), 16),
                 new InventoryBuilder(27, "§cLanguage")
                         .setItem(Deutsch, (r) -> c(r, 0), 10)
-                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected.get(1)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNhYzk3NzRkYTEyMTcyNDg1MzJjZTE0N2Y3ODMxZjY3YTEyZmRjY2ExY2YwY2I0YjM4NDhkZTZiYzk0YjQifX19").glow().build(), (r) -> c(r, 1), 12)
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").lore(GlobalString.selected.get(1)).skullFromURL("http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4").glow().build(), (r) -> c(r, 1), 12)
                         .setItem(Mandarin, (r) -> c(r, 2), 14)
                         .setItem(Chinese, (r) -> c(r, 3), 16),
                 new InventoryBuilder(27, "§c語言")
                         .setItem(Deutsch, (r) -> c(r, 0), 10)
                         .setItem(English, (r) -> c(r, 1), 12)
-                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected.get(2)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAyYTRhZmIyZTFlMmUzYTE4OTRhOGI3NDI3MmY5NWNmYTk5NGNlNTM5MDdmOWFjMTQwYmQzYzkzMmY5ZiJ9fX0=").glow().build(), (r) -> c(r, 2), 14)
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").lore(GlobalString.selected.get(2)).skullFromURL("http://textures.minecraft.net/texture/702a4afb2e1e2e3a1894a8b74272f95cfa994ce53907f9ac140bd3c932f9f").glow().build(), (r) -> c(r, 2), 14)
                         .setItem(Chinese, (r) -> c(r, 3), 16),
                 new InventoryBuilder(27, "§c语言")
                         .setItem(Deutsch, (r) -> c(r, 0), 10)
                         .setItem(English, (r) -> c(r, 1), 12)
                         .setItem(Mandarin, (r) -> c(r, 2), 14)
-                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected.get(3)).url("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=").glow().build(), (r) -> c(r, 3), 16));
+                        .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").lore(GlobalString.selected.get(3)).skullFromURL("http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc").glow().build(), (r) -> c(r, 3), 16));
     }
 
     public static void a(ClickInventoryEvent e) {
