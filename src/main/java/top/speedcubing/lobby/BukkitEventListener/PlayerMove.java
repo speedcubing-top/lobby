@@ -1,6 +1,7 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ public class PlayerMove implements Listener {
     public void PlayerMoveEvent(PlayerMoveEvent e) {
         Player player = e.getPlayer();
         if (player.getGameMode() == GameMode.ADVENTURE) {
-            if (player.getWorld().getName().equals("world")) {
+            if (player.getWorld() == Bukkit.getWorlds().get(0)) {
                 Location to = e.getTo();
                 if (Math.abs(to.getX()) > 501 || Math.abs(to.getZ()) > 501)
                     player.teleport(e.getFrom());

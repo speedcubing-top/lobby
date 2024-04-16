@@ -17,27 +17,28 @@ import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.lang.LangInventory;
 import top.speedcubing.server.lang.LangItemStack;
+import top.speedcubing.server.lang.LangMessage;
 
 public class ItemStackList {
 
-    public static LangItemStack Navigator = new LangItemStack(new ItemBuilder(Material.COMPASS), "§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单");
-    public static LangItemStack Settings = new LangItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR), "§cEinstellungen", "§cSettings", "§c設定", "§c设置");
+    public static LangItemStack Navigator = new LangItemStack(new ItemBuilder(Material.COMPASS), LangMessage.load("lobby_item_navigator"));
+    public static LangItemStack Settings = new LangItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR), LangMessage.load("lobby_item_settings"));
     public static LangItemStack lang = new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece"), "§cSprache", "§cLanguage", "§c語言", "§c语言");
-    public static LangItemStack dm = new LangItemStack(new ItemBuilder(Material.SIGN), "§bDirect Message", "§bDirect Message", "§bDirect Message", "§bDirect Message");
+    public static LangItemStack dm = new LangItemStack(new ItemBuilder(Material.SIGN), LangMessage.load("lobby_item_direct_message"));
 
     public static LangItemStack[] toggle = {
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(1), "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you.", "§cNo one can message you."),
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(14), "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you.", "§6Only friends can message you."),
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(10), "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you.", "§aEveryone can message you."),
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(1), LangMessage.load("settings_message_0")),
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(14), LangMessage.load("settings_message_1")),
+            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(10), LangMessage.load("settings_message_2")),
     };
-    public static LangItemStack Reset = new LangItemStack(new ItemBuilder(Material.BARRIER), "§cReset your settings", "§cReset your settings", "§cReset your settings", "§cReset your settings");
-    public static LangItemStack ResetStat = new LangItemStack(new ItemBuilder(Material.BARRIER), "§cReset your stats", "§cReset your stats", "§cReset your stats", "§cReset your stats");
-    public static LangInventory GameSelect = new LangInventory(18, "§6Reduce", "§6Reduce", "§6Reduce", "§6Reduce")
-            .setItem(new LangItemStack(new ItemBuilder(Material.LOG).durability(3), "§6Oneline", "§6Oneline", "§6Oneline", "§6Oneline"), 0)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BED), "§6BedWars", "§6BedWars", "§6BedWars", "§6BedWars"), 1)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BARRIER), "§6OneBlock", "§6OneBlock", "§6OneBlock", "§6OneBlock"), 2)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SMOOTH_BRICK), "§6Chrama", "§6Chrama", "§6Chrama", "§6Chrama"), 3)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE), "§6Inclined", "§6Inclined", "§6Inclined", "§6Inclined"), 4)
+    public static LangItemStack Reset = new LangItemStack(new ItemBuilder(Material.BARRIER), LangMessage.load("lobby_item_reset_settings"));
+    public static LangItemStack ResetStat = new LangItemStack(new ItemBuilder(Material.BARRIER), LangMessage.load("lobby_item_reset_stat"));
+    public static LangInventory GameSelect = new LangInventory(18, LangMessage.load("lobby_inv_reduce"))
+            .setItem(new LangItemStack(new ItemBuilder(Material.LOG).durability(3), LangMessage.load("reduce_map_name_0")), 0)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BED), LangMessage.load("reduce_map_name_1")), 1)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BARRIER), LangMessage.load("reduce_map_name_2")), 2)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SMOOTH_BRICK), LangMessage.load("reduce_map_name_3")), 3)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE), LangMessage.load("reduce_map_name_4")), 4)
             .setClickEvent((r) -> {
                 Member member = Member.getMember(r.getPlayer());
                 MinecraftServer.getServer("reduce").write(new ByteArrayDataBuilder()
@@ -48,31 +49,31 @@ public class ItemStackList {
                         .writeInt(member.user.proxy.getPort())
                         .toByteArray());
             }, 0, 4);
-    public static LangInventory navigator = new LangInventory(45, "§6Navigator", "§6Navigator", "§6遊戲選單", "§6游戏选单")
-            .setItem(new LangItemStack(new ItemBuilder(Material.STICK), "§bMLGRush", "§bMLGRush", "§bMLGRush", "§bMLGRush"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
-            .setItem(new LangItemStack(new ItemBuilder(Material.WOOD_SWORD).glow().hideAttr(), "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA", "§bKnockBack FFA"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BLAZE_ROD).glow(), "§bReduce", "§bReduce", "§bReduce", "§bReduce"), (r) -> {
+    public static LangInventory navigator = new LangInventory(45, LangMessage.load("lobby_item_navigator"))
+            .setItem(new LangItemStack(new ItemBuilder(Material.STICK), LangMessage.load("lobby_item_mlgrush")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
+            .setItem(new LangItemStack(new ItemBuilder(Material.WOOD_SWORD).glow().hideAttr(), LangMessage.load("lobby_item_knockbackffa")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
+            .setItem(new LangItemStack(new ItemBuilder(Material.BLAZE_ROD).glow(), LangMessage.load("lobby_item_reduce")), (r) -> {
                 r.getPlayer().closeInventory();
                 r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
                 r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
             }, 21)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE).glow(), "§bFastBuilder", "§bFastBuilder", "§bFastBuilder", "§bFastBuilder"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
-            .setItem(new LangItemStack(new ItemBuilder(Material.DIAMOND_SWORD).glow().hideAttr(), "§bPractice", "§bPractice", "§bPractice", "§bPractice"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE_STAIRS), "§bClutch", "§bClutch", "§bClutch", "§bClutch"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE).glow(), LangMessage.load("lobby_item_fastbuilder")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
+            .setItem(new LangItemStack(new ItemBuilder(Material.DIAMOND_SWORD).glow().hideAttr(), LangMessage.load("lobby_item_practice")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
+            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE_STAIRS), LangMessage.load("lobby_item_clutch")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
     public static LangInventory Lang = new LangInventory();
-    public static final LangInventory ResetConfirm = new LangInventory(27, "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?")
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), "§aYes", "§aYes", "§aYes", "§aYes"), ItemStackList::a, 11)
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), "§cNo", "§cNo", "§cNo", "§cNo"), (r) -> r.getPlayer().closeInventory(), 15);
-    public static final LangInventory ResetConfirmStat = new LangInventory(27, "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?", "§cAre you sure you want to reset?")
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), "§aYes", "§aYes", "§aYes", "§aYes"), ItemStackList::b, 11)
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), "§cNo", "§cNo", "§cNo", "§cNo"), (r) -> r.getPlayer().closeInventory(), 15);
+    public static final LangInventory ResetConfirm = new LangInventory(27, LangMessage.load("lobby_msg_sure_reset"))
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), LangMessage.load("general_yes")), ItemStackList::a, 11)
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), LangMessage.load("general_no")), (r) -> r.getPlayer().closeInventory(), 15);
+    public static final LangInventory ResetConfirmStat = new LangInventory(27, LangMessage.load("lobby_msg_sure_reset"))
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), LangMessage.load("general_yes")), ItemStackList::b, 11)
+            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), LangMessage.load("general_no")), (r) -> r.getPlayer().closeInventory(), 15);
 
     public void Load() {
         ItemStack Deutsch = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").skullFromURL("http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f").build();
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").skullFromURL("http://textures.minecraft.net/texture/702a4afb2e1e2e3a1894a8b74272f95cfa994ce53907f9ac140bd3c932f9f").build();
         ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").skullFromURL("http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc").build();
         ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").skullFromURL("http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4").build();
-        Lang = new LangInventory(new InventoryBuilder(27, "§cSprache")
+        Lang = new LangInventory(LangMessage.load("lobby_item_lang"),new InventoryBuilder(27, "")
                 .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).skullFromURL("http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f").glow().build(), (r) -> c(r, 0), 10)
                 .setItem(English, (r) -> c(r, 1), 12)
                 .setItem(Mandarin, (r) -> c(r, 2), 14)
@@ -152,7 +153,7 @@ public class ItemStackList {
                             "customfb_y=default(customfb_y)," +
                             "nickpriority=default(nickpriority)", "id=" + member.user.id);
         }
-        e.getPlayer().kickPlayer("Sucessfully reset your settings.\nPlease rejoin.");
+        e.getPlayer().kickPlayer(LangMessage.load("lobby_msg_reset_stat_success_rejoin").get(member.user));
         e.getPlayer().closeInventory();
     }
 

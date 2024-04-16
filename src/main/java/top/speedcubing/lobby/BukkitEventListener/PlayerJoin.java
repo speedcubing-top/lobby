@@ -1,6 +1,5 @@
 package top.speedcubing.lobby.BukkitEventListener;
 
-import com.google.gson.JsonParser;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -27,6 +26,7 @@ import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.server.lang.GlobalString;
+import top.speedcubing.server.lang.LangMessage;
 import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
@@ -69,7 +69,7 @@ public class PlayerJoin implements Listener {
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
-        player.teleport(new Location(Bukkit.getWorld("world"), 0.5, 100, 0.5, 0, 0));
+        player.teleport(new Location(Bukkit.getWorlds().get(0), 0.5, 100, 0.5, 0, 0));
         player.setHealth(player.getMaxHealth());
         player.setSaturation(20);
         Inventory inventory = player.getInventory();
@@ -83,7 +83,7 @@ public class PlayerJoin implements Listener {
             member.user.player.performCommand("fly");
         }
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
-            member.user.dbUpdate("fly=" + 0);
+            member.user.dbUpdate("fly=0");
         }
         if (joinEvent && !member.user.vanished) {
             member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);
@@ -107,12 +107,12 @@ public class PlayerJoin implements Listener {
                 .changeableLine(sidebar[8], 1)
                 .staticLine(sidebar[9], 0).create();
         inventory.clear();
-        inventory.setItem(0, ItemStackList.Navigator.get(member.user));
-        inventory.setItem(1, ItemStackList.Settings.get(member.user));
+        member.user.setLangItem(0, ItemStackList.Navigator);
+        member.user.setLangItem(1, ItemStackList.Settings);
         //profile
         ItemStack profile = new ItemBuilder(Material.SKULL_ITEM)
                 .durability(3)
-                .name("§6Profile")
+                .name(LangMessage.load("lobby_item_profile").get(member.user))
                 .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString())
                 .build();
         inventory.setItem(2, profile);

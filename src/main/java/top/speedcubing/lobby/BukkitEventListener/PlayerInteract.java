@@ -30,7 +30,7 @@ public class PlayerInteract implements Listener {
                     member.user.openLangInventory(ItemStackList.navigator);
                     break;
                 case SKULL_ITEM:
-                    System.out.println("test");
+                    ItemStackList.Lang.s[0].setTitle("hi");
                     break;
                 case REDSTONE_COMPARATOR:
                     String data = member.user.dbSelect("discord").getString();

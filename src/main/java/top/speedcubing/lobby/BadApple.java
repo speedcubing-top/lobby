@@ -45,7 +45,7 @@ public class BadApple implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String a, String[] strings) {
         Player player = (Player) commandSender;
-        World world = Bukkit.getWorld("world");
+        World world = Bukkit.getWorlds().get(0);
         if (strings.length == 0) {
             if (timers == -1) {
                 frame = 0D;
