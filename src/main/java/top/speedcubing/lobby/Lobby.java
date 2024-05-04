@@ -1,7 +1,5 @@
 package top.speedcubing.lobby;
 
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -18,9 +16,13 @@ import top.speedcubing.lobby.BukkitEventListener.PlayerInteract;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.BukkitEventListener.PlayerMove;
 import top.speedcubing.lobby.BukkitEventListener.PlayerQuit;
+import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.server.utils.config;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
@@ -42,6 +44,7 @@ public class Lobby extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteract(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMove(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuit(), this);
+        Bukkit.getPluginManager().registerEvents(new BaccaratCore(),this);
         Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
         Bukkit.getWorld("world").setTime(6000);
         getServer().createWorld(new WorldCreator("agreement"));

@@ -9,7 +9,7 @@ import top.speedcubing.lobby.Lobby;
 import top.speedcubing.server.player.User;
 
 public class EntityList {
-    public static Hologram[] Lobbys = new Hologram[13];
+    public static Hologram[] Lobbys = new Hologram[14];
     public static NPC[] npcs = new NPC[7];
 
     public void Load() {
@@ -45,7 +45,8 @@ public class EntityList {
         Lobbys[9].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
         Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[12].setLocation(10.5, 100.85, 20.5, 0, 0).setName("§bidk");
+        Lobbys[12].setLocation(0.5, 100.85, 26.5, 0, 0).setName("§bSMP §7[1.20.4]");
+        Lobbys[13].setLocation(0.5, 101.15, 26.5, 0, 0).setName("§c§lComing Soon");
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
@@ -75,11 +76,12 @@ public class EntityList {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "practice");
                 });
-        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(10.5, 99, 20.5, 135, 0)
+        //smp
+        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(0.5, 99, 26.5, 180, 0)
                 .setClickEvent(((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                        BungeePluginMessage.switchServer(r.getPlayer(), "highversionbuilding");
-                }));
+                       BungeePluginMessage.switchServer(r.getPlayer(), "smp");
+              }));
 
         //rush
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)

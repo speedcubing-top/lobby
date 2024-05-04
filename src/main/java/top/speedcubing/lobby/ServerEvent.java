@@ -18,7 +18,6 @@ import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.share.Chat;
-import top.speedcubing.server.speedcubingServer;
 import top.speedcubing.server.utils.config;
 
 public class ServerEvent {
