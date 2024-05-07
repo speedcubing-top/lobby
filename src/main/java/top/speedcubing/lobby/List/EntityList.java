@@ -9,8 +9,8 @@ import top.speedcubing.lobby.Lobby;
 import top.speedcubing.server.player.User;
 
 public class EntityList {
-    public static Hologram[] Lobbys = new Hologram[14];
-    public static NPC[] npcs = new NPC[7];
+    public static Hologram[] Lobbys = new Hologram[16];
+    public static NPC[] npcs = new NPC[8];
 
     public void Load() {
         String VEPEXtextures = "ewogICJ0aW1lc3RhbXAiIDogMTYxNzE4MDQwNzAyNSwKICAicHJvZmlsZUlkIiA6ICIwMGM2Yjk0YTY5YmU0MzY3OTkwOTQxNjFjMjAxOWI3ZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJLQUVWRVJZIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI1YTUzMTU2Zjk1ODhlZjNkZTQyMGU0ODA5MTYzN2Q3NGYwN2ZmM2MyMzIyNjRkM2Q0MGY3Y2RlOGQ1N2JiODMiCiAgICB9CiAgfQp9";
@@ -27,6 +27,9 @@ public class EntityList {
         String str2 = "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM=";
         String A = "ewogICJ0aW1lc3RhbXAiIDogMTY0NjA0NDI1NDgzNiwKICAicHJvZmlsZUlkIiA6ICJmMTYwZTMxMzJjYWM0YjRiOWM5OTk2NDQ1OGIxOWM0ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb255S0tLIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2M5OWNmYzQ1NzkwODc3ZTUxNDI5M2VmOTgxNTBkZmVlNGE5MzEyMmFhNGRiZmRlMmQyMWYxMjZhZmJlMTE1MjEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
         String B = "jEMxIC3o/0uJkwgMlpBceLmnlcxuw2ENqUedCFBhu36vFj2YKxYfc9ZkD+H8lyikQX1sxHpEyj+v0qA26n+cKm1AXRdjov2BVi3n2Bf2F5JkXP0Vo8PATX9Pwocfq7vAryK4VyE1rHSk3Bw0feJh25aUhpCXIgQxbUEAZkaSicTXSympYATWfa01ngca+psFX2Hq6onDeQfD5SDAFJskZlOYrsWTHJXs40RvJSojUUtRX5Tokb4jAfG2q36BfKRoufAY803Wh2unhcAMFqRjp13CWPQFLCGxwiDOJVMcNVnrs1CJGQHQPjJJLDmuuCxeaf0jKZ/s9QPl5fE7gdgNqGMT8gpZ4nFGh6yMH2RB7o8RSVmFf5THWSfzf1kpOiiQV8ddJ821CR108RIrNKDqLOQZHAHvWzPu8uPynFSp2paxHP+8/IzYc1WGS/lxstrXbKiYJQ3vCzzug40uhvqHumO65qqbSdiiwfgdXBXJItW4fhuhljAeLuZZyyixVi68Hd5V0hPG09zwQXPxqizzv5BK3xcdKf9hkInysbheR5+PeYAEnHm2UkNSbO6EJpX4yTUdfbiio8VMJSePHYPpjQEZfySJelBgplbZi8LFP3PDQHJcT6nYQaCEuf4Dkk0u6igyvVp5pLn8Wtbd0rD2Gc2q1ngcHFIxq2V+tZv9KaI=";
+        String HYPIXELtextures = "ewogICJ0aW1lc3RhbXAiIDogMTcxNDk1MDgzODQ3NCwKICAicHJvZmlsZUlkIiA6ICJmN2M3N2Q5OTlmMTU0YTY2YTg3ZGM0YTUxZWYzMGQxOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJoeXBpeGVsIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI0N2MwNTg4NDVmM2I2ZDAzNDhhYWU1NmI2YWExYTYxYzQ2OWQ4NGNiYWJhMDQ4MTY0MDUwYTFkMzM1ZDZlYTAiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzE3OTEyNzkwZmYxNjRiOTMxOTZmMDhiYTcxZDBlNjIxMjkzMDQ3NzZkMGYzNDczMzRmOGE2ZWFlNTA5ZjhhNTYiCiAgICB9CiAgfQp9";
+        String HYPIXELsignature = "ai3vE+lJssU+duoWIQZljBNwrx1ObAgNrLut5ViZQ1sXwzoyJ77ISulXKfBE1DtS3nr+dMTbehDnPxn2lT8i6zwamk7aUx3HM4/OgOB2Y4tKhynggpe2SnjgK5ljHuH6mADK5HLogCKfBctYJS+v7vmEpxpT01T+PnCvlhrE/Az+SjqZxp4oMtlYjcxKKezg/C6BAlGj6OVt8N9RHyFFr+1d5d0cNByadcW2qrknRw5rZACJi32yXHAMwUHJEnULVJIdF1fzhMWvt53Gq38ErcrDKnDxRX1DrNvoXmrqSkZi3XutcnUpHxa7398XZaDhkiC59q9mDp80K7OGR0VUP5YWIx8qMc+2537ABAHtAX78+gREUeFOM4/uZO9RQ7ARnG7rhi//K661m+tCG7mCCWIe5ccERcTHPwbRmTrD0XMPE9dmT1Ypxhs5M9iRgD7kBV0x0Jpv3oIEhANgLi+SNEZR4KzhBZsIKqiAH+sEZDlbisPd6PGOa3l208ZvEYUBRjSXJbRi6AoJGepxTGITSfN7zL0QpaU+0Z+OSyUvhogzKsY/3/taB21sNe5Bb0b24glGFk3O0OGe4W7iI5iIlLgESiSjDQt0quz+4Dclzy0DlTS8jyqqIZHMSUcR04T89ALg0Z+M80v1J2LI+ompFoEvCHCA2Hbrfvq1vUtMUxE=";
+
         for (int i = 0; i < npcs.length; i++) {
             npcs[i] = new NPC("§8[NPC]", null, true, true, true).world("world").hideNametag();
         }
@@ -47,6 +50,8 @@ public class EntityList {
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[12].setLocation(0.5, 100.85, 26.5, 0, 0).setName("§bSMP §7[1.20.4]");
         Lobbys[13].setLocation(0.5, 101.15, 26.5, 0, 0).setName("§c§lComing Soon");
+        Lobbys[14].setLocation(-6.5, 100.85, 24.5, 0, 0).setName("§bBedwars");
+        Lobbys[15].setLocation(-6.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
@@ -82,6 +87,12 @@ public class EntityList {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                        BungeePluginMessage.switchServer(r.getPlayer(), "smp");
               }));
+        //bw
+        npcs[7].setSkin(HYPIXELtextures, HYPIXELsignature).setSpawnBodyYaw(180).setLocation(-6.5, 99, 24.5, 180, 0)
+                .setClickEvent((r) -> {
+                    if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
+                        BungeePluginMessage.switchServer(r.getPlayer(), "bedwars");
+                });
 
         //rush
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
