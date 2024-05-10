@@ -79,12 +79,12 @@ public class PlayerJoin implements Listener {
         String text1 = format.getPrefix() + name + format.getChatColor();
         player.getInventory().setHeldItemSlot(0);
         //fly
-        boolean isFly = member.user.dbSelect("fly").getBoolean();
+        boolean isFly = member.user.dbSelect("flying").getBoolean();
         if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
             member.user.player.performCommand("fly");
         }
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
-            member.user.dbUpdate("fly=0");
+            member.user.dbUpdate("flying=0");
         }
         if (joinEvent && !member.user.vanished) {
             member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);
