@@ -8,11 +8,11 @@ import org.bukkit.inventory.ItemStack;
 import top.speedcubing.common.database.Database;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
-import top.speedcubing.lib.events.inventory.ClickInventoryEvent;
-import top.speedcubing.lib.utils.ByteArrayDataBuilder;
+import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.lang.LangInventory;
@@ -41,7 +41,7 @@ public class ItemStackList {
             .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE), LangMessage.load("reduce_map_name_4")), 4)
             .setClickEvent((r) -> {
                 Member member = Member.getMember(r.getPlayer());
-                MinecraftServer.getServer("reduce").write(new ByteArrayDataBuilder()
+                MinecraftServer.getServer("reduce").write(new ByteArrayBuffer()
                         .writeUTF("reduce")
                         .writeInt(member.user.id)
                         .writeInt(r.getEvent().getRawSlot())
@@ -73,7 +73,7 @@ public class ItemStackList {
         ItemStack Mandarin = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b繁體中文").skullFromURL("http://textures.minecraft.net/texture/702a4afb2e1e2e3a1894a8b74272f95cfa994ce53907f9ac140bd3c932f9f").build();
         ItemStack Chinese = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§b简体中文").skullFromURL("http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc").build();
         ItemStack English = new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bEnglish").skullFromURL("http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4").build();
-        Lang = new LangInventory(LangMessage.load("lobby_item_lang"),new InventoryBuilder(27, "")
+        Lang = new LangInventory(LangMessage.load("lobby_item_lang"), new InventoryBuilder(27, "")
                 .setItem(new ItemBuilder(Material.SKULL_ITEM).durability(3).name("§bDeutsch").lore(GlobalString.selected.get(0)).skullFromURL("http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f").glow().build(), (r) -> c(r, 0), 10)
                 .setItem(English, (r) -> c(r, 1), 12)
                 .setItem(Mandarin, (r) -> c(r, 2), 14)

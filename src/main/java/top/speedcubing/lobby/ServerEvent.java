@@ -7,8 +7,8 @@ import top.speedcubing.common.database.Database;
 import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
-import top.speedcubing.lib.events.packet.PlayInEvent;
 import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
@@ -18,7 +18,6 @@ import top.speedcubing.server.events.InputEvent;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.share.Chat;
-import top.speedcubing.server.speedcubingServer;
 import top.speedcubing.server.utils.config;
 
 public class ServerEvent {
@@ -55,12 +54,12 @@ public class ServerEvent {
 
     @CubingEventHandler
     public void PlayInEvent(PlayInEvent e) {
-        if (e.packet instanceof PacketPlayInChat) {
-            Player player = e.player;
-            String message = ((PacketPlayInChat) e.packet).a();
+        if (e.getPacket() instanceof PacketPlayInChat) {
+            Player player = e.getPlayer();
+            String message = ((PacketPlayInChat) e.getPacket()).a();
             Member member = Member.getMember(player);
             if (member.discord) {
-                e.isCancelled = true;
+                e.setCancelled(true);
                 try {
                     if (message.matches("^.{3,32}#[0-9]{4}$") || message.matches("^[0-9,a-z_.]*$")) {
                         member.user.dbUpdate("discord='" + message + "'");
@@ -72,7 +71,7 @@ public class ServerEvent {
                 member.discord = false;
                 member.user.setInput(false);
             } else if (message.charAt(0) != '/') {
-                e.isCancelled = true;
+                e.setCancelled(true);
                 RankFormat format = member.user.getFormat(false);
                 Chat.globalChat(player.getWorld().getPlayers(), player, GlobalString.MessageFormat, message, format.getPrefix() + player.getName(), format.getChatColor());
             }
@@ -81,7 +80,7 @@ public class ServerEvent {
 
     @CubingEventHandler
     public void HubEvent(HubEvent e) {
-        e.isCancelled = true;
+        e.setCancelled(true);
         Member.getMember(e.player).user.sendLangMessage(StringList.AlreadyInHub);
     }
 }
