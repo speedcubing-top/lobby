@@ -83,6 +83,6 @@ public class ServerEvent {
     @CubingEventHandler
     public void HubEvent(HubEvent e) {
         e.setCancelled(true);
-        Member.getMember(e.player).user.sendLangMessage(StringList.AlreadyInHub);
+        Member.getMember(e.getPlayer()).user.sendLangMessage(StringList.AlreadyInHub);
     }
 }
