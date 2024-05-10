@@ -50,6 +50,8 @@ public class ServerEvent {
         EntityList.Lobbys[7].setName("§e§l" + onlines[4] + " Players");
         EntityList.Lobbys[9].setName("§e§l" + onlines[5] + " Players");
         EntityList.Lobbys[11].setName("§e§l" + onlines[6] + " Players");
+        //bw player count
+        EntityList.Lobbys[15].setName("§e§l" + onlines[3] + " Players");
     }
 
     @CubingEventHandler

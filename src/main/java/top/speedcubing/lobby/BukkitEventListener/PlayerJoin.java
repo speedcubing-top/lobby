@@ -27,6 +27,7 @@ import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.lang.LangMessage;
+import top.speedcubing.server.player.User;
 import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
@@ -116,6 +117,13 @@ public class PlayerJoin implements Listener {
                 .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString())
                 .build();
         inventory.setItem(2, profile);
+        //gamble
+        if (User.getUser(player).isStaff) {
+            ItemStack gamble = new ItemBuilder(Material.DIAMOND)
+                    .name("§aGamble")
+                    .build();
+            inventory.setItem(8, gamble);
+        }
     }
 }
 
