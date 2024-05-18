@@ -44,12 +44,12 @@ public class EntityList {
         Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[6].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
         Lobbys[7].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[8].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice");
+        Lobbys[8].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice §c[Maintenance]");
         Lobbys[9].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
         Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
         Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
         Lobbys[12].setLocation(0.5, 100.85, 26.5, 0, 0).setName("§bSMP §7[1.20.4]");
-        Lobbys[13].setLocation(0.5, 101.15, 26.5, 0, 0).setName("§c§lComing Soon");
+        Lobbys[13].setLocation(0.5, 101.15, 26.5, 0, 0).setName("§e§l0 Players");
         Lobbys[14].setLocation(-6.5, 100.85, 24.5, 0, 0).setName("§bBedwars");
         Lobbys[15].setLocation(-6.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
