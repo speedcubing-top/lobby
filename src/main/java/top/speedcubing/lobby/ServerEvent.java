@@ -3,9 +3,9 @@ package top.speedcubing.lobby;
 import java.io.IOException;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
-import top.speedcubing.common.database.Database;
 import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.rank.RankFormat;
+import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
@@ -43,15 +43,14 @@ public class ServerEvent {
     @CubingEventHandler
     public void CubingTickEvent(CubingTickEvent e) {
         SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
-        Integer[] onlines = Database.systemConnection.select("onlinecount").from("servers").orderBy("name ASC").getIntArray();
-        EntityList.Lobbys[1].setName("§e§l" + onlines[0] + " Players");
-        EntityList.Lobbys[3].setName("§e§l" + onlines[1] + " Players");
-        EntityList.Lobbys[5].setName("§e§l" + onlines[2] + " Players");
-        EntityList.Lobbys[7].setName("§e§l" + onlines[4] + " Players");
-        EntityList.Lobbys[9].setName("§e§l" + onlines[5] + " Players");
-        EntityList.Lobbys[11].setName("§e§l" + onlines[6] + " Players");
-        //bw player count
-        EntityList.Lobbys[15].setName("§e§l" + onlines[3] + " Players");
+        EntityList.Lobbys[1].setName("§e§l" + MinecraftServer.getServer("clutch").getPlayerCount() + " Players");
+        EntityList.Lobbys[3].setName("§e§l" + MinecraftServer.getServer("fastbuilder").getPlayerCount() + " Players");
+        EntityList.Lobbys[5].setName("§e§l" + MinecraftServer.getServer("knockbackffa").getPlayerCount() + " Players");
+        EntityList.Lobbys[7].setName("§e§l" + MinecraftServer.getServer("mlgrush").getPlayerCount() + " Players");
+        EntityList.Lobbys[9].setName("§e§l" + MinecraftServer.getServer("practice").getPlayerCount() + " Players");
+        EntityList.Lobbys[11].setName("§e§l" + MinecraftServer.getServer("reduce").getPlayerCount() + " Players");
+        EntityList.Lobbys[13].setName("§e§l" + MinecraftServer.getServer("smp").getPlayerCount() + " Players");
+        EntityList.Lobbys[15].setName("§e§l" + MinecraftServer.getServer("bedwars").getPlayerCount() + " Players");
     }
 
     @CubingEventHandler
