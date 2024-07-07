@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.Member;
 
 public class lang implements CommandExecutor, TabCompleter {

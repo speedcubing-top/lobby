@@ -14,8 +14,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
-import top.speedcubing.lobby.List.ItemStackList;
-import top.speedcubing.lobby.List.StringList;
+import top.speedcubing.lobby.list.ItemStackList;
+import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.player.User;
 

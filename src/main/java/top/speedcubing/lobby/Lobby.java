@@ -17,8 +17,8 @@ import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.bukkitlistener.PlayerMove;
 import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
 import top.speedcubing.lobby.gamble.BaccaratCore;
-import top.speedcubing.lobby.List.EntityList;
-import top.speedcubing.lobby.List.ItemStackList;
+import top.speedcubing.lobby.list.EntityList;
+import top.speedcubing.lobby.list.ItemStackList;
 
 import java.util.HashSet;
 import java.util.Set;

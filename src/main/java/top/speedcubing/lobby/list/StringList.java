@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.List;
+package top.speedcubing.lobby.list;
 
 import top.speedcubing.server.lang.LangMessage;
 

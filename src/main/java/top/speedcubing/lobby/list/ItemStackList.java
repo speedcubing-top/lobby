@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.List;
+package top.speedcubing.lobby.list;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

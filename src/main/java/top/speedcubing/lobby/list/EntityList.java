@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.List;
+package top.speedcubing.lobby.list;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
