@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitEventListener;
+package top.speedcubing.lobby.bukkitlistener;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;

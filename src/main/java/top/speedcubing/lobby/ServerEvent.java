@@ -3,36 +3,36 @@ package top.speedcubing.lobby;
 import java.io.IOException;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
+import top.speedcubing.common.configuration.ServerConfig;
 import top.speedcubing.common.database.DatabaseData;
+import top.speedcubing.common.events.ConfigReloadEvent;
+import top.speedcubing.common.events.CubingTickEvent;
+import top.speedcubing.common.events.SocketInputEvent;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
-import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.StringList;
-import top.speedcubing.server.events.ConfigReloadEvent;
-import top.speedcubing.server.events.CubingTickEvent;
-import top.speedcubing.server.events.InputEvent;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.share.Chat;
-import top.speedcubing.server.utils.config;
 
 public class ServerEvent {
     @CubingEventHandler
-    public void ConfigReloadEvent(ConfigReloadEvent e) {
+    public void configReloadEvent(ConfigReloadEvent e) {
         PlayerJoin.joinCrash.clear();
-        config.config.get("onlinecrash").getAsJsonArray().forEach(a -> PlayerJoin.joinCrash.add(a.getAsString().toLowerCase()));
+        ServerConfig.config.get("onlinecrash").getAsJsonArray().forEach(a -> PlayerJoin.joinCrash.add(a.getAsString().toLowerCase()));
     }
 
     @CubingEventHandler(priority = 500)
-    public void InputEvent(InputEvent e) {
+    public void inputEvent(SocketInputEvent e) {
         switch (e.subHeader) {
             case "login":
                 try {
-                    Lobby.login.add(e.receive.readInt());
+                    Lobby.login.add(e.getData().readInt());
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
@@ -41,7 +41,7 @@ public class ServerEvent {
     }
 
     @CubingEventHandler
-    public void CubingTickEvent(CubingTickEvent e) {
+    public void cubingTickEvent(CubingTickEvent e) {
         SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
         EntityList.Lobbys[1].setName("§e§l" + MinecraftServer.getServer("clutch").getPlayerCount() + " Players");
         EntityList.Lobbys[3].setName("§e§l" + MinecraftServer.getServer("fastbuilder").getPlayerCount() + " Players");
@@ -54,7 +54,7 @@ public class ServerEvent {
     }
 
     @CubingEventHandler
-    public void PlayInEvent(PlayInEvent e) {
+    public void playInEvent(PlayInEvent e) {
         if (e.getPacket() instanceof PacketPlayInChat) {
             Player player = e.getPlayer();
             String message = ((PacketPlayInChat) e.getPacket()).a();
@@ -80,7 +80,7 @@ public class ServerEvent {
     }
 
     @CubingEventHandler
-    public void HubEvent(HubEvent e) {
+    public void hubEvent(HubEvent e) {
         e.setCancelled(true);
         Member.getMember(e.getPlayer()).user.sendLangMessage(StringList.AlreadyInHub);
     }

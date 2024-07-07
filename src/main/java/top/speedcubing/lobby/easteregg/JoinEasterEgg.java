@@ -17,7 +17,7 @@ public class JoinEasterEgg {
     }
 
     private static void waitForTicks(int ticks, Player player) {
-        Bukkit.getScheduler().runTaskLater(Lobby.instance, () ->
+        Bukkit.getScheduler().runTaskLater(Lobby.getPlugin(Lobby.class), () ->
                         player.sendMessage("what happened?\n" + "why am i here?"),
                 ticks);
     }

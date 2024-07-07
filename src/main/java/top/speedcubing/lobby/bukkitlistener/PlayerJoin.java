@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitEventListener;
+package top.speedcubing.lobby.bukkitlistener;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -20,7 +20,7 @@ import top.speedcubing.lib.bukkit.PlayerUtils;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
-import top.speedcubing.lobby.BukkitCommands.terms;
+import top.speedcubing.lobby.bukkitcmd.terms;
 import top.speedcubing.lobby.List.ItemStackList;
 import top.speedcubing.lobby.List.StringList;
 import top.speedcubing.lobby.Member;

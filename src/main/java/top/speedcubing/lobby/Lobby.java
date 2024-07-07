@@ -6,32 +6,31 @@ import org.bukkit.Difficulty;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.speedcubing.lib.eventbus.CubingEventManager;
-import top.speedcubing.lobby.BukkitCommands.easteregg;
-import top.speedcubing.lobby.BukkitCommands.lang;
-import top.speedcubing.lobby.BukkitCommands.terms;
-import top.speedcubing.lobby.BukkitEventListener.EntityDamage;
-import top.speedcubing.lobby.BukkitEventListener.InventoryClick;
-import top.speedcubing.lobby.BukkitEventListener.PlayerDropItem;
-import top.speedcubing.lobby.BukkitEventListener.PlayerInteract;
-import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
-import top.speedcubing.lobby.BukkitEventListener.PlayerMove;
-import top.speedcubing.lobby.BukkitEventListener.PlayerQuit;
+import top.speedcubing.lobby.bukkitcmd.easteregg;
+import top.speedcubing.lobby.bukkitcmd.lang;
+import top.speedcubing.lobby.bukkitcmd.terms;
+import top.speedcubing.lobby.bukkitlistener.EntityDamage;
+import top.speedcubing.lobby.bukkitlistener.InventoryClick;
+import top.speedcubing.lobby.bukkitlistener.PlayerDropItem;
+import top.speedcubing.lobby.bukkitlistener.PlayerInteract;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
+import top.speedcubing.lobby.bukkitlistener.PlayerMove;
+import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
 import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.List.EntityList;
 import top.speedcubing.lobby.List.ItemStackList;
-import top.speedcubing.server.utils.config;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
-    public static Lobby instance;
 
     public void onEnable() {
-        instance = this;
-        BadApple.init();
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
+        CubingEventManager.registerListeners(new ServerEvent());
+
+        BadApple.init();
         Bukkit.getPluginCommand("terms").setExecutor(new terms());
         Bukkit.getPluginCommand("terms").setTabCompleter(new terms());
         Bukkit.getPluginCommand("lang").setExecutor(new lang());
@@ -61,7 +60,5 @@ public class Lobby extends JavaPlugin {
 //        }
         new ItemStackList().Load();
         new EntityList().Load();
-        CubingEventManager.registerListeners(new ServerEvent());
-        config.event.call();
     }
 }

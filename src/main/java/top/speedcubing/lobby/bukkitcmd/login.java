@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitCommands;
+package top.speedcubing.lobby.bukkitcmd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.Member;
 
 public class login implements CommandExecutor, TabExecutor {

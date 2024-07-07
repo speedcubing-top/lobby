@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitCommands;
+package top.speedcubing.lobby.bukkitcmd;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

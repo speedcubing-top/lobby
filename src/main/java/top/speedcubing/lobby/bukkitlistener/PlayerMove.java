@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitEventListener;
+package top.speedcubing.lobby.bukkitlistener;
 
 
 import org.bukkit.Bukkit;
@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
-import top.speedcubing.lobby.BukkitCommands.terms;
+import top.speedcubing.lobby.bukkitcmd.terms;
 
 public class PlayerMove implements Listener {
 

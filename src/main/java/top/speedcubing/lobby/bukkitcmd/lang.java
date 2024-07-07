@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitCommands;
+package top.speedcubing.lobby.bukkitcmd;
 
 import java.util.ArrayList;
 import java.util.List;

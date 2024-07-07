@@ -1,4 +1,4 @@
-package top.speedcubing.lobby.BukkitCommands;
+package top.speedcubing.lobby.bukkitcmd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.minecraft.text.TextBuilder;
 import top.speedcubing.lib.minecraft.text.TextClickEvent;
 import top.speedcubing.lib.minecraft.text.TextHoverEvent;
-import top.speedcubing.lobby.BukkitEventListener.PlayerJoin;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.GlobalString;
 
