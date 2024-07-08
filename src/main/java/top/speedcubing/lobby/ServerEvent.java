@@ -13,9 +13,9 @@ import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.StringList;
-import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.GlobalString;
 import top.speedcubing.server.share.Chat;
@@ -25,19 +25,6 @@ public class ServerEvent {
     public void configReloadEvent(ConfigReloadEvent e) {
         PlayerJoin.joinCrash.clear();
         ServerConfig.config.get("onlinecrash").getAsJsonArray().forEach(a -> PlayerJoin.joinCrash.add(a.getAsString().toLowerCase()));
-    }
-
-    @CubingEventHandler(priority = 500)
-    public void inputEvent(SocketInputEvent e) {
-        switch (e.subHeader) {
-            case "login":
-                try {
-                    Lobby.login.add(e.getData().readInt());
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-                break;
-        }
     }
 
     @CubingEventHandler
@@ -76,6 +63,19 @@ public class ServerEvent {
                 RankFormat format = member.user.getFormat(false);
                 Chat.globalChat(player.getWorld().getPlayers(), player, GlobalString.MessageFormat, message, format.getPrefix() + player.getName(), format.getChatColor());
             }
+        }
+    }
+
+    @CubingEventHandler(priority = 500)
+    public void socketInputEvent(SocketInputEvent e) {
+        switch (e.subHeader) {
+            case "login":
+                try {
+                    Lobby.login.add(e.getData().readInt());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+                break;
         }
     }
 
