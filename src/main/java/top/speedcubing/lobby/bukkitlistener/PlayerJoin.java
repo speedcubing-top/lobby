@@ -20,6 +20,7 @@ import top.speedcubing.lib.bukkit.PlayerUtils;
 import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
+import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.bukkitcmd.terms;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
@@ -57,7 +58,7 @@ public class PlayerJoin implements Listener {
         if (!member.agree) {
             player.getInventory().clear();
             player.getInventory().setItem(0, terms.book);
-            player.teleport(new Location(Bukkit.getWorld("agreement"), 0.5, 100, 0.5, 0, 0));
+            player.teleport(new Location(Bukkit.getWorld("agreement"), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.hidePlayer(player);
                 player.hidePlayer(p);
@@ -70,7 +71,7 @@ public class PlayerJoin implements Listener {
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
         member.haveToLogin = false;
-        player.teleport(new Location(Bukkit.getWorlds().get(0), 0.5, 100, 0.5, 0, 0));
+        player.teleport(new Location(Bukkit.getWorlds().get(0), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
         player.setHealth(player.getMaxHealth());
         player.setSaturation(20);
         Inventory inventory = player.getInventory();

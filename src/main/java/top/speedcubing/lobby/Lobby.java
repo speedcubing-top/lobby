@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.lib.eventbus.CubingEventManager;
 import top.speedcubing.lobby.bukkitcmd.easteregg;
@@ -26,6 +27,7 @@ import top.speedcubing.server.speedcubingServer;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
+    public static Vector offset;
 
     public void onEnable() {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");

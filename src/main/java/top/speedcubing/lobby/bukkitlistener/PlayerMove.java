@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
+import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.bukkitcmd.terms;
 
 public class PlayerMove implements Listener {
@@ -21,9 +22,9 @@ public class PlayerMove implements Listener {
                 Location to = e.getTo();
                 if (Math.abs(to.getX()) > 501 || Math.abs(to.getZ()) > 501)
                     player.teleport(e.getFrom());
-                if (to.getY() <= 50) {
+                if (to.getY() < 0) {
                     player.closeInventory();
-                    player.teleport(new Location(player.getWorld(), 0.5, 100, 0.5, 0, 0));
+                    player.teleport(new Location(player.getWorld(), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
                 }
             } else {
                 BookBuilder.openBook(terms.book, player);

@@ -2,6 +2,8 @@ package top.speedcubing.lobby.list;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.util.Vector;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.entity.NPC;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
@@ -11,6 +13,10 @@ import top.speedcubing.server.player.User;
 public class EntityList {
     public static Hologram[] Lobbys = new Hologram[16];
     public static NPC[] npcs = new NPC[8];
+
+    public static Location orig = new Location(null, 0, 100, 0);
+    public static Location spawn = new Location(null, -76, 6, 50);
+
 
     public void Load() {
         String VEPEXtextures = "ewogICJ0aW1lc3RhbXAiIDogMTYxNzE4MDQwNzAyNSwKICAicHJvZmlsZUlkIiA6ICIwMGM2Yjk0YTY5YmU0MzY3OTkwOTQxNjFjMjAxOWI3ZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJLQUVWRVJZIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI1YTUzMTU2Zjk1ODhlZjNkZTQyMGU0ODA5MTYzN2Q3NGYwN2ZmM2MyMzIyNjRkM2Q0MGY3Y2RlOGQ1N2JiODMiCiAgICB9CiAgfQp9";
@@ -30,72 +36,75 @@ public class EntityList {
         String HYPIXELtextures = "ewogICJ0aW1lc3RhbXAiIDogMTcxNDk1MDgzODQ3NCwKICAicHJvZmlsZUlkIiA6ICJmN2M3N2Q5OTlmMTU0YTY2YTg3ZGM0YTUxZWYzMGQxOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJoeXBpeGVsIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI0N2MwNTg4NDVmM2I2ZDAzNDhhYWU1NmI2YWExYTYxYzQ2OWQ4NGNiYWJhMDQ4MTY0MDUwYTFkMzM1ZDZlYTAiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzE3OTEyNzkwZmYxNjRiOTMxOTZmMDhiYTcxZDBlNjIxMjkzMDQ3NzZkMGYzNDczMzRmOGE2ZWFlNTA5ZjhhNTYiCiAgICB9CiAgfQp9";
         String HYPIXELsignature = "ai3vE+lJssU+duoWIQZljBNwrx1ObAgNrLut5ViZQ1sXwzoyJ77ISulXKfBE1DtS3nr+dMTbehDnPxn2lT8i6zwamk7aUx3HM4/OgOB2Y4tKhynggpe2SnjgK5ljHuH6mADK5HLogCKfBctYJS+v7vmEpxpT01T+PnCvlhrE/Az+SjqZxp4oMtlYjcxKKezg/C6BAlGj6OVt8N9RHyFFr+1d5d0cNByadcW2qrknRw5rZACJi32yXHAMwUHJEnULVJIdF1fzhMWvt53Gq38ErcrDKnDxRX1DrNvoXmrqSkZi3XutcnUpHxa7398XZaDhkiC59q9mDp80K7OGR0VUP5YWIx8qMc+2537ABAHtAX78+gREUeFOM4/uZO9RQ7ARnG7rhi//K661m+tCG7mCCWIe5ccERcTHPwbRmTrD0XMPE9dmT1Ypxhs5M9iRgD7kBV0x0Jpv3oIEhANgLi+SNEZR4KzhBZsIKqiAH+sEZDlbisPd6PGOa3l208ZvEYUBRjSXJbRi6AoJGepxTGITSfN7zL0QpaU+0Z+OSyUvhogzKsY/3/taB21sNe5Bb0b24glGFk3O0OGe4W7iI5iIlLgESiSjDQt0quz+4Dclzy0DlTS8jyqqIZHMSUcR04T89ALg0Z+M80v1J2LI+ompFoEvCHCA2Hbrfvq1vUtMUxE=";
 
+        Vector offSet = spawn.clone().subtract(orig).toVector();
+        Lobby.offset = offSet;
+
         for (int i = 0; i < npcs.length; i++) {
             npcs[i] = new NPC("§8[NPC]", null, true, true, true).world("world").hideNametag();
         }
         for (int i = 0; i < Lobbys.length; i++) {
             Lobbys[i] = new Hologram("", true, true).world("world");
         }
-        Lobbys[0].setLocation(-4.5, 100.85, 23.5, 0, 0).setName("§bClutch");
-        Lobbys[1].setLocation(-4.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[2].setLocation(2.5, 100.85, 24.5, 0, 0).setName("§bFastBuilder");
-        Lobbys[3].setLocation(2.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[4].setLocation(-7.5, 100.85, 22.5, 0, 0).setName("§bKnockBackFFA");
-        Lobbys[5].setLocation(-7.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[6].setLocation(-1.5, 100.85, 24.5, 0, 0).setName("§bMLGRush");
-        Lobbys[7].setLocation(-1.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[8].setLocation(5.5, 100.85, 23.5, 0, 0).setName("§bPractice §c[Maintenance]");
-        Lobbys[9].setLocation(5.5, 101.15, 23.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[10].setLocation(8.5, 100.85, 22.5, 0, 0).setName("§bReduce");
-        Lobbys[11].setLocation(8.5, 101.15, 22.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[12].setLocation(0.5, 100.85, 26.5, 0, 0).setName("§bSMP §7[1.20.4]");
-        Lobbys[13].setLocation(0.5, 101.15, 26.5, 0, 0).setName("§e§l0 Players");
-        Lobbys[14].setLocation(-6.5, 100.85, 24.5, 0, 0).setName("§bBedwars");
-        Lobbys[15].setLocation(-6.5, 101.15, 24.5, 0, 0).setName("§e§l0 Players");
-        npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(8.5, 99, 22.5, 180, 0)
+        Lobbys[0].setLocation(new Location(Bukkit.getWorld("world"), -4.5, 100.85, 23.5, 0, 0).add(offSet)).setName("§bClutch");
+        Lobbys[1].setLocation(new Location(Bukkit.getWorld("world"), -4.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[2].setLocation(new Location(Bukkit.getWorld("world"), 2.5, 100.85, 24.5, 0, 0).add(offSet)).setName("§bFastBuilder");
+        Lobbys[3].setLocation(new Location(Bukkit.getWorld("world"), 2.5, 101.15, 24.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[4].setLocation(new Location(Bukkit.getWorld("world"), -7.5, 100.85, 22.5, 0, 0).add(offSet)).setName("§bKnockBackFFA");
+        Lobbys[5].setLocation(new Location(Bukkit.getWorld("world"), -7.5, 101.15, 22.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[6].setLocation(new Location(Bukkit.getWorld("world"), -1.5, 100.85, 24.5, 0, 0).add(offSet)).setName("§bMLGRush");
+        Lobbys[7].setLocation(new Location(Bukkit.getWorld("world"), -1.5, 101.15, 24.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[8].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 100.85, 23.5, 0, 0).add(offSet)).setName("§bPractice §c[Maintenance]");
+        Lobbys[9].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[10].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 100.85, 22.5, 0, 0).add(offSet)).setName("§bReduce");
+        Lobbys[11].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 101.15, 22.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[12].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 100.85, 26.5, 0, 0).add(offSet)).setName("§bSMP §7[1.20.4]");
+        Lobbys[13].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 101.15, 26.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[14].setLocation(new Location(Bukkit.getWorld("world"), -6.5, 100.85, 24.5, 0, 0).add(offSet)).setName("§bBedwars");
+        Lobbys[15].setLocation(new Location(Bukkit.getWorld("world"), -6.5, 101.15, 24.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(new Location(Bukkit.getWorld("world"), 8.5, 99, 22.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> User.getUser(r.getPlayer()).openLangInventory(ItemStackList.GameSelect));
                 });
         //ffa
-        npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(-7.5, 99, 22.5, 180, 0)
+        npcs[2].setSkin(CAKETEXTURES, CAKESIGNATURES).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -7.5, 99, 22.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa");
                 });
         //clutch
-        npcs[3].setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(-4.5, 99, 23.5, 180, 0)
+        npcs[3].setSkin(gritextures, grisignatures).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -4.5, 99, 23.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "clutch");
                 });
         //fb
-        npcs[4].setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(2.5, 99, 24.5, 180, 0)
+        npcs[4].setSkin(doogle1, doogle2).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), 2.5, 99, 24.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder");
                 });
         //practice
-        npcs[5].setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(5.5, 99, 23.5, 180, 0)
+        npcs[5].setSkin(str1, str2).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), 5.5, 99, 23.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "practice");
                 });
         //smp
-        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(0.5, 99, 26.5, 180, 0)
+        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(new Location(Bukkit.getWorld("world"), 0.5, 99, 26.5, 180, 0).add(offSet))
                 .setClickEvent(((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
-                       BungeePluginMessage.switchServer(r.getPlayer(), "smp");
-              }));
+                        BungeePluginMessage.switchServer(r.getPlayer(), "smp");
+                }));
         //bw
-        npcs[7].setSkin(HYPIXELtextures, HYPIXELsignature).setSpawnBodyYaw(180).setLocation(-6.5, 99, 24.5, 180, 0)
+        npcs[7].setSkin(HYPIXELtextures, HYPIXELsignature).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -6.5, 99, 24.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "bedwars");
                 });
 
         //rush
-        npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(-1.5, 99, 24.5, 180, 0)
+        npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -1.5, 99, 24.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT)) {
                         BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush");

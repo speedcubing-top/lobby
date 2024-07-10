@@ -15,7 +15,7 @@ public class login implements CommandExecutor, TabExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (((Player) commandSender).getWorld().getName().equals("login")) {
             String dbpassword = Member.getMember(commandSender).user.dbSelect("password").getString();
-            if (dbpassword.equals(""))
+            if (dbpassword.isEmpty())
                 commandSender.sendMessage("Please register.");
             else if (strings.length == 1) {
                 Player player = (Player) commandSender;
