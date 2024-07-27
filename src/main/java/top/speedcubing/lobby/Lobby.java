@@ -44,15 +44,15 @@ public class Lobby extends JavaPlugin {
         Bukkit.getWorld("agreement").setDifficulty(Difficulty.PEACEFUL);
         Bukkit.getWorld("agreement").setTime(6000);
 
-//        if (!speedcubingServer.isBungeeOnlineMode) {
-//            Bukkit.createWorld(new WorldCreator("login"));
-//            Bukkit.getWorld("login").setDifficulty(Difficulty.PEACEFUL);
-//            Bukkit.getWorld("login").setTime(6000);
-//            Bukkit.getPluginCommand("login").setExecutor(new login());
-//            Bukkit.getPluginCommand("login").setTabCompleter(new login());
-//            Bukkit.getPluginCommand("register").setExecutor(new register());
-//            Bukkit.getPluginCommand("register").setTabCompleter(new register());
-//        }
+/*        if (!speedcubingServer.isBungeeOnlineMode) {
+            Bukkit.createWorld(new WorldCreator("login"));
+            Bukkit.getWorld("login").setDifficulty(Difficulty.PEACEFUL);
+            Bukkit.getWorld("login").setTime(6000);
+            Bukkit.getPluginCommand("login").setExecutor(new login());
+            Bukkit.getPluginCommand("login").setTabCompleter(new login());
+            Bukkit.getPluginCommand("register").setExecutor(new register());
+            Bukkit.getPluginCommand("register").setTabCompleter(new register());
+*/        }
 
         new ItemStackList().Load();
         new EntityList().Load();
