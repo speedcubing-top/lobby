@@ -52,7 +52,7 @@ public class Lobby extends JavaPlugin {
             Bukkit.getPluginCommand("login").setTabCompleter(new login());
             Bukkit.getPluginCommand("register").setExecutor(new register());
             Bukkit.getPluginCommand("register").setTabCompleter(new register());
-*/        }
+        } */
 
         new ItemStackList().Load();
         new EntityList().Load();
