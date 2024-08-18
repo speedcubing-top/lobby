@@ -15,7 +15,7 @@ public class EntityList {
     public static NPC[] npcs = new NPC[8];
 
     public static Location orig = new Location(null, 0, 100, 0);
-    public static Location spawn = new Location(null, -76, 6, 50);
+    public static Location spawn = new Location(null, -68, 6, 50);
 
 
     public void Load() {
