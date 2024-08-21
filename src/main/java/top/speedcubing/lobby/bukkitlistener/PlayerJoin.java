@@ -21,7 +21,7 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.Lobby;
-import top.speedcubing.lobby.bukkitcmd.terms;
+import top.speedcubing.lobby.cubingcmd.terms;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.lobby.Member;

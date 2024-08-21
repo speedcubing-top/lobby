@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lobby.Lobby;
-import top.speedcubing.lobby.bukkitcmd.terms;
+import top.speedcubing.lobby.cubingcmd.terms;
 
 public class PlayerMove implements Listener {
 

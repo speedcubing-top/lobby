@@ -1,22 +1,21 @@
-package top.speedcubing.lobby.bukkitcmd;
+package top.speedcubing.lobby.cubingcmd;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.minecraft.text.TextBuilder;
 import top.speedcubing.lib.minecraft.text.TextClickEvent;
 import top.speedcubing.lib.minecraft.text.TextHoverEvent;
-import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.server.lang.GlobalString;
+import top.speedcubing.server.system.command.CubingCommand;
 
-public class terms implements CommandExecutor, TabCompleter {
+public class terms extends CubingCommand {
+    public terms() {
+        super("terms");
+    }
 
     public static ItemStack book = new BookBuilder("a", "b")
             .addPage(new TextBuilder()
@@ -30,11 +29,11 @@ public class terms implements CommandExecutor, TabCompleter {
                     .both("§8[§4Deny§8]", TextClickEvent.runCommand("/terms deny"), TextHoverEvent.showText("§eclick here to §4deny§e.")).toBungee()).build();
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (strings.length == 0) {
+    public void execute(CommandSender commandSender, String command, String[] args) {
+        if (args.length == 0) {
             Member.getMember(commandSender).user.sendLangMessage(GlobalString.terms);
         } else
-            switch (strings[0]) {
+            switch (args[0]) {
                 case "accept":
                     Member member = Member.getMember(commandSender);
                     member.user.dbUpdate("agreement=1");
@@ -48,10 +47,5 @@ public class terms implements CommandExecutor, TabCompleter {
                     Member.getMember(commandSender).user.sendLangMessage(GlobalString.UnknownCommand);
                     break;
             }
-        return true;
-    }
-
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return new ArrayList<>();
     }
 }

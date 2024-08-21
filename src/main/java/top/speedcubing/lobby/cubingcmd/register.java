@@ -1,17 +1,18 @@
-package top.speedcubing.lobby.bukkitcmd;
+package top.speedcubing.lobby.cubingcmd;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
+import top.speedcubing.server.system.command.CubingCommand;
 
-public class register implements CommandExecutor, TabExecutor {
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+public class register extends CubingCommand {
+    public register() {
+        super();
+    }
+
+    @Override
+    public void execute(CommandSender commandSender, String command, String[] strings) {
         if (((Player) commandSender).getWorld().getName().equals("login")) {
             if (strings.length == 2) {
                 int l = strings[0].length();
@@ -26,10 +27,5 @@ public class register implements CommandExecutor, TabExecutor {
                 } else commandSender.sendMessage("The password and confirm password do not match.");
             } else commandSender.sendMessage("/register <password> <confirm password>");
         } else commandSender.sendMessage("You already registered.");
-        return true;
-    }
-
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return new ArrayList<>();
     }
 }

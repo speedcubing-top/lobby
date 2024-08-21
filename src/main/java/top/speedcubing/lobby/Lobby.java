@@ -10,9 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.lib.eventbus.CubingEventManager;
-import top.speedcubing.lobby.bukkitcmd.easteregg;
-import top.speedcubing.lobby.bukkitcmd.lang;
-import top.speedcubing.lobby.bukkitcmd.terms;
 import top.speedcubing.lobby.bukkitlistener.EntityDamage;
 import top.speedcubing.lobby.bukkitlistener.InventoryClick;
 import top.speedcubing.lobby.bukkitlistener.PlayerDropItem;
@@ -24,6 +21,7 @@ import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.speedcubingServer;
+import top.speedcubing.server.system.command.CubingCommandLoader;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
@@ -33,10 +31,12 @@ public class Lobby extends JavaPlugin {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
         CubingEventManager.registerListeners(new ServerEvent());
         new ConfigReloadEvent().call();
-        registerCommands();
+
+        CubingCommandLoader.loadCommands("top.speedcubing.lobby.cubingcmd", Lobby.class);
+
         registerListeners();
 
-        BadApple.init();
+        //BadApple.init();
 
         Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
         Bukkit.getWorld("world").setTime(6000);
@@ -56,14 +56,6 @@ public class Lobby extends JavaPlugin {
 
         new ItemStackList().Load();
         new EntityList().Load();
-    }
-
-    private void registerCommands() {
-        Bukkit.getPluginCommand("terms").setExecutor(new terms());
-        Bukkit.getPluginCommand("terms").setTabCompleter(new terms());
-        Bukkit.getPluginCommand("lang").setExecutor(new lang());
-        Bukkit.getPluginCommand("lang").setTabCompleter(new lang());
-        Bukkit.getPluginCommand("easteregg").setExecutor(new easteregg());
     }
 
     private void registerListeners() {
