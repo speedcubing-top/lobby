@@ -17,7 +17,7 @@ import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.events.player.HubEvent;
-import top.speedcubing.server.lang.GlobalString;
+import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
 public class ServerEvent {
@@ -51,17 +51,17 @@ public class ServerEvent {
                 try {
                     if (message.matches("^.{3,32}#[0-9]{4}$") || message.matches("^[0-9,a-z_.]*$")) {
                         member.user.dbUpdate("discord='" + message + "'");
-                        member.user.sendLangMessage(StringList.updatedDiscord, message);
-                    } else member.user.sendLangMessage(StringList.discordinvalid);
+                        member.user.sendMessage("%lobby_msg_discord_updated%", message);
+                    } else member.user.sendMessage("%lobby_msg_discord_invalid%");
                 } catch (Exception exception) {
-                    member.user.sendLangMessage(StringList.discordinvalid);
+                    member.user.sendMessage("%lobby_msg_discord_invalid%");
                 }
                 member.discord = false;
                 member.user.setInput(false);
             } else if (message.charAt(0) != '/') {
                 e.setCancelled(true);
                 RankFormat format = member.user.getFormat(false);
-                Chat.globalChat(player.getWorld().getPlayers(), player, GlobalString.MessageFormat, message, format.getPrefix() + player.getName(), format.getChatColor());
+                Chat.globalChat(player.getWorld().getPlayers(), player, Lang.of("%lang_message_format%"), message, format.getPrefix() + player.getName(), format.getChatColor());
             }
         }
     }
@@ -82,6 +82,6 @@ public class ServerEvent {
     @CubingEventHandler
     public void hubEvent(HubEvent e) {
         e.setCancelled(true);
-        Member.getMember(e.getPlayer()).user.sendLangMessage(StringList.AlreadyInHub);
+        Member.getMember(e.getPlayer()).user.sendMessage("%lobby_msg_alr_in_lobby%");
     }
 }

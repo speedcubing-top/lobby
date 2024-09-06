@@ -54,7 +54,6 @@ public class Lobby extends JavaPlugin {
             Bukkit.getPluginCommand("register").setTabCompleter(new register());
         } */
 
-        new ItemStackList().Load();
         new EntityList().Load();
     }
 

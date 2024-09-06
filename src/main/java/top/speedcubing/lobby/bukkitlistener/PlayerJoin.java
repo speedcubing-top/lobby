@@ -21,13 +21,12 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.Lobby;
+import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.cubingcmd.terms;
+import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
-import top.speedcubing.lobby.Member;
-import top.speedcubing.lobby.easteregg.JoinEasterEgg;
-import top.speedcubing.server.lang.GlobalString;
-import top.speedcubing.server.lang.LangMessage;
+import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.player.User;
 import top.speedcubing.server.speedcubingServer;
 
@@ -88,7 +87,7 @@ public class PlayerJoin implements Listener {
             member.user.dbUpdate("flying=0");
         }
         if (joinEvent && !member.user.vanished) {
-            member.user.sendLangMessage(GlobalString.LobbyJoinMessage, text1);
+            member.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
         } else {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.showPlayer(player);
@@ -96,7 +95,7 @@ public class PlayerJoin implements Listener {
                     player.showPlayer(p);
             }
         }
-        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendLangMessage(GlobalString.LobbyJoinMessage, text1));
+        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendMessage("%lang_lobby_msg_join_lobby", text1));
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
@@ -114,7 +113,7 @@ public class PlayerJoin implements Listener {
         //profile
         ItemStack profile = new ItemBuilder(Material.SKULL_ITEM)
                 .durability(3)
-                .name(LangMessage.load("lobby_item_profile").get(member.user))
+                .name(Lang.of("%lang_lobby_item_profile%").getComponent(member.user.lang).toColorText())
                 .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString())
                 .build();
         inventory.setItem(2, profile);
