@@ -49,7 +49,7 @@ public class LanguageInventory {
         String[] sidebar = StringList.LobbySideBar[x];
         SideBar.getSidebar(event.getPlayer()).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
         member.user.sound(Sound.NOTE_PLING);
-        member.user.sendMessage("%lobby_msg_translate_success%");
+        member.user.sendMessage("%lang_lobby_msg_translate_success%");
         member.user.dbUpdate("lang=" + x);
         event.getPlayer().closeInventory();
     }

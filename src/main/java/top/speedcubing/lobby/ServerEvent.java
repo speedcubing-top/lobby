@@ -51,10 +51,10 @@ public class ServerEvent {
                 try {
                     if (message.matches("^.{3,32}#[0-9]{4}$") || message.matches("^[0-9,a-z_.]*$")) {
                         member.user.dbUpdate("discord='" + message + "'");
-                        member.user.sendMessage("%lobby_msg_discord_updated%", message);
-                    } else member.user.sendMessage("%lobby_msg_discord_invalid%");
+                        member.user.sendMessage("%lang_lobby_msg_discord_updated%", message);
+                    } else member.user.sendMessage("%lang_lobby_msg_discord_invalid%");
                 } catch (Exception exception) {
-                    member.user.sendMessage("%lobby_msg_discord_invalid%");
+                    member.user.sendMessage("%lang_lobby_msg_discord_invalid%");
                 }
                 member.discord = false;
                 member.user.setInput(false);
@@ -82,6 +82,6 @@ public class ServerEvent {
     @CubingEventHandler
     public void hubEvent(HubEvent e) {
         e.setCancelled(true);
-        Member.getMember(e.getPlayer()).user.sendMessage("%lobby_msg_alr_in_lobby%");
+        Member.getMember(e.getPlayer()).user.sendMessage("%lang_lobby_msg_alr_in_lobby%");
     }
 }

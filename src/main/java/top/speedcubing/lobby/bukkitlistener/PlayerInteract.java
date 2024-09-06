@@ -33,7 +33,7 @@ public class PlayerInteract implements Listener {
                     break;
                 case REDSTONE_COMPARATOR:
                     String data = member.user.dbSelect("discord").getString();
-                    LangInventory inventory = new LangInventory(player, 36, "%lobby_item_settings%")
+                    LangInventory inventory = new LangInventory(player, 36, "%lang_lobby_item_settings%")
                             .setItem(ItemStackList.lang, (r) -> {
                                 member.user.sound(Sound.CLICK);
                                 member.user.openLangInventory(ItemStackList.language);

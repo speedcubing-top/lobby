@@ -140,6 +140,6 @@ public class ItemStackList {
                         "fb_2_pb=default(fb_2_pb)," +
                         "fb_3_pb=default(fb_3_pb)," +
                         "fb_4_pb=default(fb_4_pb)");
-        member.user.sendMessage("%lobby_msg_reset_stat_success%");
+        member.user.sendMessage("%lang_lobby_msg_reset_stat_success%");
     }
 }
