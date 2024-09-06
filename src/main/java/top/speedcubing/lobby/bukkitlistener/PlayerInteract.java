@@ -30,7 +30,6 @@ public class PlayerInteract implements Listener {
                     member.user.openLangInventory(ItemStackList.navigator);
                     break;
                 case SKULL_ITEM:
-                    ItemStackList.language.s[0].setTitle("hi");
                     break;
                 case REDSTONE_COMPARATOR:
                     String data = member.user.dbSelect("discord").getString();
@@ -48,16 +47,16 @@ public class PlayerInteract implements Listener {
                                 member.user.dbUpdate("messagable=" + (member.messagetoggled));
                             }, 12)
                             .setItem(new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).skullFromURL("http://textures.minecraft.net/texture/7873c12bffb5251a0b88d5ae75c7247cb39a75ff1a81cbe4c8a39b311ddeda"),
-                                            Lang.of("%lobby_item_discord%"),
-                                            Lang.of(data == null ? "%lobby_discord_nodata%" : "%lobby_discord_youare%", data),
-                                            Lang.of("%lobby_lore_discord_edit%"))
+                                            Lang.of("%lang_lobby_item_discord%"),
+                                            Lang.of(data == null ? "%lang_lobby_discord_nodata%" : "%lang_lobby_discord_youare%", data),
+                                            Lang.of("%lang_lobby_lore_discord_edit%"))
                                     ,
                                     (r) -> {
                                         switch (r.getEvent().getAction()) {
                                             case PICKUP_ALL: {
                                                 member.user.sound(Sound.CLICK);
                                                 player.closeInventory();
-                                                member.user.sendMessage("%lobby_msg_discord_input%");
+                                                member.user.sendMessage("%lang_lobby_msg_discord_input%");
                                                 member.discord = true;
                                                 member.user.setInput(true);
                                             }
@@ -69,7 +68,7 @@ public class PlayerInteract implements Listener {
                                                     member.user.dbUpdate("discord=0");
                                                 member.discord = false;
                                                 member.user.setInput(false);
-                                                member.user.sendMessage("%lobby_msg_discord_removed%");
+                                                member.user.sendMessage("%lang_lobby_msg_discord_removed%");
                                             }
                                             break;
                                         }

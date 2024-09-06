@@ -95,7 +95,7 @@ public class PlayerJoin implements Listener {
                     player.showPlayer(p);
             }
         }
-        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendMessage("%lang_lobby_msg_join_lobby", text1));
+        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendMessage("%lang_lobby_msg_join_lobby%", text1));
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
