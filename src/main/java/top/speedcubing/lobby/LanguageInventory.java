@@ -36,11 +36,12 @@ public class LanguageInventory {
                 item = new ItemBuilder(Material.SKULL_ITEM).durability(3).glow().lore(Lang.of("%lang_general_selected%").getString(lang));
             }
             item.name(Lang.of("%lang_lobby_item_lang_name%").getString(i))
-                    .lore(Lang.of("%lang_general_selected%").getString(i))
                     .skullFromURL(skullURL[i]).build();
 
             inv.setItem(item.build(), (r) -> c(r, finalI), 10 + i * 2);
         }
+
+        member.user.bOpenInventory(inv.getInventory());
     }
 
     public static void c(ClickInventoryEvent event, int x) {

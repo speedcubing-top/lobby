@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
+import top.speedcubing.lobby.LanguageInventory;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.lang.Lang;
@@ -36,7 +37,7 @@ public class PlayerInteract implements Listener {
                     LangInventory inventory = new LangInventory(player, 36, "%lang_lobby_item_settings%")
                             .setItem(ItemStackList.lang, (r) -> {
                                 member.user.sound(Sound.CLICK);
-                                member.user.openLangInventory(ItemStackList.language);
+                                LanguageInventory.open(member);
                             }, 11)
                             .setItem(ItemStackList.dm, (r) -> {
                                 member.user.sound(Sound.CLICK);

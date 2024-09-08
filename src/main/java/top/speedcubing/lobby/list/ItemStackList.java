@@ -58,7 +58,6 @@ public class ItemStackList {
             .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE).glow(), Lang.of("%lang_lobby_item_fastbuilder%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
             .setItem(new LangItemStack(new ItemBuilder(Material.DIAMOND_SWORD).glow().hideAttr(), Lang.of("%lang_lobby_item_practice%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
             .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE_STAIRS), Lang.of("%lang_lobby_item_clutch%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
-    public static LangInventory language;
     public static final LangInventory ResetConfirm = new LangInventory(27, Lang.of("%lang_lobby_msg_sure_reset%"))
             .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), Lang.of("%lang_general_yes%")), ItemStackList::a, 11)
             .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), Lang.of("%lang_general_no%")), (r) -> r.getPlayer().closeInventory(), 15);
