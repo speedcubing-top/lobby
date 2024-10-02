@@ -6,37 +6,36 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import top.speedcubing.common.database.Database;
 import top.speedcubing.common.server.MinecraftServer;
-import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
-import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.Lang;
-import top.speedcubing.server.lang.LangInventory;
-import top.speedcubing.server.lang.LangItemStack;
+import top.speedcubing.server.lang.LangInv;
+import top.speedcubing.server.lang.LangItem;
 import top.speedcubing.server.player.User;
 
 public class ItemStackList {
 
-    public static LangItemStack Navigator = new LangItemStack(new ItemBuilder(Material.COMPASS), Lang.of("%lang_lobby_item_navigator%"));
-    public static LangItemStack Settings = new LangItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR), Lang.of("%lang_lobby_item_settings%"));
-    public static LangItemStack lang = new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece"), Lang.of("%lang_lobby_item_lang%"));
-    public static LangItemStack dm = new LangItemStack(new ItemBuilder(Material.SIGN), Lang.of("%lang_lobby_item_direct_message%"));
+    public static LangItem Navigator = new LangItem(Material.COMPASS).name("%lang_lobby_item_navigator%");
+    public static LangItem Settings = new LangItem(Material.REDSTONE_COMPARATOR).name("%lang_lobby_item_settings%");
+    public static LangItem lang = new LangItem(Material.SKULL_ITEM).name("%lang_lobby_item_lang%").durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece");
+    public static LangItem dm = new LangItem(Material.SIGN).name("%lang_lobby_item_direct_message%");
 
-    public static LangItemStack[] toggle = {
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(1), Lang.of("%lang_settings_message_0%")),
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(14), Lang.of("%lang_settings_message_1%")),
-            new LangItemStack(new ItemBuilder(Material.INK_SACK).durability(10), Lang.of("%lang_settings_message_2%")),
+    public static LangItem[] toggle = {
+            new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_message_0%"),
+            new LangItem(Material.INK_SACK).durability(14).name("%lang_settings_message_1%"),
+            new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_message_2%"),
     };
-    public static LangItemStack Reset = new LangItemStack(new ItemBuilder(Material.BARRIER), Lang.of("%lang_lobby_item_reset_settings%"));
-    public static LangItemStack ResetStat = new LangItemStack(new ItemBuilder(Material.BARRIER), Lang.of("%lang_lobby_item_reset_stat%"));
-    public static LangInventory GameSelect = new LangInventory(18, Lang.of("%lang_lobby_inv_reduce%"))
-            .setItem(new LangItemStack(new ItemBuilder(Material.LOG).durability(3), Lang.of("%lang_reduce_map_name_0%")), 0)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BED), Lang.of("%lang_reduce_map_name_1%")), 1)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BARRIER), Lang.of("%lang_reduce_map_name_2%")), 2)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SMOOTH_BRICK), Lang.of("%lang_reduce_map_name_3%")), 3)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE), Lang.of("%lang_reduce_map_name_4%")), 4)
+
+    public static LangItem Reset = new LangItem(Material.BARRIER).name("%lang_lobby_item_reset_settings%");
+    public static LangItem ResetStat = new LangItem(Material.BARRIER).name("%lang_lobby_item_reset_stat%");
+    public static LangInv GameSelect = new LangInv(18, "%lang_lobby_inv_reduce%")
+            .setItem(new LangItem(Material.LOG).name("%lang_reduce_map_name_0%").durability(3), 0)
+            .setItem(new LangItem(Material.BED).name("%lang_reduce_map_name_1%"), 1)
+            .setItem(new LangItem(Material.BARRIER).name("%lang_reduce_map_name_2%"), 2)
+            .setItem(new LangItem(Material.SMOOTH_BRICK).name("%lang_reduce_map_name_3%"), 3)
+            .setItem(new LangItem(Material.SANDSTONE).name("%lang_reduce_map_name_4%"), 4)
             .setClickEvent((r) -> {
                 Member member = Member.getMember(r.getPlayer());
                 MinecraftServer.getServer("reduce").write(new ByteArrayBuffer()
@@ -47,23 +46,23 @@ public class ItemStackList {
                         .writeInt(member.user.proxy.getPort())
                         .toByteArray());
             }, 0, 4);
-    public static LangInventory navigator = new LangInventory(45, "%lang_lobby_item_navigator%")
-            .setItem(new LangItemStack(new ItemBuilder(Material.STICK), Lang.of("%lang_lobby_item_mlgrush%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
-            .setItem(new LangItemStack(new ItemBuilder(Material.WOOD_SWORD).glow().hideAttr(), Lang.of("%lang_lobby_item_knockbackffa%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
-            .setItem(new LangItemStack(new ItemBuilder(Material.BLAZE_ROD).glow(), Lang.of("%lang_lobby_item_reduce%")), (r) -> {
+    public static LangInv navigator = new LangInv(45, "%lang_lobby_item_navigator%")
+            .setItem(new LangItem(Material.STICK).name("%lang_lobby_item_mlgrush%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
+            .setItem(new LangItem(Material.WOOD_SWORD).glow().hideAttr().name("%lang_lobby_item_knockbackffa%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
+            .setItem(new LangItem(Material.BLAZE_ROD).glow().name("%lang_lobby_item_reduce%"), (r) -> {
                 r.getPlayer().closeInventory();
                 r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
                 r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
             }, 21)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE).glow(), Lang.of("%lang_lobby_item_fastbuilder%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
-            .setItem(new LangItemStack(new ItemBuilder(Material.DIAMOND_SWORD).glow().hideAttr(), Lang.of("%lang_lobby_item_practice%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
-            .setItem(new LangItemStack(new ItemBuilder(Material.SANDSTONE_STAIRS), Lang.of("%lang_lobby_item_clutch%")), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
-    public static final LangInventory ResetConfirm = new LangInventory(27, Lang.of("%lang_lobby_msg_sure_reset%"))
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), Lang.of("%lang_general_yes%")), ItemStackList::a, 11)
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), Lang.of("%lang_general_no%")), (r) -> r.getPlayer().closeInventory(), 15);
-    public static final LangInventory ResetConfirmStat = new LangInventory(27, Lang.of("%lang_lobby_msg_sure_reset%"))
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(13), Lang.of("%lang_general_yes%")), ItemStackList::b, 11)
-            .setItem(new LangItemStack(new ItemBuilder(Material.STAINED_CLAY).durability(14), Lang.of("%lang_general_no%")), (r) -> r.getPlayer().closeInventory(), 15);
+            .setItem(new LangItem(Material.SANDSTONE).name("%lang_lobby_item_fastbuilder%").glow(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
+            .setItem(new LangItem(Material.DIAMOND_SWORD).name("%lang_lobby_item_practice%").glow().hideAttr(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
+            .setItem(new LangItem(Material.SANDSTONE_STAIRS).name("%lang_lobby_item_clutch%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
+    public static final LangInv ResetConfirm = new LangInv(27, Lang.of("%lang_lobby_msg_sure_reset%"))
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::a, 11)
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_no%").durability(14), (r) -> r.getPlayer().closeInventory(), 15);
+    public static final LangInv ResetConfirmStat = new LangInv(27, Lang.of("%lang_lobby_msg_sure_reset%"))
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::b, 11)
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_no%").durability(14), (r) -> r.getPlayer().closeInventory(), 15);
 
 
     public static void a(ClickInventoryEvent e) {

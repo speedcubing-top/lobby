@@ -16,8 +16,8 @@ import top.speedcubing.lobby.LanguageInventory;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.lang.Lang;
-import top.speedcubing.server.lang.LangInventory;
-import top.speedcubing.server.lang.LangItemStack;
+import top.speedcubing.server.lang.LangInv;
+import top.speedcubing.server.lang.LangItem;
 import top.speedcubing.server.player.User;
 
 public class PlayerInteract implements Listener {
@@ -34,7 +34,7 @@ public class PlayerInteract implements Listener {
                     break;
                 case REDSTONE_COMPARATOR:
                     String data = member.user.dbSelect("discord").getString();
-                    LangInventory inventory = new LangInventory(player, 36, "%lang_lobby_item_settings%")
+                    LangInv inventory = new LangInv(player, 36, "%lang_lobby_item_settings%")
                             .setItem(ItemStackList.lang, (r) -> {
                                 member.user.sound(Sound.CLICK);
                                 LanguageInventory.open(member);
@@ -47,11 +47,14 @@ public class PlayerInteract implements Listener {
                                 r.getEvent().getClickedInventory().setItem(21, ItemStackList.toggle[member.messagetoggled].get(member.user));
                                 member.user.dbUpdate("messagable=" + (member.messagetoggled));
                             }, 12)
-                            .setItem(new LangItemStack(new ItemBuilder(Material.SKULL_ITEM).durability(3).skullFromURL("http://textures.minecraft.net/texture/7873c12bffb5251a0b88d5ae75c7247cb39a75ff1a81cbe4c8a39b311ddeda"),
-                                            Lang.of("%lang_lobby_item_discord%"),
-                                            Lang.of(data == null ? "%lang_lobby_discord_nodata%" : "%lang_lobby_discord_youare%", data),
-                                            Lang.of("%lang_lobby_lore_discord_edit%"))
-                                    ,
+                            .setItem(new LangItem(Material.SKULL_ITEM)
+                                            .name("%lang_lobby_item_discord%")
+                                            .durability(3)
+                                            .skullFromURL("http://textures.minecraft.net/texture/7873c12bffb5251a0b88d5ae75c7247cb39a75ff1a81cbe4c8a39b311ddeda")
+                                            .lore(
+                                                Lang.of(data.isEmpty() ? "%lang_lobby_discord_nodata%" : "%lang_lobby_discord_youare%", data),
+                                                Lang.of("%lang_lobby_lore_discord_edit%")
+                                            ),
                                     (r) -> {
                                         switch (r.getEvent().getAction()) {
                                             case PICKUP_ALL: {
@@ -65,8 +68,8 @@ public class PlayerInteract implements Listener {
                                             case PICKUP_HALF: {
                                                 player.closeInventory();
                                                 String discord = member.user.dbSelect("discord").getString();
-                                                if (!discord.equals("0"))
-                                                    member.user.dbUpdate("discord=0");
+                                                if (discord.isEmpty())
+                                                    member.user.dbUpdate("discord=''");
                                                 member.discord = false;
                                                 member.user.setInput(false);
                                                 member.user.sendMessage("%lang_lobby_msg_discord_removed%");
