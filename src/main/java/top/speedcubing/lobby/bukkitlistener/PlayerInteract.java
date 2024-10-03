@@ -11,11 +11,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
-import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.LanguageInventory;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.list.ItemStackList;
-import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.lang.LangInv;
 import top.speedcubing.server.lang.LangItem;
 import top.speedcubing.server.player.User;
@@ -51,9 +49,10 @@ public class PlayerInteract implements Listener {
                                             .name("%lang_lobby_item_discord%")
                                             .durability(3)
                                             .skullFromURL("http://textures.minecraft.net/texture/7873c12bffb5251a0b88d5ae75c7247cb39a75ff1a81cbe4c8a39b311ddeda")
-                                            .lore(
-                                                Lang.of(data.isEmpty() ? "%lang_lobby_discord_nodata%" : "%lang_lobby_discord_youare%", data),
-                                                Lang.of("%lang_lobby_lore_discord_edit%")
+                                            .lore2(
+                                                    (data.isEmpty() ? "%lang_lobby_discord_nodata%" : "%lang_lobby_discord_youare%") + "\n" +
+                                                    "%lang_lobby_lore_discord_edit%",
+                                                    data
                                             ),
                                     (r) -> {
                                         switch (r.getEvent().getAction()) {
