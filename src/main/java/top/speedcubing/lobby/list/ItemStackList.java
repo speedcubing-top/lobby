@@ -52,7 +52,7 @@ public class ItemStackList {
             .setItem(new LangItem(Material.BLAZE_ROD).glow().name("%lang_lobby_item_reduce%"), (r) -> {
                 r.getPlayer().closeInventory();
                 r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-                r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 7.5, 99, 21.5, 0, 0));
+                r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -60.5, 5, 70.5, -39, 9));
             }, 21)
             .setItem(new LangItem(Material.SANDSTONE).name("%lang_lobby_item_fastbuilder%").glow(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
             .setItem(new LangItem(Material.DIAMOND_SWORD).name("%lang_lobby_item_practice%").glow().hideAttr(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
