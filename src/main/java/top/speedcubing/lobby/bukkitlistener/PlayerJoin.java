@@ -38,10 +38,10 @@ public class PlayerJoin implements Listener {
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         Random random = new Random();
-        int randomNumber = random.nextInt(500);
-        if (randomNumber == 0) {
-            JoinEasterEgg.start(player);
-        }
+//        int randomNumber = random.nextInt(500);
+//        if (randomNumber == 0) {
+//            JoinEasterEgg.start(player);
+//        }
         if (joinCrash.contains(player.getName().toLowerCase()))
             speedcubingServer.scheduledPool.schedule(() -> PlayerUtils.explosionCrash(player), 1000, TimeUnit.MILLISECONDS);
         Member member = new Member(player);
