@@ -68,7 +68,7 @@ public class ItemStackList {
     public static void a(ClickInventoryEvent e) {
         User user = User.getUser(e.getPlayer());
         {
-            Database.connection.update("playersdata",
+            Database.getCubing().update("playersdata",
                     "api=default(api)," +
                             "chatfilt=default(chatfilt)," +
                             "messagable=default(messagable)," +

@@ -23,7 +23,6 @@ import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.cubingcmd.terms;
-import top.speedcubing.lobby.easteregg.JoinEasterEgg;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.lang.Lang;
