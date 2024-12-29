@@ -8,6 +8,7 @@ import top.speedcubing.common.database.Database;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
+import top.speedcubing.lib.utils.SQL.SQLConnection;
 import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.server.lang.Lang;
@@ -67,8 +68,8 @@ public class ItemStackList {
 
     public static void a(ClickInventoryEvent e) {
         User user = User.getUser(e.getPlayer());
-        {
-            Database.getCubing().update("playersdata",
+        try(SQLConnection connection = Database.getCubing()){
+            connection.update("playersdata",
                     "api=default(api)," +
                             "chatfilt=default(chatfilt)," +
                             "messagable=default(messagable)," +
