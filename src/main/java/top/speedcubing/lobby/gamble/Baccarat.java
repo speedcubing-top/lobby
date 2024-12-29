@@ -61,7 +61,7 @@ public class Baccarat {
     }
 
     public int getPlayerTotalCoins() {
-        return User.getUser(player).dbSelect("coins").getInt();
+        return User.getUser(player).dbSelect("coins").getInt(0);
     }
 
     public void addPlayerTotalCoins(int coins) {

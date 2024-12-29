@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import top.speedcubing.lib.utils.SQL.SQLRow;
 import top.speedcubing.server.player.User;
 
 public class Member {
@@ -29,9 +30,9 @@ public class Member {
         this.user = User.getUser(player);
         haveToLogin = Lobby.login.contains(user.id);
         Lobby.login.remove(user.id);
-        String[] s = user.dbSelect("agreement,messagable").getStringArray();
-        agree = s[0].equals("1");
-        messagetoggled = Integer.parseInt(s[1]);
+        SQLRow r = user.dbSelect("agreement,messagable");
+        agree = r.getBoolean("agreement");
+        messagetoggled = r.getInt("messagable");
         users.put(user.id, this);
     }
 }

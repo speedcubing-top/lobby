@@ -78,7 +78,7 @@ public class PlayerJoin implements Listener {
         String text1 = format.getPrefix() + name + format.getChatColor();
         player.getInventory().setHeldItemSlot(0);
         //fly
-        boolean isFly = member.user.dbSelect("flying").getBoolean();
+        boolean isFly = member.user.dbSelect("flying").getBoolean(0);
         if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
             member.user.player.performCommand("fly");
         }
@@ -113,7 +113,7 @@ public class PlayerJoin implements Listener {
         ItemStack profile = new ItemBuilder(Material.SKULL_ITEM)
                 .durability(3)
                 .name(Lang.of("%lang_lobby_item_profile%").getComponent(member.user.lang).toColorText())
-                .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString())
+                .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString(0))
                 .build();
         inventory.setItem(2, profile);
         //gamble

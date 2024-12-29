@@ -31,7 +31,7 @@ public class PlayerInteract implements Listener {
                 case SKULL_ITEM:
                     break;
                 case REDSTONE_COMPARATOR:
-                    String data = member.user.dbSelect("discord").getString();
+                    String data = member.user.dbSelect("discord").getString(0);
                     LangInv inventory = new LangInv(player, 36, "%lang_lobby_item_settings%")
                             .setItem(ItemStackList.lang, (r) -> {
                                 member.user.sound(Sound.CLICK);
@@ -66,7 +66,7 @@ public class PlayerInteract implements Listener {
                                             break;
                                             case PICKUP_HALF: {
                                                 player.closeInventory();
-                                                String discord = member.user.dbSelect("discord").getString();
+                                                String discord = member.user.dbSelect("discord").getString(0);
                                                 if (discord.isEmpty())
                                                     member.user.dbUpdate("discord=''");
                                                 member.discord = false;

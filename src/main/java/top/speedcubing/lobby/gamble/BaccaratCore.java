@@ -46,7 +46,7 @@ public class BaccaratCore implements Listener {
             e.setCancelled(true);
             if (e.getRawSlot() == 4) {
                 InventoryBuilder inv = new InventoryBuilder(9, "Baccarat Bet");
-                inv.setItem(new ItemBuilder(Material.GOLD_INGOT).name("§eYour coins: " + User.getUser(player).dbSelect("coins").getInt()).build(), 0);
+                inv.setItem(new ItemBuilder(Material.GOLD_INGOT).name("§eYour coins: " + User.getUser(player).dbSelect("coins").getInt(0)).build(), 0);
                 inv.setItem(new ItemBuilder(Material.STAINED_GLASS_PANE).durability(7).name(" ").build(), 1,2,6,7);
                 inv.setItem(new ItemBuilder(Material.REDSTONE).name("§cReduce 100 coins").build(), 3);
                 inv.setItem(new ItemBuilder(Material.EMERALD).name("§aCurrent bet coins: 100").build(), 4);

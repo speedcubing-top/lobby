@@ -14,7 +14,7 @@ public class login extends CubingCommand {
     @Override
     public void execute(CommandSender commandSender, String commands, String[] args) {
         if (((Player) commandSender).getWorld().getName().equals("login")) {
-            String dbpassword = Member.getMember(commandSender).user.dbSelect("password").getString();
+            String dbpassword = Member.getMember(commandSender).user.dbSelect("password").getString(0);
             if (dbpassword.isEmpty())
                 commandSender.sendMessage("Please register.");
             else if (args.length == 1) {
