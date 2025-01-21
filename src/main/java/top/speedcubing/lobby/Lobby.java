@@ -25,6 +25,7 @@ import top.speedcubing.server.system.command.CubingCommandLoader;
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
     public static Vector offset;
+    public static boolean loaded;
 
     public void onEnable() {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
@@ -54,6 +55,7 @@ public class Lobby extends JavaPlugin {
         } */
 
         new EntityList().init();
+        loaded = true;
     }
 
     private void registerListeners() {

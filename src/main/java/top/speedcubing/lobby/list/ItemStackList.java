@@ -43,8 +43,6 @@ public class ItemStackList {
                         .writeUTF("reduce")
                         .writeInt(member.user.id)
                         .writeInt(r.getEvent().getRawSlot())
-                        .writeUTF(member.user.proxy.getHost())
-                        .writeInt(member.user.proxy.getPort())
                         .toByteArray());
             }, 0, 4);
     public static LangInv navigator = new LangInv(45, "%lang_lobby_item_navigator%")

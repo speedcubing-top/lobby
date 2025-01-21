@@ -29,6 +29,9 @@ public class ServerEvent {
 
     @CubingEventHandler
     public void cubingTickEvent(CubingTickEvent e) {
+        if (!Lobby.loaded) {
+            return;
+        }
         SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
         EntityList.Lobbys[1].setName("§e§l" + MinecraftServer.getServer("clutch").getPlayerCount() + " Players");
         EntityList.Lobbys[3].setName("§e§l" + MinecraftServer.getServer("fastbuilder").getPlayerCount() + " Players");
