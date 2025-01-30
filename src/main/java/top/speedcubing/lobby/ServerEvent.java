@@ -7,7 +7,7 @@ import top.speedcubing.common.configuration.ServerConfig;
 import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.common.events.CubingTickEvent;
-import top.speedcubing.common.events.SocketInputEvent;
+import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
@@ -70,8 +70,8 @@ public class ServerEvent {
     }
 
     @CubingEventHandler(priority = 500)
-    public void socketInputEvent(SocketInputEvent e) {
-        switch (e.subHeader) {
+    public void socketInputEvent(SocketReadEvent e) {
+        switch (e.getPacketID()) {
             case "login":
                 try {
                     Lobby.login.add(e.getData().readInt());
