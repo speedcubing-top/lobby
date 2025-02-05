@@ -8,7 +8,6 @@ import org.bukkit.Difficulty;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
-import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.lib.eventbus.CubingEventManager;
 import top.speedcubing.lobby.bukkitlistener.EntityDamage;
 import top.speedcubing.lobby.bukkitlistener.InventoryClick;
@@ -17,6 +16,7 @@ import top.speedcubing.lobby.bukkitlistener.PlayerInteract;
 import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.bukkitlistener.PlayerMove;
 import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
+import top.speedcubing.lobby.configuration.Configuration;
 import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.server.speedcubingServer;
@@ -29,11 +29,13 @@ public class Lobby extends JavaPlugin {
 
     public void onEnable() {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
-        CubingEventManager.registerListeners(new ServerEvent());
+        CubingEventManager.registerListeners(new ServerEvent(), new Configuration());
 
         CubingCommandLoader.loadCommands("top.speedcubing.lobby.cubingcmd", Lobby.class);
 
         registerListeners();
+
+        Configuration.reload();
 
         //BadApple.init();
 
