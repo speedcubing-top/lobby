@@ -21,11 +21,6 @@ import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
 public class ServerEvent {
-    @CubingEventHandler
-    public void configReloadEvent(ConfigReloadEvent e) {
-        PlayerJoin.joinCrash.clear();
-        ServerConfig.config.get("onlinecrash").getAsJsonArray().forEach(a -> PlayerJoin.joinCrash.add(a.getAsString().toLowerCase()));
-    }
 
     @CubingEventHandler
     public void cubingTickEvent(CubingTickEvent e) {

@@ -22,6 +22,7 @@ import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.lobby.configuration.Configuration;
 import top.speedcubing.lobby.cubingcmd.terms;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
@@ -31,8 +32,6 @@ import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
 
-    public static final Set<String> joinCrash = new HashSet<>();
-
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e) {
         Player player = e.getPlayer();
@@ -41,7 +40,7 @@ public class PlayerJoin implements Listener {
 //        if (randomNumber == 0) {
 //            JoinEasterEgg.start(player);
 //        }
-        if (joinCrash.contains(player.getName().toLowerCase()))
+        if (Configuration.joinCrash.contains(player.getName().toLowerCase()))
             speedcubingServer.scheduledPool.schedule(() -> PlayerUtils.explosionCrash(player), 1000, TimeUnit.MILLISECONDS);
         Member member = new Member(player);
         player.sendTitle("", "");

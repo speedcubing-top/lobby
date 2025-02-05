@@ -30,7 +30,6 @@ public class Lobby extends JavaPlugin {
     public void onEnable() {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
         CubingEventManager.registerListeners(new ServerEvent());
-        new ConfigReloadEvent().call();
 
         CubingCommandLoader.loadCommands("top.speedcubing.lobby.cubingcmd", Lobby.class);
 
