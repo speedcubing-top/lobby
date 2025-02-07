@@ -53,8 +53,9 @@ public class EntityList {
         Lobbys[5].setLocation(new Location(Bukkit.getWorld("world"), -7.5, 101.15, 22.5, 0, 0).add(offSet)).setName("§e§l0 Players");
         Lobbys[6].setLocation(new Location(Bukkit.getWorld("world"), -1.5, 100.85, 24.5, 0, 0).add(offSet)).setName("§bMLGRush");
         Lobbys[7].setLocation(new Location(Bukkit.getWorld("world"), -1.5, 101.15, 24.5, 0, 0).add(offSet)).setName("§e§l0 Players");
-        Lobbys[8].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 100.85, 23.5, 0, 0).add(offSet)).setName("§bPractice §c[Maintenance]");
-        Lobbys[9].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[8].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 100.85, 23.5, 0, 0).add(offSet)).setName("§bPractice");
+        Lobbys[9].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§c§lMaintenance");
+        //Lobbys[9].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§e§l0 Players");
         Lobbys[10].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 100.85, 22.5, 0, 0).add(offSet)).setName("§bReduce");
         Lobbys[11].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 101.15, 22.5, 0, 0).add(offSet)).setName("§e§l0 Players");
         Lobbys[12].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 100.85, 26.5, 0, 0).add(offSet)).setName("§bSMP §7[1.21.3]");
