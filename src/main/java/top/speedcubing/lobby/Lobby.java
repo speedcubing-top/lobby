@@ -31,8 +31,8 @@ public class Lobby extends JavaPlugin {
         MinecraftServer.getServer().getPropertyManager().setProperty("server-name", "lobby");
         CubingEventManager.registerListeners(new ServerEvent(), new Configuration());
         CubingCommandLoader.loadCommands("top.speedcubing.lobby.cubingcmd", Lobby.class);
-        registerListeners();
         Configuration.reload();
+        registerListeners();
 
         //BadApple.init();
 
