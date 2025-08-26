@@ -97,12 +97,12 @@ public class EntityList {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "smp");
                 }));
-        //bw
-        npcs[7].setSkin(HYPIXELtextures, HYPIXELsignature).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -6.5, 99, 24.5, 180, 0).add(offSet))
+        //bw - commented out because bedwars server is down
+        /*npcs[7].setSkin(HYPIXELtextures, HYPIXELsignature).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -6.5, 99, 24.5, 180, 0).add(offSet))
                 .setClickEvent((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "bedwars");
-                });
+                });*/
 
         //rush
         npcs[0].setSkin(VEPEXtextures, VEPEXsignature).setSpawnBodyYaw(180).setLocation(new Location(Bukkit.getWorld("world"), -1.5, 99, 24.5, 180, 0).add(offSet))
