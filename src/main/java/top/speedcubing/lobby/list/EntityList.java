@@ -58,8 +58,8 @@ public class EntityList {
         //Lobbys[9].setLocation(new Location(Bukkit.getWorld("world"), 5.5, 101.15, 23.5, 0, 0).add(offSet)).setName("§e§l0 Players");
         Lobbys[10].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 100.85, 22.5, 0, 0).add(offSet)).setName("§bReduce");
         Lobbys[11].setLocation(new Location(Bukkit.getWorld("world"), 8.5, 101.15, 22.5, 0, 0).add(offSet)).setName("§e§l0 Players");
-        Lobbys[12].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 100.85, 26.5, 0, 0).add(offSet)).setName("§bSMP §7[1.21.8]");
-        Lobbys[13].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 101.15, 26.5, 0, 0).add(offSet)).setName("§e§l0 Players");
+        Lobbys[12].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 100.85, 25.5, 0, 0).add(offSet)).setName("§bSMP §7[1.21.8]");
+        Lobbys[13].setLocation(new Location(Bukkit.getWorld("world"), 0.5, 101.15, 25.5, 0, 0).add(offSet)).setName("§e§l0 Players");
         //Lobbys[14].setLocation(new Location(Bukkit.getWorld("world"), -6.5, 100.85, 24.5, 0, 0).add(offSet)).setName("§bBedwars"); // commented out because bedwars server is down
         //Lobbys[15].setLocation(new Location(Bukkit.getWorld("world"), -6.5, 101.15, 24.5, 0, 0).add(offSet)).setName("§e§l0 Players"); // commented out because bedwars server is down
         npcs[1].setSkin(BLENDERTEXTURES, BLENDERSIGNATURES).setSpawnBodyYaw(178).setLocation(new Location(Bukkit.getWorld("world"), 8.5, 99, 22.5, 180, 0).add(offSet))
@@ -92,7 +92,7 @@ public class EntityList {
                         BungeePluginMessage.switchServer(r.getPlayer(), "practice");
                 });
         //smp
-        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(new Location(Bukkit.getWorld("world"), 0.5, 99, 26.5, 180, 0).add(offSet))
+        npcs[6].setSkin(A, B).setSpawnBodyYaw(178).setLocation(new Location(Bukkit.getWorld("world"), 0.5, 99, 25.5, 180, 0).add(offSet))
                 .setClickEvent(((r) -> {
                     if (r.getPlayer().getItemInHand().getType() == org.bukkit.Material.AIR && r.getAction().equals(PacketPlayInUseEntity.EnumEntityUseAction.INTERACT))
                         BungeePluginMessage.switchServer(r.getPlayer(), "smp");
