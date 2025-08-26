@@ -13,9 +13,10 @@ import top.speedcubing.server.lang.LanguageSystem;
 public class LanguageInventory {
     static String[] skullURL = {
             "http://textures.minecraft.net/texture/5e7899b4806858697e283f084d9173fe487886453774626b24bd8cfecc77b3f",
+            "http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4",
             "http://textures.minecraft.net/texture/702a4afb2e1e2e3a1894a8b74272f95cfa994ce53907f9ac140bd3c932f9f",
-            "http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc",
-            "http://textures.minecraft.net/texture/4cac9774da1217248532ce147f7831f67a12fdcca1cf0cb4b3848de6bc94b4"
+            "http://textures.minecraft.net/texture/7f9bc035cdc80f1ab5e1198f29f3ad3fdd2b42d9a69aeb64de990681800b98dc"
+
     };
     static ItemBuilder[] skull = {new ItemBuilder(Material.SKULL_ITEM).durability(3)
             , new ItemBuilder(Material.SKULL_ITEM).durability(3)
