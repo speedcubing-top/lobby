@@ -35,7 +35,7 @@ public class ServerEvent {
         EntityList.Lobbys[9].setName("§e§l" + MinecraftServer.getServer("practice").getPlayerCount() + " Players");
         EntityList.Lobbys[11].setName("§e§l" + MinecraftServer.getServer("reduce").getPlayerCount() + " Players");
         EntityList.Lobbys[13].setName("§e§l" + MinecraftServer.getServer("smp").getPlayerCount() + " Players");
-        EntityList.Lobbys[15].setName("§e§l" + MinecraftServer.getServer("bedwars").getPlayerCount() + " Players");
+        //EntityList.Lobbys[15].setName("§e§l" + MinecraftServer.getServer("bedwars").getPlayerCount() + " Players"); // commented out because bedwars server is down
     }
 
     @CubingEventHandler
