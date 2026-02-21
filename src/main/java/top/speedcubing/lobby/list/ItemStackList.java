@@ -11,26 +11,37 @@ import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
 import top.speedcubing.lib.utils.SQL.SQLConnection;
 import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.lobby.configuration.LobbyConfig;
+import top.speedcubing.lobby.configuration.LobbyConfig.NavigatorConfig;
+import top.speedcubing.lobby.configuration.LobbyConfig.NavigatorItem;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.lang.LangInv;
 import top.speedcubing.server.lang.LangItem;
 import top.speedcubing.server.player.User;
 
+/**
+ * Defines all lobby inventory items and builds the navigator GUI from config.
+ */
 public class ItemStackList {
 
+    // ---- Hotbar items ----
     public static LangItem Navigator = new LangItem(Material.COMPASS).name("%lang_lobby_item_navigator%");
     public static LangItem Settings = new LangItem(Material.REDSTONE_COMPARATOR).name("%lang_lobby_item_settings%");
     public static LangItem lang = new LangItem(Material.SKULL_ITEM).name("%lang_lobby_item_lang%").durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece");
     public static LangItem dm = new LangItem(Material.SIGN).name("%lang_lobby_item_direct_message%");
 
+    // ---- Settings toggle items (off / friends / all) ----
     public static LangItem[] toggle = {
             new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_message_0%"),
             new LangItem(Material.INK_SACK).durability(14).name("%lang_settings_message_1%"),
             new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_message_2%"),
     };
 
+    // ---- Reset buttons ----
     public static LangItem Reset = new LangItem(Material.BARRIER).name("%lang_lobby_item_reset_settings%");
     public static LangItem ResetStat = new LangItem(Material.BARRIER).name("%lang_lobby_item_reset_stat%");
+
+    // ---- Reduce game select inventory ----
     public static LangInv GameSelect = new LangInv(18, "%lang_lobby_inv_reduce%")
             .setItem(new LangItem(Material.LOG).name("%lang_reduce_map_name_0%").durability(3), 0)
             .setItem(new LangItem(Material.BED).name("%lang_reduce_map_name_1%"), 1)
@@ -45,28 +56,66 @@ public class ItemStackList {
                         .writeInt(r.getEvent().getRawSlot())
                         .toByteArray());
             }, 0, 4);
-    public static LangInv navigator = new LangInv(45, "%lang_lobby_item_navigator%")
-            .setItem(new LangItem(Material.STICK).name("%lang_lobby_item_mlgrush%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "mlgrush"), 10)
-            .setItem(new LangItem(Material.WOOD_SWORD).glow().hideAttr().name("%lang_lobby_item_knockbackffa%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "knockbackffa"), 16)
-            .setItem(new LangItem(Material.BLAZE_ROD).glow().name("%lang_lobby_item_reduce%"), (r) -> {
-                r.getPlayer().closeInventory();
-                r.getPlayer().playSound(new Location(Bukkit.getWorld("world"), 0.5, 99.01563, -15.5), Sound.ENDERMAN_TELEPORT, 1F, 1F);
-                r.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -60.5, 5, 70.5, -39, 9));
-            }, 21)
-            .setItem(new LangItem(Material.SANDSTONE).name("%lang_lobby_item_fastbuilder%").glow(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "fastbuilder"), 23)
-            .setItem(new LangItem(Material.DIAMOND_SWORD).name("%lang_lobby_item_practice%").glow().hideAttr(), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "practice"), 28)
-            .setItem(new LangItem(Material.SANDSTONE_STAIRS).name("%lang_lobby_item_clutch%"), (r) -> BungeePluginMessage.switchServer(r.getPlayer(), "clutch"), 34);
+
+    // ---- Navigator inventory (built from config) ----
+    public static LangInv navigator;
+
+    // ---- Reset confirmation dialogs ----
     public static final LangInv ResetConfirm = new LangInv(27, Lang.of("%lang_lobby_msg_sure_reset%"))
-            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::a, 11)
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::resetSettings, 11)
             .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_no%").durability(14), (r) -> r.getPlayer().closeInventory(), 15);
+
     public static final LangInv ResetConfirmStat = new LangInv(27, Lang.of("%lang_lobby_msg_sure_reset%"))
-            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::b, 11)
+            .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_yes%").durability(13), ItemStackList::resetStats, 11)
             .setItem(new LangItem(Material.STAINED_CLAY).name("%lang_general_no%").durability(14), (r) -> r.getPlayer().closeInventory(), 15);
 
+    /**
+     * Builds (or rebuilds) the navigator inventory from config.
+     * Called on startup and on config reload.
+     */
+    public static void buildNavigator() {
+        NavigatorConfig navConfig = LobbyConfig.navigatorConfig;
+        if (navConfig == null) return;
 
-    public static void a(ClickInventoryEvent e) {
+        navigator = new LangInv(navConfig.size, navConfig.title);
+
+        for (NavigatorItem navItem : navConfig.items) {
+            LangItem item = new LangItem(Material.valueOf(navItem.material)).name(navItem.name);
+            if (navItem.glow) item.glow();
+            if (navItem.hideAttributes) item.hideAttr();
+
+            switch (navItem.clickAction) {
+                case "server": {
+                    String target = navItem.clickTarget;
+                    navigator.setItem(item, (r) -> BungeePluginMessage.switchServer(r.getPlayer(), target), navItem.slot);
+                    break;
+                }
+                case "teleport": {
+                    String world = navItem.teleportWorld;
+                    double tx = navItem.teleportX, ty = navItem.teleportY, tz = navItem.teleportZ;
+                    float tyaw = navItem.teleportYaw, tpitch = navItem.teleportPitch;
+                    String soundName = navItem.soundName;
+                    String soundWorld = navItem.soundWorld;
+                    double sx = navItem.soundX, sy = navItem.soundY, sz = navItem.soundZ;
+                    navigator.setItem(item, (r) -> {
+                        r.getPlayer().closeInventory();
+                        if (soundName != null && !soundName.isEmpty()) {
+                            r.getPlayer().playSound(new Location(Bukkit.getWorld(soundWorld), sx, sy, sz), Sound.valueOf(soundName), 1F, 1F);
+                        }
+                        r.getPlayer().teleport(new Location(Bukkit.getWorld(world), tx, ty, tz, tyaw, tpitch));
+                    }, navItem.slot);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Resets all player settings to their database defaults and kicks the player.
+     */
+    public static void resetSettings(ClickInventoryEvent e) {
         User user = User.getUser(e.getPlayer());
-        try(SQLConnection connection = Database.getCubing()){
+        try (SQLConnection connection = Database.getCubing()) {
             connection.update("playersdata",
                     "api=default(api)," +
                             "chatfilt=default(chatfilt)," +
@@ -125,7 +174,10 @@ public class ItemStackList {
         user.kick("%lang_lobby_msg_reset_stat_success_rejoin%");
     }
 
-    public static void b(ClickInventoryEvent e) {
+    /**
+     * Resets all player statistics to their database defaults.
+     */
+    public static void resetStats(ClickInventoryEvent e) {
         Member member = Member.getMember(e.getPlayer());
         member.user.dbUpdate(
                 "kbffa_kill=default(kbffa_kill)," +
