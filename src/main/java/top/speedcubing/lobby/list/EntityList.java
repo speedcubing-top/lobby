@@ -40,6 +40,18 @@ public class EntityList {
     public static List<Hologram> holograms = new ArrayList<>();
 
     /**
+     * Cleans up all existing entity references before reloading.
+     * Note: Entities will be recreated, old ones will be garbage collected.
+     */
+    public static void cleanup() {
+        // Clear all lists and maps
+        npcs.clear();
+        holograms.clear();
+        playerCountHolograms.clear();
+        maintenanceServers.clear();
+    }
+
+    /**
      * Initializes all NPCs and their paired holograms from config.
      * Order mirrors original: create all entities first, then configure them.
      */

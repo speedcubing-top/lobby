@@ -19,7 +19,7 @@ public class Configuration {
         joinCrash.clear();
         ServerConfig.getConfig().get("onlinecrash").getAsJsonArray().forEach(a -> joinCrash.add(a.getAsString().toLowerCase()));
 
-        // Reload lobby config (NPCs, holograms, navigator)
+        // Reload lobby config and rebuild navigator
         LobbyConfig.reload();
         ItemStackList.buildNavigator();
     }
