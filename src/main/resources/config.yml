@@ -1,0 +1,217 @@
+# Lobby Configuration
+# All NPC, hologram, and navigator settings are defined here.
+
+# The origin point used as reference for offset calculation
+origin:
+  x: 0
+  y: 100
+  z: 0
+
+# The spawn location (offset is calculated as spawn - origin)
+spawn:
+  world: "world"
+  x: -68
+  y: 6
+  z: 50
+
+# ============================================================
+# NPC Definitions
+# Each NPC has a skin (textures + signature), location, yaw,
+# and a click action.
+#
+# Click action types:
+#   "server"    -> sends player to the given server
+#   "inventory" -> opens the GameSelect (reduce map) inventory
+#
+# Hologram fields (optional, creates a 2-line nametag above NPC):
+#   hologram-name         -> Display name shown above the NPC
+#   hologram-server       -> Server name used for live player count
+#   hologram-maintenance  -> If true, shows "Maintenance" instead of count
+#   hologram-name-offset  -> Y offset for the name line (default: 1.85)
+#   hologram-count-offset -> Y offset for the count line (default: 2.15)
+# ============================================================
+npcs:
+  - id: "mlgrush"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTYxNzE4MDQwNzAyNSwKICAicHJvZmlsZUlkIiA6ICIwMGM2Yjk0YTY5YmU0MzY3OTkwOTQxNjFjMjAxOWI3ZiIsCiAgInByb2ZpbGVOYW1lIiA6ICJLQUVWRVJZIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI1YTUzMTU2Zjk1ODhlZjNkZTQyMGU0ODA5MTYzN2Q3NGYwN2ZmM2MyMzIyNjRkM2Q0MGY3Y2RlOGQ1N2JiODMiCiAgICB9CiAgfQp9"
+    skin-signature: "CY9LJ6UsQiJ4h0x2MlHVyWq08zc8bA5neVud+3Deh0eK9UcNU4eC5rk+5Wghq6Ue8KUUV8Kc+h6Ze4XuujN/OfX6tulvt2YrkLgDWh9dyoPFVhmUiIV7cyYUqHqCbNSvRDjFjMmlnmcgzLMmTYnsaArfxwk/vqnHpigkGMFa7EnfkyoFHHTs5evAPCfr2CXWTdOXJAgsGeb/o54KI159sjOdRjv4lgmdQFq+7SyzBKcGMD0cR5nB4thczXw79U9rfKc9IYFfMKtjTFV1Qxhzhnyugw9yPO5TiZ9qve59H9wf6THFgA7m8QWwVqjrQEIBTE7MSUDUS9jSU/sVPnYKz6F3z+pIQSPSPykh0AHW5T1fP5IerzVgo4ddBuAAQegpv7VX/wybjel02ZYa79bYXMbb2FUfSwcfLj6b6pAGMNTPgrhArr2v2EUZzZwa5Z1BfNAUI7KvQk+6VlYNO/2PfKqaSxxmDlo2C63eXTpVzndcPtuBNmEK9z9Zl1+SYDiEqjKwapPiwT6SsDr6LN4uM+QWJhV7H78KiXDB1ADfg3wf7VTWeIFphnVh/a3LFfRAq/kY88g8PcEHFaoU65nVZEe2K/M9Eis3YzX1mTqDJ8bbsOU2SnwzBv888wlNAdPJtSAuOIkWdoROxEn48YXOzUORpkk58HV1BU9POzdk0iw="
+    body-yaw: 180
+    location:
+      x: -1.5
+      y: 99
+      z: 24.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "mlgrush"
+    hologram-name: "§bMLGRush"
+    hologram-server: "mlgrush"
+
+  - id: "reduce"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTYyNTc1MTc5MDg0NiwKICAicHJvZmlsZUlkIiA6ICIyNTUyNzc0YTEzNjQ0NDA3YjdlM2QyZjY2ZDkzNjA1YyIsCiAgInByb2ZpbGVOYW1lIiA6ICJzdHVybWxpZWJlbmRlciIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81MmY4MzJlZDFiMGY5NWNkOWYzZTFmOWI2MGFlMmM4ZGY4Y2FiMDU0YjVkYTRjNjQ5NWFjNDI4ZWYwNDQ5YmQ1IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    skin-signature: "axssK2gBfcvBt6M7wEDf6p5mJiUIqiXU0BeCnW1anmYzd4jicwmmO8E6930APPdECbYNmfl/n+Cy4H2scTBReRaCgH9T5ou3OOJz5XvUuWAA/MlM9vl1sA/PUOeifcKOccoOpY8m1k77tvztcYEKCiIVVLz8viiRavF61lOK5easaeofRL5fXjR1ukodJDo23cEiBQ5OXI5QxgsMjb/oYYqOhRC9muxhTcddRMuc/XV2Gk79cPW5njI6rdKa5I3clkXaayuzBwqUhnzlwefV+x6AZx14yUEmFdyKcyXfBqdbmmQadr5FW+yAKTlvccmOWd0i+hZYjJCV3aRm0Hb2pGqiynhoYcsJAbIUU8t7cXP2tpwfYQeeyEDQ6kNc9ReTyw06qxkK8pOiMzgYiz/Gbc/NF8cZ0VyBpLcmZZNwC/2nFGvYDIUb48W6OldpLaCHsQDOrde+T3C1347G7c3cT7yih0TxVq617w7OV5SsbcW+QSCA/6AoEhQGTEdx+j/eL8TdTUvdxbSESQJ8kldq8RCINxKEPZ1qmU2oVUWUwEFJn9+doN37MluVFdLeUA90ZiTP6uejJQ8Xbh0TounWLQqAff7a5qP5a3IhWb8w5Noz5rGRpsL7Dc/h6HNYT84vJGFbE4wdklyclIM2L63N4Izss4hI6CM4TIu5PzzHR9s="
+    body-yaw: 178
+    location:
+      x: 8.5
+      y: 99
+      z: 22.5
+      yaw: 180
+      pitch: 0
+    click-action: "inventory"
+    click-target: "GameSelect"
+    hologram-name: "§bReduce"
+    hologram-server: "reduce"
+
+  - id: "knockbackffa"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTYyNjQwNjg4NDc3MSwKICAicHJvZmlsZUlkIiA6ICIxNTM0ZDZkZjBmNGI0MjhmOGZhMjY1MmMwYTQ4MmI4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJfQ2FrZV9wcm9ncmVzU18iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWRlZjY0ZDZkOGRmNmI3OTZjNTNlZGZlZmEzYjhhMjU0ODMxMDE4ZjFlMTI0ZTQwY2E1YjIxN2EwOWJhYzQ3YiIKICAgIH0KICB9Cn0="
+    skin-signature: "yZxo8GrTQIewN8XkYlXpz1pj4I/reF0HmD6HOwNHmEmpvAFHLybVfrm8/mHdLO4Tr8aNmwtOiw3mmyEVrUW5vsgDA58fofJN76v59j69CZPx8rGzPNtmD4rOidNr80vRNBsFnjubh6waW6CUppMl3qrsvmTqOmHKiVPTJIQIRq9KJhmiF7dtIjuIobtWFEYHNrUp8KwzGFntyOvd//nadsyW8Zfuq3/ODLdWPAXINaL9YxKpXrU9SRQ9S1eECwzNFjzeNLy8zNYV0l/uPlKN3N2sYMaHQ9Okg8EJKA/gZZh6P2HPRsSW431X4pfIeJU/HK1sg8/l01JFUglq8EALcjfE8pxe2C1sp52BzXY6yVATn0pIh4r/qLWJiG3r3nOEz/hOT/xb0qgiV8H00MREt99c08MY/1k9zx1BRzg7bvBs0LNu4OzF9rVAWJi4/oRBXlsg48WHwxw33DTKgCYj/Z43Ehxrc4/EuOp9Hwo7lTLvJLGxtHDCo8Xe2Q880EbYie2bVQFBUBNR0rMi5L0ct/L4MZUNQGtvj3NfL1uu8qWpoXdUdpHndUbjWtt00T89TYsP3zI4YjLkJl22DADgUX2NFqnSbZFmzp0nRylKW4jcop+M6BhyucIquIvI0hudBB/hepJtctthPZade6kUb832FwSdzZT2OTRwgPeT+Ro="
+    body-yaw: 180
+    location:
+      x: -7.5
+      y: 99
+      z: 22.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "knockbackffa"
+    hologram-name: "§bKnockBackFFA"
+    hologram-server: "knockbackffa"
+
+  - id: "clutch"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTYxMjE2NDM5MzIwMiwKICAicHJvZmlsZUlkIiA6ICI5NGMzZGM3YTdiMmQ0NzQ1YmVlYjQzZDc2ZjRjNDVkYyIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVRdWFzb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzRlN2YxNmViYjI4ZDJhY2E0ZjZmMjFlOTNmZGI3NTQ1Njk1MjZjZjYxNzBkODIxN2NjZDlkZTAxZGY0MDA2IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    skin-signature: "lcN1iqCxPCoawCAdYtzrYELQ+NASpTFLYCgvsGGYZvEl2PZhcPyfGCQAXh5LJI2y/Uau0o/nNp6SvswquXr0tkhsUBJAjL323QzkOVkaOGxHtpGRk0PNbtJ3ba0lEizuf3su523FJiuM8hmWm75rqR0Q2Eq3P7rEF+7WbQGzo+j55h8UYidY1wcc7n9jjrfXiVlBvwWvSIXAj9P/S5XWH6HJuh2OjFCnlSAAa/RJy/WywobCCSc/IeLFCon1CW5YnjTMGMQagMNaxvVlrd5bUtZE730nLgeLDZma+svnWhsBCKVM4yoz4GeNYnWyYjWIINxORH73b5ROEqtqA1uF0ddaGKjNiG3C+3E0IV2fx+eRPEmKF4yqmYqytr4vcYyEHO7MPKaZjvuMlZrdd3aa2s/tGdqXk0GMfDcdO4G+OxIScKQBKw7Q5CigD4aY2A41QwtE6ip5bThyijAXX1ZDbS+JDfPg0b8NpeQAE7h7wON6ZPLYDYDx7Hado27gqUAieoplakMU5oTdQsihH2EnQ1lCMr9snqSgPoQO7fRfLimpt2d+29eRoWpj4dch+Qo7gS2+cdk21cQCldsqWuA3/foDBfgT84aLAXTsa1yBLrap12qI4cSrpFpBqaUPhM2nThoqgwsH5sXzQfDue7h+NK6fM5KpMeFEC6gzOXXzsrc="
+    body-yaw: 180
+    location:
+      x: -4.5
+      y: 99
+      z: 23.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "clutch"
+    hologram-name: "§bClutch"
+    hologram-server: "clutch"
+
+  - id: "fastbuilder"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTYxMjU4NDgyNTQ0NywKICAicHJvZmlsZUlkIiA6ICI1NjY3NWIyMjMyZjA0ZWUwODkxNzllOWM5MjA2Y2ZlOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJUaGVJbmRyYSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zNzdiM2UyNTAzZjk2YmZkNmVlN2IxZmFjMzk4M2JhYjMxOTRlYjc0OGFlZTczYzE1MzA0YWJkN2FlNzBjMGYzIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    skin-signature: "GLGEvQbFTIP3Z4ZScEMXyu7Z8/SwnzyMc20+tN/zYXf71q96rTg7NkZp5mrVYSfiQfI7Mjg0uaFF0cbl7GC82kkw3O9tHjeqipQMhvHlo2fvfFlffCZMoVDDlJHvccMOUow/1S/vrjsLJY2fBgBwekemwEAqdtjVyjbv+VAM3/lQpdn44aoELnx2AsMK4tAExtLw72Eg7c7dbwSCNo8KY5BMEdesqXl9wlN8waknTKmxUw/HbweRCbKzBT9aOEd9BpNqUcTj0dAv2D6U52NatLE+tE/4O2/s/aiFkey1NTLeH8HQWM6ksgBSKRsrgbna6w/Z1QltQX+7nc+rYECh1WjEcLgcr83/Kj8seWy3yQkz9mO//OEX1qskqOdSeOMZ29I9CpxjO/5C0HERHya5ZfaJt4hxZcu6gbllB1cSsE696vrppYU7fywtU/47JiNjBiqXSadQEyZbCn/tWHa7u3C+BHK39KzCKAnCxwZLVLn9G/rGjDCbfxCnwjM6JucThYK6pfZRFGJpYkU9YkGW94CWvD3F53mJqRKoEOxQfT4Cm8xZ/RyxsQxzxvmWhGRE8eMwahAHTW710+1ATEVoQgB/0A5iHILN0qo3f9kz0Zz3QPxeHMDf7g8Dkxl/6RCZR87GZn6CEMKHuAqqlt7MjfrIe85upnTcUsdRNfNMLXY="
+    body-yaw: 180
+    location:
+      x: 2.5
+      y: 99
+      z: 24.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "fastbuilder"
+    hologram-name: "§bFastBuilder"
+    hologram-server: "fastbuilder"
+
+  - id: "practice"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTY1NDE2NjIyMzU2NCwKICAicHJvZmlsZUlkIiA6ICI3OTkyMzAzNmI1ODE0NjZhODUzZmMxNWQ5NmVkNDczZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdHJhaWdodCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS80Yjk3ZmExZGZhOWMwYzUyYzZiOGM5ZjYzNWM4Nzk5ZTJmZDYyOTFmMWExOGIxMmM1YTQ4NjNlNWY4YzEzYzI5IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    skin-signature: "W6rGFhFLqFLGlSUucvYE7+WmHFcoII9mqQO5aN44XYyXh0m+93McjMfdkBCW7tPKITBw5eciB7UsiQLx9cg91S0ybYe2kRJQlJcX8BWDfPk5HajzIH771TdITd2s6MbrDuai3HwPLUycNZapaQg/QiYGRt+P9bTM3k3JesaoffAZd3KQbcB4We77UE6qxxDVaEVJQXdn70+V/0iGxGhkJUg2gy9pWBzTI3e9mZghwvHLmBsuBL4YXTRG5UYmaKDoPjGoct14Y7SlllN/P/N//AjU0nMmDkYnLPRjGxG+Uv5Ti6o4yAuyk+h8wWwR+i+nEPkRusCOcMC5ZgPmRyUJ5bgxXxO+kWvIdrUv2c5gvGueyMNOfXdJ7zuLshr0eo/J34BPKKrEqd2DBnmeGiAlpMxxAX2gpCuLWEFlpPeLWhAF75BinPPQGx+UFgkQi43Z8Up5vRabwC/ul+ebzW+BlVfUtYNPohXRVUbqHRdSgvhlA2Pz4cP2BSGrenuGoZsbY1Ea8Bg9FxKbU4+eCj6AkzhygflJyYi2LdZxpZrfldapUyMwkjDuMU8MfsXMp/zluS00FqHVn/Xi1ZscUxKuukMzPFP1toc38DDKPCpBfR8FCacbpcaCLloUxcTA7WYFPmyPpFmnUhpNQexrv4G3cPIWEqcTAJb6gThrbB9+axM="
+    body-yaw: 180
+    location:
+      x: 5.5
+      y: 99
+      z: 23.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "practice"
+    hologram-name: "§bPractice"
+    hologram-server: "practice"
+    hologram-maintenance: true
+
+  - id: "smp"
+    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTY0NjA0NDI1NDgzNiwKICAicHJvZmlsZUlkIiA6ICJmMTYwZTMxMzJjYWM0YjRiOWM5OTk2NDQ1OGIxOWM0ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb255S0tLIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2M5OWNmYzQ1NzkwODc3ZTUxNDI5M2VmOTgxNTBkZmVlNGE5MzEyMmFhNGRiZmRlMmQyMWYxMjZhZmJlMTE1MjEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ=="
+    skin-signature: "jEMxIC3o/0uJkwgMlpBceLmnlcxuw2ENqUedCFBhu36vFj2YKxYfc9ZkD+H8lyikQX1sxHpEyj+v0qA26n+cKm1AXRdjov2BVi3n2Bf2F5JkXP0Vo8PATX9Pwocfq7vAryK4VyE1rHSk3Bw0feJh25aUhpCXIgQxbUEAZkaSicTXSympYATWfa01ngca+psFX2Hq6onDeQfD5SDAFJskZlOYrsWTHJXs40RvJSojUUtRX5Tokb4jAfG2q36BfKRoufAY803Wh2unhcAMFqRjp13CWPQFLCGxwiDOJVMcNVnrs1CJGQHQPjJJLDmuuCxeaf0jKZ/s9QPl5fE7gdgNqGMT8gpZ4nFGh6yMH2RB7o8RSVmFf5THWSfzf1kpOiiQV8ddJ821CR108RIrNKDqLOQZHAHvWzPu8uPynFSp2paxHP+8/IzYc1WGS/lxstrXbKiYJQ3vCzzug40uhvqHumO65qqbSdiiwfgdXBXJItW4fhuhljAeLuZZyyixVi68Hd5V0hPG09zwQXPxqizzv5BK3xcdKf9hkInysbheR5+PeYAEnHm2UkNSbO6EJpX4yTUdfbiio8VMJSePHYPpjQEZfySJelBgplbZi8LFP3PDQHJcT6nYQaCEuf4Dkk0u6igyvVp5pLn8Wtbd0rD2Gc2q1ngcHFIxq2V+tZv9KaI="
+    body-yaw: 178
+    location:
+      x: 0.5
+      y: 99
+      z: 25.5
+      yaw: 180
+      pitch: 0
+    click-action: "server"
+    click-target: "smp"
+    hologram-name: "§bSMP §7[1.21.8]"
+    hologram-server: "smp"
+
+#  - id: "bedwars"
+#    skin-textures: "ewogICJ0aW1lc3RhbXAiIDogMTcxNDk1MDgzODQ3NCwKICAicHJvZmlsZUlkIiA6ICJmN2M3N2Q5OTlmMTU0YTY2YTg3ZGM0YTUxZWYzMGQxOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJoeXBpeGVsIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzI0N2MwNTg4NDVmM2I2ZDAzNDhhYWU1NmI2YWExYTYxYzQ2OWQ4NGNiYWJhMDQ4MTY0MDUwYTFkMzM1ZDZlYTAiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzE3OTEyNzkwZmYxNjRiOTMxOTZmMDhiYTcxZDBlNjIxMjkzMDQ3NzZkMGYzNDczMzRmOGE2ZWFlNTA5ZjhhNTYiCiAgICB9CiAgfQp9"
+#    skin-signature: "ai3vE+lJssU+duoWIQZljBNwrx1ObAgNrLut5ViZQ1sXwzoyJ77ISulXKfBE1DtS3nr+dMTbehDnPxn2lT8i6zwamk7aUx3HM4/OgOB2Y4tKhynggpe2SnjgK5ljHuH6mADK5HLogCKfBctYJS+v7vmEpxpT01T+PnCvlhrE/Az+SjqZxp4oMtlYjcxKKezg/C6BAlGj6OVt8N9RHyFFr+1d5d0cNByadcW2qrknRw5rZACJi32yXHAMwUHJEnULVJIdF1fzhMWvt53Gq38ErcrDKnDxRX1DrNvoXmrqSkZi3XutcnUpHxa7398XZaDhkiC59q9mDp80K7OGR0VUP5YWIx8qMc+2537ABAHtAX78+gREUeFOM4/uZO9RQ7ARnG7rhi//K661m+tCG7mCCWIe5ccERcTHPwbRmTrD0XMPE9dmT1Ypxhs5M9iRgD7kBV0x0Jpv3oIEhANgLi+SNEZR4KzhBZsIKqiAH+sEZDlbisPd6PGOa3l208ZvEYUBRjSXJbRi6AoJGepxTGITSfN7zL0QpaU+0Z+OSyUvhogzKsY/3/taB21sNe5Bb0b24glGFk3O0OGe4W7iI5iIlLgESiSjDQt0quz+4Dclzy0DlTS8jyqqIZHMSUcR04T89ALg0Z+M80v1J2LI+ompFoEvCHCA2Hbrfvq1vUtMUxE="
+#    body-yaw: 180
+#    location:
+#      x: -6.5
+#      y: 99
+#      z: 24.5
+#      yaw: 180
+#      pitch: 0
+#    click-action: "server"
+#    click-target: "bedwars"
+#    hologram-name: "§bBedwars"
+#    hologram-server: "bedwars"
+
+# ============================================================
+# Hub Navigator (compass menu)
+# Each entry defines one slot in the navigator inventory.
+#
+# Click action types:
+#   "server"   -> sends the player to that server
+#   "teleport" -> teleports the player to the given location
+# ============================================================
+navigator:
+  title: "%lang_lobby_item_navigator%"
+  size: 45
+  items:
+    - slot: 10
+      material: "STICK"
+      name: "%lang_lobby_item_mlgrush%"
+      click-action: "server"
+      click-target: "mlgrush"
+
+    - slot: 16
+      material: "WOOD_SWORD"
+      name: "%lang_lobby_item_knockbackffa%"
+      glow: true
+      hide-attributes: true
+      click-action: "server"
+      click-target: "knockbackffa"
+
+    - slot: 21
+      material: "BLAZE_ROD"
+      name: "%lang_lobby_item_reduce%"
+      glow: true
+      click-action: "teleport"
+      teleport-world: "world"
+      teleport-x: -60.5
+      teleport-y: 5
+      teleport-z: 70.5
+      teleport-yaw: -39
+      teleport-pitch: 9
+      sound-world: "world"
+      sound-x: 0.5
+      sound-y: 99.01563
+      sound-z: -15.5
+      sound-name: "ENDERMAN_TELEPORT"
+
+    - slot: 23
+      material: "SANDSTONE"
+      name: "%lang_lobby_item_fastbuilder%"
+      glow: true
+      click-action: "server"
+      click-target: "fastbuilder"
+
+    - slot: 28
+      material: "DIAMOND_SWORD"
+      name: "%lang_lobby_item_practice%"
+      glow: true
+      hide-attributes: true
+      click-action: "server"
+      click-target: "practice"
+
+    - slot: 34
+      material: "SANDSTONE_STAIRS"
+      name: "%lang_lobby_item_clutch%"
+      click-action: "server"
+      click-target: "clutch"
