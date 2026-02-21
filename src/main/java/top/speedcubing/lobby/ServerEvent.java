@@ -1,6 +1,7 @@
 package top.speedcubing.lobby;
 
 import java.io.IOException;
+import java.util.Map;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
 import top.speedcubing.common.configuration.ServerConfig;
@@ -11,6 +12,7 @@ import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
+import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
 import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
@@ -20,6 +22,9 @@ import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
+/**
+ * Handles custom event bus events: tick updates, chat, socket IO, and hub navigation.
+ */
 public class ServerEvent {
 
     @CubingEventHandler
@@ -27,15 +32,16 @@ public class ServerEvent {
         if (!Lobby.loaded) {
             return;
         }
+
+        // Update sidebar online count
         SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
-        EntityList.Lobbys[1].setName("§e§l" + MinecraftServer.getServer("clutch").getPlayerCount() + " Players");
-        EntityList.Lobbys[3].setName("§e§l" + MinecraftServer.getServer("fastbuilder").getPlayerCount() + " Players");
-        EntityList.Lobbys[5].setName("§e§l" + MinecraftServer.getServer("knockbackffa").getPlayerCount() + " Players");
-        EntityList.Lobbys[7].setName("§e§l" + MinecraftServer.getServer("mlgrush").getPlayerCount() + " Players");
-        EntityList.Lobbys[9].setName("§e§l" + MinecraftServer.getServer("practice").getPlayerCount() + " Players");
-        EntityList.Lobbys[11].setName("§e§l" + MinecraftServer.getServer("reduce").getPlayerCount() + " Players");
-        EntityList.Lobbys[13].setName("§e§l" + MinecraftServer.getServer("smp").getPlayerCount() + " Players");
-        //EntityList.Lobbys[15].setName("§e§l" + MinecraftServer.getServer("bedwars").getPlayerCount() + " Players"); // commented out because bedwars server is down
+
+        // Update player count holograms for each server
+        for (Map.Entry<String, Hologram> entry : EntityList.playerCountHolograms.entrySet()) {
+            String serverName = entry.getKey();
+            Hologram hologram = entry.getValue();
+            hologram.setName("§e§l" + MinecraftServer.getServer(serverName).getPlayerCount() + " Players");
+        }
     }
 
     @CubingEventHandler
