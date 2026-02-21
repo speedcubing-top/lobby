@@ -50,25 +50,17 @@ public class LobbyConfig {
         File configFile = new File(dataFolder, "config.yml");
 
         if (!configFile.exists()) {
-            Lobby.getPlugin(Lobby.class).getLogger().info("No config.yml found in plugin data folder, creating default at: " + configFile.getAbsolutePath());
             dataFolder.mkdirs();
             try (InputStream in = Lobby.getPlugin(Lobby.class).getResource("config.yml")) {
                 if (in != null) {
                     Files.copy(in, configFile.toPath());
-                    Lobby.getPlugin(Lobby.class).getLogger().info("Default config.yml extracted to data folder.");
-                } else {
-                    Lobby.getPlugin(Lobby.class).getLogger().warning("Default config.yml resource not found inside plugin jar.");
                 }
             } catch (IOException e) {
-                Lobby.getPlugin(Lobby.class).getLogger().severe("Failed to extract default config.yml: " + e.getMessage());
                 e.printStackTrace();
             }
-        } else {
-            Lobby.getPlugin(Lobby.class).getLogger().info("Using existing config.yml at: " + configFile.getAbsolutePath());
         }
 
         config = YamlConfiguration.loadConfiguration(configFile);
-        Lobby.getPlugin(Lobby.class).getLogger().info("Loaded config.yml (lastModified=" + configFile.lastModified() + ") from: " + configFile.getAbsolutePath());
         parseConfig();
     }
 
@@ -104,8 +96,6 @@ public class LobbyConfig {
     private static void parseNpcs() {
         npcEntries.clear();
         List<Map<?, ?>> npcs = config.getMapList("npcs");
-        
-        Lobby.getPlugin(Lobby.class).getLogger().info("Parsing " + npcs.size() + " NPCs from config...");
 
         for (Map<?, ?> npc : npcs) {
             NpcEntry entry = new NpcEntry();
@@ -136,11 +126,6 @@ public class LobbyConfig {
                 entry.hologramCountOffset = npc.containsKey("hologram-count-offset")
                         ? ((Number) npc.get("hologram-count-offset")).doubleValue()
                         : DEFAULT_HOLOGRAM_COUNT_OFFSET;
-                
-                Lobby.getPlugin(Lobby.class).getLogger().info("  " + entry.id + ": hologram=YES, name='" + entry.hologramName + 
-                    "', server=" + entry.hologramServer + ", maintenance=" + entry.hologramMaintenance);
-            } else {
-                Lobby.getPlugin(Lobby.class).getLogger().info("  " + entry.id + ": hologram=NO");
             }
 
             npcEntries.add(entry);

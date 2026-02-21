@@ -16,7 +16,6 @@ public class Configuration {
     public static final Set<String> joinCrash = new HashSet<>();
 
     public static void reload() {
-        Lobby.getPlugin(Lobby.class).getLogger().info("loading config");
         joinCrash.clear();
         ServerConfig.getConfig().get("onlinecrash").getAsJsonArray().forEach(a -> joinCrash.add(a.getAsString().toLowerCase()));
 

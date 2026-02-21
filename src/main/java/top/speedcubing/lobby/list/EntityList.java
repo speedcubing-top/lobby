@@ -44,55 +44,38 @@ public class EntityList {
      * Order mirrors original: create all entities first, then configure them.
      */
     public void init() {
-        Lobby.getPlugin(Lobby.class).getLogger().info("=== EntityList.init() starting ===");
         LobbyConfig.load();
 
         Vector offset = LobbyConfig.offset;
         Lobby.offset = offset;
-        Lobby.getPlugin(Lobby.class).getLogger().info("Offset: " + offset);
 
         playerCountHolograms.clear();
         maintenanceServers.clear();
 
         List<NpcEntry> entries = LobbyConfig.npcEntries;
-        Lobby.getPlugin(Lobby.class).getLogger().info("Loaded " + entries.size() + " NPC entries from config");
 
         // --- Phase 1: Create all NPCs (matches original order) ---
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 1: Creating " + entries.size() + " NPCs...");
         for (NpcEntry entry : entries) {
             NPC npc = new NPC("§8[NPC]", null, true, true, true).world("world").hideNametag();
             npcs.add(npc);
-            Lobby.getPlugin(Lobby.class).getLogger().info("  Created NPC for: " + entry.id);
         }
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 1 complete. Total NPCs: " + npcs.size());
 
         // --- Phase 2: Create all holograms (matches original order) ---
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 2: Creating holograms...");
-        int holoCount = 0;
         for (NpcEntry entry : entries) {
             if (entry.hasHologram) {
                 Hologram nameHolo = new Hologram("", true, true).world("world");
                 Hologram countHolo = new Hologram("", true, true).world("world");
                 holograms.add(nameHolo);
                 holograms.add(countHolo);
-                holoCount += 2;
-                Lobby.getPlugin(Lobby.class).getLogger().info("  Created 2 holograms for: " + entry.id + " (name: " + entry.hologramName + ")");
-            } else {
-                Lobby.getPlugin(Lobby.class).getLogger().info("  No hologram for: " + entry.id);
             }
         }
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 2 complete. Total holograms: " + holograms.size());
 
         // --- Phase 3: Configure NPC skins, locations, and click actions ---
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 3: Configuring NPCs...");
         int npcIndex = 0;
         int holoIndex = 0;
         for (NpcEntry entry : entries) {
             NPC npc = npcs.get(npcIndex++);
             Location npcLocation = new Location(Bukkit.getWorld("world"), entry.x, entry.y, entry.z, entry.yaw, entry.pitch).add(offset);
-
-            Lobby.getPlugin(Lobby.class).getLogger().info("  Configuring NPC: " + entry.id + " at " + 
-                String.format("(%.1f, %.1f, %.1f)", npcLocation.getX(), npcLocation.getY(), npcLocation.getZ()));
 
             npc.setSkin(entry.skinTextures, entry.skinSignature)
                     .setSpawnBodyYaw(entry.bodyYaw)
@@ -106,17 +89,12 @@ public class EntityList {
                 double baseY = npcLocation.getY();
                 double baseZ = npcLocation.getZ();
 
-                Lobby.getPlugin(Lobby.class).getLogger().info("    Configuring holograms for " + entry.id + ":");
-                Lobby.getPlugin(Lobby.class).getLogger().info("      Base position: " + String.format("(%.2f, %.2f, %.2f)", baseX, baseY, baseZ));
-
                 // Name line
                 Hologram nameHolo = holograms.get(holoIndex++);
                 double nameY = baseY + entry.hologramNameOffset;
                 nameHolo.setLocation(new Location(Bukkit.getWorld("world"), baseX, nameY, baseZ, 0, 0))
                         .setName(entry.hologramName)
                         .spawn();
-                Lobby.getPlugin(Lobby.class).getLogger().info("      Name hologram at Y=" + String.format("%.2f", nameY) + 
-                    " (offset: " + entry.hologramNameOffset + ") - '" + entry.hologramName + "' - SPAWNED");
 
                 // Player count line
                 Hologram countHolo = holograms.get(holoIndex++);
@@ -126,21 +104,13 @@ public class EntityList {
                 if (entry.hologramMaintenance) {
                     countHolo.setName("§c§lMaintenance");
                     maintenanceServers.add(entry.hologramServer);
-                    Lobby.getPlugin(Lobby.class).getLogger().info("      Count hologram at Y=" + String.format("%.2f", countY) + 
-                        " (offset: " + entry.hologramCountOffset + ") - 'Maintenance' - SPAWNED");
                 } else {
                     countHolo.setName("§e§l0 Players");
                     playerCountHolograms.put(entry.hologramServer, countHolo);
-                    Lobby.getPlugin(Lobby.class).getLogger().info("      Count hologram at Y=" + String.format("%.2f", countY) + 
-                        " (offset: " + entry.hologramCountOffset + ") - '0 Players' - SPAWNED");
                 }
                 countHolo.spawn();
             }
         }
-        Lobby.getPlugin(Lobby.class).getLogger().info("Phase 3 complete.");
-        Lobby.getPlugin(Lobby.class).getLogger().info("=== EntityList.init() finished ===");
-        Lobby.getPlugin(Lobby.class).getLogger().info("Summary: " + npcs.size() + " NPCs, " + holograms.size() + 
-            " holograms, " + playerCountHolograms.size() + " player count trackers");
     }
 
     /**
