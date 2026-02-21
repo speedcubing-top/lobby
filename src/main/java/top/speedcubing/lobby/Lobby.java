@@ -17,8 +17,10 @@ import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.bukkitlistener.PlayerMove;
 import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
 import top.speedcubing.lobby.configuration.Configuration;
+import top.speedcubing.lobby.configuration.LobbyConfig;
 import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.list.EntityList;
+import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.speedcubingServer;
 import top.speedcubing.server.system.command.CubingCommandLoader;
 
@@ -53,6 +55,7 @@ public class Lobby extends JavaPlugin {
         } */
 
         new EntityList().init();
+        ItemStackList.buildNavigator();
         loaded = true;
     }
 
