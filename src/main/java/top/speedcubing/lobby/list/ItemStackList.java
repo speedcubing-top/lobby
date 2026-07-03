@@ -50,10 +50,17 @@ public class ItemStackList {
             .setItem(new LangItem(Material.SANDSTONE).name("%lang_reduce_map_name_4%"), 4)
             .setClickEvent((r) -> {
                 Member member = Member.getMember(r.getPlayer());
+                int slot = r.getEvent().getRawSlot();
                 MinecraftServer.getServer("reduce").write(new ByteArrayBuffer()
                         .writeUTF("reduce")
                         .writeInt(member.user.id)
-                        .writeInt(r.getEvent().getRawSlot())
+                        .writeInt(slot)
+                        .toByteArray());
+                member.user.proxy.write(new ByteArrayBuffer()
+                        .writeUTF("connectionreq")
+                        .writeInt(member.user.id)
+                        .writeUTF("")
+                        .writeUTF("reduce")
                         .toByteArray());
             }, 0, 4);
 
