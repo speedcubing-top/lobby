@@ -23,6 +23,7 @@ import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.speedcubingServer;
 import top.speedcubing.server.system.command.CubingCommandLoader;
+import top.speedcubing.server.utils.MapManager;
 
 public class Lobby extends JavaPlugin {
     public static Set<Integer> login = new HashSet<>();
@@ -35,14 +36,7 @@ public class Lobby extends JavaPlugin {
         CubingCommandLoader.loadCommands("top.speedcubing.lobby.cubingcmd", Lobby.class);
         Configuration.reload();
         registerListeners();
-
-        //BadApple.init();
-
-        Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
-        Bukkit.getWorld("world").setTime(6000);
-        getServer().createWorld(new WorldCreator("agreement"));
-        Bukkit.getWorld("agreement").setDifficulty(Difficulty.PEACEFUL);
-        Bukkit.getWorld("agreement").setTime(6000);
+        registerWorlds();
 
 /*        if (!speedcubingServer.isBungeeOnlineMode) {
             Bukkit.createWorld(new WorldCreator("login"));
@@ -70,4 +64,15 @@ public class Lobby extends JavaPlugin {
                 new PlayerQuit(),
                 new BaccaratCore());
     }
+
+    private void registerWorlds() {
+        try {
+            MapManager.install("lobby_wtc", "world", Difficulty.PEACEFUL, 6000, false);
+            MapManager.install("agreement", "agreement", Difficulty.PEACEFUL, 6000, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Bukkit.getServer().shutdown();
+        }
+    }
+
 }
