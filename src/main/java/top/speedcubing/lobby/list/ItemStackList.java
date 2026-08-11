@@ -56,12 +56,6 @@ public class ItemStackList {
                         .writeInt(member.user.id)
                         .writeInt(slot)
                         .toByteArray());
-                member.user.proxy.write(new ByteArrayBuffer()
-                        .writeUTF("connectionreq")
-                        .writeInt(member.user.id)
-                        .writeUTF("")
-                        .writeUTF("reduce")
-                        .toByteArray());
             }, 0, 4);
 
     // ---- Navigator inventory (built from config) ----
