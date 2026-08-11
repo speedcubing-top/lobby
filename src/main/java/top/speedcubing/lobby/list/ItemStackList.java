@@ -18,6 +18,7 @@ import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.lang.LangInv;
 import top.speedcubing.server.lang.LangItem;
 import top.speedcubing.server.player.User;
+import top.speedcubing.server.redis.message.ReduceMapMessage;
 
 /**
  * Defines all lobby inventory items and builds the navigator GUI from config.
@@ -51,11 +52,7 @@ public class ItemStackList {
             .setClickEvent((r) -> {
                 Member member = Member.getMember(r.getPlayer());
                 int slot = r.getEvent().getRawSlot();
-                MinecraftServer.getServer("reduce").write(new ByteArrayBuffer()
-                        .writeUTF("reduce")
-                        .writeInt(member.user.id)
-                        .writeInt(slot)
-                        .toByteArray());
+                MinecraftServer.getServer("reduce").redisPublish("reducemap", new ReduceMapMessage(member.user.id, slot));
             }, 0, 4);
 
     // ---- Navigator inventory (built from config) ----
