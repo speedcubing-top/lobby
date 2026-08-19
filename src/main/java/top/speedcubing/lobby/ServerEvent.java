@@ -1,12 +1,8 @@
 package top.speedcubing.lobby;
 
-import java.io.IOException;
-import java.util.Map;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.entity.Player;
-import top.speedcubing.common.configuration.ServerConfig;
 import top.speedcubing.common.database.DatabaseData;
-import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.common.events.CubingTickEvent;
 import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
@@ -15,12 +11,14 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.entity.Hologram;
 import top.speedcubing.lib.bukkit.events.packet.PlayInEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
-import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.events.player.HubEvent;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Handles custom event bus events: tick updates, chat, socket IO, and hub navigation.

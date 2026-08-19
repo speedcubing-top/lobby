@@ -111,7 +111,7 @@ public class PlayerJoin implements Listener {
         //profile
         ItemStack profile = new ItemBuilder(Material.SKULL_ITEM)
                 .durability(3)
-                .name(Lang.of("%lang_lobby_item_profile%").getComponent(member.user.lang).toColorText())
+                .name(Lang.of("%lang_lobby_item_profile%").getComponent(member.user.lang).toText())
                 .skullFromProfileValue(member.user.dbSelect("profile_textures_value").getString(0))
                 .build();
         inventory.setItem(2, profile);
