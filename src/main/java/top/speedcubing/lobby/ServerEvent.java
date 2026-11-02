@@ -1,6 +1,7 @@
 package top.speedcubing.lobby;
 
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.events.CubingTickEvent;
@@ -31,15 +32,22 @@ public class ServerEvent {
             return;
         }
 
-        // Update sidebar online count
-        SideBar.getSidebars().forEach(a -> a.setLineByScore(StringList.LobbySideBar[Member.getMember(a.player).user.lang][3] + DatabaseData.onlineCount, 6));
-
-        // Update player count holograms for each server
+        // player counts are DB queries: fetch them here on Cubing-Tick-Thread, then apply on the main thread,
+        // which owns scoreboards and the holograms' listener sets
+        Map<Hologram, Integer> counts = new java.util.HashMap<>();
         for (Map.Entry<String, Hologram> entry : EntityList.playerCountHolograms.entrySet()) {
-            String serverName = entry.getKey();
-            Hologram hologram = entry.getValue();
-            hologram.setName("§e§l" + MinecraftServer.getServer(serverName).getPlayerCount() + " Players");
+            counts.put(entry.getValue(), MinecraftServer.getServer(entry.getKey()).getPlayerCount());
         }
+        int onlineCount = DatabaseData.onlineCount;
+
+        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> {
+            for (SideBar sideBar : SideBar.getSidebars()) {
+                Member member = Member.getMember(sideBar.player);
+                if (member != null)
+                    sideBar.setLineByScore(StringList.LobbySideBar[member.user.lang][3] + onlineCount, 6);
+            }
+            counts.forEach((hologram, count) -> hologram.setName("§e§l" + count + " Players"));
+        });
     }
 
     @CubingEventHandler

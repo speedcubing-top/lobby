@@ -76,24 +76,7 @@ public class PlayerJoin implements Listener {
         String name = player.getName();
         String text1 = format.getPrefix() + name + format.getChatColor();
         player.getInventory().setHeldItemSlot(0);
-        //fly
-        boolean isFly = member.user.dbSelect("flying").getBoolean(0);
-        if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
-            member.user.player.performCommand("fly");
-        }
-        if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
-            member.user.dbUpdate("flying=0");
-        }
-        if (joinEvent && !member.user.vanished) {
-            member.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
-        } else {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                p.showPlayer(player);
-                if (!Member.getMember(p).user.vanished)
-                    player.showPlayer(p);
-            }
-        }
-        player.getWorld().getPlayers().forEach(a -> Member.getMember(a).user.sendMessage("%lang_lobby_msg_join_lobby%", text1));
+        // sidebar and hotbar first, so a failure in the extras below can't leave the player without them
         String[] sidebar = StringList.LobbySideBar[member.user.lang];
         new SideBar(player, sidebar[0])
                 .staticLine(sidebar[1], 8)
@@ -122,6 +105,30 @@ public class PlayerJoin implements Listener {
                     .build();
             inventory.setItem(8, gamble);
         }
+        //fly
+        boolean isFly = member.user.dbSelect("flying").getBoolean(0);
+        if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
+            member.user.player.performCommand("fly");
+        }
+        if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
+            member.user.dbUpdate("flying=0");
+        }
+        if (joinEvent && !member.user.vanished) {
+            member.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
+        } else {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.showPlayer(player);
+                Member m = Member.getMember(p);
+                if (m != null && !m.user.vanished)
+                    player.showPlayer(p);
+            }
+        }
+        // players whose join failed have no Member; skip them instead of aborting this join
+        player.getWorld().getPlayers().forEach(a -> {
+            Member m = Member.getMember(a);
+            if (m != null)
+                m.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
+        });
     }
 }
 
