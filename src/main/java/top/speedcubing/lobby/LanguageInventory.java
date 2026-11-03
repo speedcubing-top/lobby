@@ -2,12 +2,9 @@ package top.speedcubing.lobby;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
-import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
-import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.lang.LanguageSystem;
 
@@ -48,14 +45,8 @@ public class LanguageInventory {
 
     public static void c(ClickInventoryEvent event, int x) {
         Member member = Member.getMember(event.getPlayer());
-        member.user.lang = x;
-        String[] sidebar = StringList.LobbySideBar[x];
-        SideBar.getSidebar(event.getPlayer()).setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
         member.user.sound(Sound.NOTE_PLING);
-        member.user.sendMessage("%lang_lobby_msg_translate_success%");
-        member.user.dbUpdate("lang=" + x);
-        // the proxy keeps its own copy (tablist header/footer, proxy messages); it only reads the DB at login
-        member.user.writeToProxy(new ByteArrayBuffer().writeUTF("lang").writeInt(member.user.id).writeInt(x).toByteArray());
+        member.user.setLanguage(x);
         event.getPlayer().closeInventory();
     }
 }

@@ -15,6 +15,7 @@ import top.speedcubing.lib.eventbus.CubingEventHandler;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.events.player.HubEvent;
+import top.speedcubing.server.events.player.LanguageChangeEvent;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
@@ -93,5 +94,13 @@ public class ServerEvent {
     public void hubEvent(HubEvent e) {
         e.setCancelled(true);
         Member.getMember(e.getPlayer()).user.sendMessage("%lang_lobby_msg_alr_in_lobby%");
+    }
+
+    @CubingEventHandler
+    public void languageChangeEvent(LanguageChangeEvent e) {
+        String[] sidebar = StringList.LobbySideBar[e.getNewLang()];
+        SideBar bar = SideBar.getSidebar(e.getPlayer());
+        if (bar != null)
+            bar.setLineByScore(sidebar[2], 7).setLineByScore(sidebar[5], 4).setLineByScore(sidebar[8], 1);
     }
 }
