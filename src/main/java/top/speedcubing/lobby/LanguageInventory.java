@@ -6,6 +6,7 @@ import top.speedcubing.lib.bukkit.SideBar;
 import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
+import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.lang.LanguageSystem;
@@ -53,6 +54,8 @@ public class LanguageInventory {
         member.user.sound(Sound.NOTE_PLING);
         member.user.sendMessage("%lang_lobby_msg_translate_success%");
         member.user.dbUpdate("lang=" + x);
+        // the proxy keeps its own copy (tablist header/footer, proxy messages); it only reads the DB at login
+        member.user.writeToProxy(new ByteArrayBuffer().writeUTF("lang").writeInt(member.user.id).writeInt(x).toByteArray());
         event.getPlayer().closeInventory();
     }
 }
