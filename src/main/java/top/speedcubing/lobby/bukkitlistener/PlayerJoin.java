@@ -54,13 +54,13 @@ public class PlayerJoin implements Listener {
 //        } else
         if (!member.agree) {
             player.getInventory().clear();
-            player.getInventory().setItem(0, terms.book);
+            player.getInventory().setItem(0, terms.book(member.user.lang));
             player.teleport(new Location(Bukkit.getWorld("agreement"), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.hidePlayer(player);
                 player.hidePlayer(p);
             }
-            BookBuilder.openBook(terms.book, player);
+            BookBuilder.openBook(terms.book(member.user.lang), player);
         } else
             joinLobby(player, true);
     }

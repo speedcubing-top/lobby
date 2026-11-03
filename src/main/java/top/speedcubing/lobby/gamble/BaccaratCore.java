@@ -14,6 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import top.speedcubing.lib.bukkit.inventory.InventoryBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.server.player.User;
+import top.speedcubing.lobby.list.StringList;
+import top.speedcubing.common.text.Msg;
 
 import java.util.Objects;
 
@@ -61,7 +63,7 @@ public class BaccaratCore implements Listener {
             int betCoins = Integer.parseInt(e.getClickedInventory().getItem(4).getItemMeta().getDisplayName().split(": ")[1].trim());
             if (e.getRawSlot() == 3) {
                 if (betCoins - 100 < 100) {
-                    player.sendMessage("§cYou can't bet less than 0 coins!");
+                    player.sendMessage(StringList.PREFIX + Msg.ERROR + "You can't bet less than 0 coins!");
                     player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                     return;
                 }
@@ -72,7 +74,7 @@ public class BaccaratCore implements Listener {
             }
             if (e.getRawSlot() == 5) {
                 if (betCoins + 100 > playerCoins) {
-                    player.sendMessage("§cYou don't have enough coins!");
+                    player.sendMessage(StringList.PREFIX + Msg.ERROR + "You don't have enough coins!");
                     player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                     return;
                 }
@@ -83,7 +85,7 @@ public class BaccaratCore implements Listener {
             }
             if (e.getRawSlot() == 8) {
                 if (betCoins > playerCoins) {
-                    player.sendMessage("§cYou don't have enough coins!");
+                    player.sendMessage(StringList.PREFIX + Msg.ERROR + "You don't have enough coins!");
                     player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
                     player.closeInventory();
                     return;
@@ -111,23 +113,23 @@ public class BaccaratCore implements Listener {
                     player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
                     break;
             }
-            player.sendMessage(result + " Backer: " + baccarat.getBackerScore() + " Player: " + baccarat.getPlayerScore());
+            player.sendMessage(StringList.PREFIX + Msg.INFO + result + " Backer: " + Msg.VALUE + baccarat.getBackerScore() + Msg.INFO + " Player: " + Msg.VALUE + baccarat.getPlayerScore());
             assert result != null;
             if (Objects.equals(baccarat.getBaccaratChoose().toString(), result.toString())) {
                 if (result == Baccarat.BaccaratResult.DRAW) {
-                    player.sendMessage("You win!");
+                    player.sendMessage(StringList.PREFIX + Msg.SUCCESS + "You win!");
                     baccarat.addPlayerTotalCoins(baccarat.getBetCoins() * 8);
-                    e.getWhoClicked().sendMessage("You now have " + baccarat.getPlayerTotalCoins() + " coins");
+                    e.getWhoClicked().sendMessage(StringList.PREFIX + Msg.INFO + "You now have " + Msg.VALUE + baccarat.getPlayerTotalCoins() + Msg.INFO + " coins");
                 } else if (result == Baccarat.BaccaratResult.PLAYER){
-                    player.sendMessage("You win!");
+                    player.sendMessage(StringList.PREFIX + Msg.SUCCESS + "You win!");
                     baccarat.addPlayerTotalCoins(baccarat.getBetCoins());
-                    e.getWhoClicked().sendMessage("You now have " + baccarat.getPlayerTotalCoins() + " coins");
+                    e.getWhoClicked().sendMessage(StringList.PREFIX + Msg.INFO + "You now have " + Msg.VALUE + baccarat.getPlayerTotalCoins() + Msg.INFO + " coins");
                 } else if (result == Baccarat.BaccaratResult.BACKER) {
-                    player.sendMessage("You win!");
+                    player.sendMessage(StringList.PREFIX + Msg.SUCCESS + "You win!");
                     baccarat.addPlayerTotalCoins((int) (baccarat.getBetCoins() * 0.95));
                 }
             } else {
-                e.getWhoClicked().sendMessage("You lose!");
+                e.getWhoClicked().sendMessage(StringList.PREFIX + Msg.ERROR + "You lose!");
             }
         }
     }

@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.cubingcmd.terms;
+import top.speedcubing.server.player.User;
 
 public class PlayerMove implements Listener {
 
@@ -27,7 +28,7 @@ public class PlayerMove implements Listener {
                     player.teleport(new Location(player.getWorld(), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
                 }
             } else {
-                BookBuilder.openBook(terms.book, player);
+                BookBuilder.openBook(terms.book(User.getUser(player).lang), player);
                 player.teleport(e.getFrom());
             }
         }

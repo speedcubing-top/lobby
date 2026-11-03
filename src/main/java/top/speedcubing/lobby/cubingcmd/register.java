@@ -13,19 +13,20 @@ public class register extends CubingCommand {
 
     @Override
     public void execute(CommandSender commandSender, String command, String[] strings) {
+        Member member = Member.getMember(commandSender);
         if (((Player) commandSender).getWorld().getName().equals("login")) {
             if (strings.length == 2) {
                 int l = strings[0].length();
                 if (l > 16)
-                    commandSender.sendMessage("The password is too long.");
+                    member.user.sendMessage("%lang_lobby_register_too_long%");
                 else if (l < 8)
-                    commandSender.sendMessage("The password is too short. You need at least 8 characters.");
+                    member.user.sendMessage("%lang_lobby_register_too_short%");
                 else if (strings[0].equals(strings[1])) {
-                    Member.getMember(commandSender).user.dbUpdate("password='" + strings[0] + "'");
-                    commandSender.sendMessage("§6Successful Register!");
+                    member.user.dbUpdate("password='" + strings[0] + "'");
+                    member.user.sendMessage("%lang_lobby_register_success%");
                     PlayerJoin.joinLobby((Player) commandSender, false);
-                } else commandSender.sendMessage("The password and confirm password do not match.");
-            } else commandSender.sendMessage("/register <password> <confirm password>");
-        } else commandSender.sendMessage("You already registered.");
+                } else member.user.sendMessage("%lang_lobby_register_mismatch%");
+            } else member.user.sendMessage("%lang_lobby_usage_register%");
+        } else member.user.sendMessage("%lang_lobby_register_already%");
     }
 }

@@ -10,22 +10,35 @@ import top.speedcubing.lib.minecraft.text.TextHoverEvent;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.server.system.command.CubingCommand;
+import top.speedcubing.server.lang.Lang;
 
 public class terms extends CubingCommand {
     public terms() {
         super("terms");
     }
 
-    public static ItemStack book = new BookBuilder("a", "b")
-            .addPage(new ComponentText()
-                    .str("§0Welcome to\n§6speedcubing.top\n\n§0Before you can play on this server, you have to accept our: \n- ")
-                    .both("§8[§5rules§8]", TextClickEvent.openURL("https://speedcubing.top/serverrules"), TextHoverEvent.showText("§eclick here to open the §5rules §epage."))
-                    .str("§0\n- ")
-                    .both("§8[§5privacy policy§8]", TextClickEvent.openURL("https://speedcubing.top/privacypolicy"), TextHoverEvent.showText("§eclick here to open the §5privacy and policy §epage."))
-                    .str("\n\n")
-                    .both("§8[§2Accept§8]", TextClickEvent.runCommand("/terms accept"), TextHoverEvent.showText("§eclick here to §2accept§e."))
-                    .str(" ")
-                    .both("§8[§4Deny§8]", TextClickEvent.runCommand("/terms deny"), TextHoverEvent.showText("§eclick here to §4deny§e.")).toBungee()).build();
+    private static final ItemStack[] books = new ItemStack[4];
+
+    public static ItemStack book(int lang) {
+        if (lang < 0 || lang >= books.length)
+            lang = 1;
+        if (books[lang] == null)
+            books[lang] = new BookBuilder("a", "b")
+                    .addPage(new ComponentText()
+                            .str(s(lang, "intro"))
+                            .both(s(lang, "rules"), TextClickEvent.openURL("https://speedcubing.top/serverrules"), TextHoverEvent.showText(s(lang, "rules_hover")))
+                            .str("§0\n- ")
+                            .both(s(lang, "privacy"), TextClickEvent.openURL("https://speedcubing.top/privacypolicy"), TextHoverEvent.showText(s(lang, "privacy_hover")))
+                            .str("\n\n")
+                            .both(s(lang, "accept"), TextClickEvent.runCommand("/terms accept"), TextHoverEvent.showText(s(lang, "accept_hover")))
+                            .str(" ")
+                            .both(s(lang, "deny"), TextClickEvent.runCommand("/terms deny"), TextHoverEvent.showText(s(lang, "deny_hover"))).toBungee()).build();
+        return books[lang];
+    }
+
+    private static String s(int lang, String key) {
+        return Lang.of("%lang_lobby_terms_" + key + "%").getString(lang);
+    }
 
     @Override
     public void execute(CommandSender commandSender, String command, String[] args) {
@@ -37,7 +50,7 @@ public class terms extends CubingCommand {
                 PlayerJoin.joinLobby((Player) commandSender, false);
                 break;
             case "deny":
-                ((Player) commandSender).kickPlayer("term.deny");
+                ((Player) commandSender).kickPlayer(Lang.of("%lang_lobby_terms_denied_kick%").getString(Member.getMember(commandSender).user.lang));
                 break;
         }
     }

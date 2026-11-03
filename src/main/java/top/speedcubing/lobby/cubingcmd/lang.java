@@ -14,6 +14,6 @@ public class lang extends CubingCommand {
     public void execute(CommandSender sender, String command, String[] args) {
         if (args.length == 0) {
             LanguageInventory.open(Member.getMember(sender));
-        } else sender.sendMessage("/lang");
+        } else Member.getMember(sender).user.sendMessage("%lang_lobby_usage_lang%");
     }
 }

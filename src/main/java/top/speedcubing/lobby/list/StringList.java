@@ -1,8 +1,11 @@
 package top.speedcubing.lobby.list;
 
 import top.speedcubing.server.lang.Lang;
+import top.speedcubing.common.text.Msg;
 
 public class StringList {
+    public static final String PREFIX = Msg.prefix("Lobby", 'a');
+
     public static String[][] LobbySideBar = {
             {"§6speedcubing.top", "§8", "§aOnline-Spieler§a:", "§8» §b", "§5", "§aWillkommen:", "§8»§b %player%", "§2", "§aDiscord-Server§a:", "§8»§b speedcubing.top/discord"},
             {"§6speedcubing.top", "§8", "§aOnline players§a:", "§8» §b", "§5", "§aWelcome:", "§8»§b %player%", "§2", "§aDiscord Server§a:", "§8»§b speedcubing.top/discord"},
