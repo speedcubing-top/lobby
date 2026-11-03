@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import top.speedcubing.common.database.Database;
+import top.speedcubing.common.player.PlayerCache;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.events.inventory.ClickInventoryEvent;
 import top.speedcubing.lib.bukkit.pluginMessage.BungeePluginMessage;
@@ -169,6 +170,7 @@ public class ItemStackList {
                             "customfb_y=default(customfb_y)," +
                             "nickpriority=default(nickpriority)", "id=" + user.id);
         }
+        PlayerCache.invalidate(user.uuid);
         user.kick("%lang_lobby_msg_reset_stat_success_rejoin%");
     }
 
