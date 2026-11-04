@@ -26,9 +26,10 @@ public class EntityList {
 
     /**
      * Maps server name to its player-count hologram.
-     * Used by ServerEvent to update counts each tick.
+     * Used by ServerEvent to update counts each tick (read on Cubing-Tick-Thread);
+     * never mutated in place, replaced with a freshly built map by init().
      */
-    public static Map<String, Hologram> playerCountHolograms = new HashMap<>();
+    public static volatile Map<String, Hologram> playerCountHolograms = new HashMap<>();
 
     /** Set of servers currently in maintenance mode. */
     public static Set<String> maintenanceServers = new HashSet<>();
@@ -40,14 +41,20 @@ public class EntityList {
     public static List<Hologram> holograms = new ArrayList<>();
 
     /**
-     * Cleans up all existing entity references before reloading.
-     * Note: Entities will be recreated, old ones will be garbage collected.
+     * Despawns and unregisters all existing NPCs/holograms before reloading.
      */
     public static void cleanup() {
-        // Clear all lists and maps
+        for (NPC npc : npcs) {
+            npc.despawn();
+            npc.delete();
+        }
+        for (Hologram h : holograms) {
+            h.despawn();
+            h.delete();
+        }
         npcs.clear();
         holograms.clear();
-        playerCountHolograms.clear();
+        playerCountHolograms = new HashMap<>();
         maintenanceServers.clear();
     }
 
@@ -61,7 +68,7 @@ public class EntityList {
         Vector offset = LobbyConfig.offset;
         Lobby.offset = offset;
 
-        playerCountHolograms.clear();
+        Map<String, Hologram> countHolograms = new HashMap<>();
         maintenanceServers.clear();
 
         List<NpcEntry> entries = LobbyConfig.npcEntries;
@@ -118,11 +125,12 @@ public class EntityList {
                     maintenanceServers.add(entry.hologramServer);
                 } else {
                     countHolo.setName("§e§l0 Players");
-                    playerCountHolograms.put(entry.hologramServer, countHolo);
+                    countHolograms.put(entry.hologramServer, countHolo);
                 }
                 countHolo.spawn();
             }
         }
+        playerCountHolograms = countHolograms;
     }
 
     /**

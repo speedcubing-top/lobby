@@ -27,7 +27,6 @@ import top.speedcubing.lobby.cubingcmd.terms;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.lang.Lang;
-import top.speedcubing.server.player.User;
 import top.speedcubing.server.speedcubingServer;
 
 public class PlayerJoin implements Listener {
@@ -98,16 +97,9 @@ public class PlayerJoin implements Listener {
                 .skullFromProfileValue(member.user.defaultSkin.getValue())
                 .build();
         inventory.setItem(2, profile);
-        //gamble
-        if (User.getUser(player).isStaff) {
-            ItemStack gamble = new ItemBuilder(Material.DIAMOND)
-                    .name("§aGamble")
-                    .build();
-            inventory.setItem(8, gamble);
-        }
         //fly
         boolean isFly = member.user.data.getBoolean("flying");
-        if (isFly && member.user.isStaff || member.user.realRank.equals("champ")) {
+        if (isFly && (member.user.isStaff || member.user.realRank.equals("champ"))) {
             member.user.player.performCommand("fly");
         }
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {

@@ -42,15 +42,20 @@ public class terms extends CubingCommand {
 
     @Override
     public void execute(CommandSender commandSender, String command, String[] args) {
+        if (args.length == 0 || !(commandSender instanceof Player))
+            return;
+        Member member = Member.getMember(commandSender);
+        // the book only matters before accepting; afterwards /terms is a no-op (prevents join-message spam)
+        if (member.agree)
+            return;
         switch (args[0]) {
             case "accept":
-                Member member = Member.getMember(commandSender);
                 member.user.dbUpdate("agreement=1");
                 member.agree = true;
                 PlayerJoin.joinLobby((Player) commandSender, false);
                 break;
             case "deny":
-                ((Player) commandSender).kickPlayer(Lang.of("%lang_lobby_terms_denied_kick%").getString(Member.getMember(commandSender).user.lang));
+                ((Player) commandSender).kickPlayer(Lang.of("%lang_lobby_terms_denied_kick%").getString(member.user.lang));
                 break;
         }
     }

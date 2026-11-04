@@ -18,7 +18,6 @@ import top.speedcubing.lobby.bukkitlistener.PlayerMove;
 import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
 import top.speedcubing.lobby.configuration.Configuration;
 import top.speedcubing.lobby.configuration.LobbyConfig;
-import top.speedcubing.lobby.gamble.BaccaratCore;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.speedcubingServer;
@@ -61,8 +60,7 @@ public class Lobby extends JavaPlugin {
                 new PlayerDropItem(),
                 new PlayerInteract(),
                 new PlayerMove(),
-                new PlayerQuit(),
-                new BaccaratCore());
+                new PlayerQuit());
     }
 
     private void registerWorlds() {

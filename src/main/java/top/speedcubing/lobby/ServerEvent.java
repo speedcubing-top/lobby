@@ -38,9 +38,11 @@ public class ServerEvent {
 
         // player counts are DB queries: fetch them here on Cubing-Tick-Thread, then apply on the main thread,
         // which owns scoreboards and the holograms' listener sets
+        Map<String, Hologram> countHolograms = EntityList.playerCountHolograms;
         Map<Hologram, Integer> counts = new java.util.HashMap<>();
-        for (Map.Entry<String, Hologram> entry : EntityList.playerCountHolograms.entrySet()) {
-            counts.put(entry.getValue(), MinecraftServer.getServer(entry.getKey()).getPlayerCount());
+        for (Map.Entry<String, Hologram> entry : countHolograms.entrySet()) {
+            MinecraftServer server = MinecraftServer.getServer(entry.getKey());
+            counts.put(entry.getValue(), server == null ? 0 : server.getPlayerCount());
         }
         int onlineCount = DatabaseData.onlineCount;
 
@@ -50,7 +52,9 @@ public class ServerEvent {
                 if (member != null)
                     sideBar.setLineByScore(StringList.LobbySideBar[member.user.lang][3] + onlineCount, 6);
             }
-            counts.forEach((hologram, count) -> hologram.setName("§e§l" + count + " Players"));
+            // skip holograms replaced by an /npcreload since this tick started
+            if (countHolograms == EntityList.playerCountHolograms)
+                counts.forEach((hologram, count) -> hologram.setName("§e§l" + count + " Players"));
         });
     }
 
@@ -72,6 +76,7 @@ public class ServerEvent {
                                     .execute();
                         }
                         PlayerCache.invalidate(member.user.uuid);
+                        member.discordName = message;
                         member.user.sendMessage("%lang_lobby_msg_discord_updated%", message);
                     } else member.user.sendMessage("%lang_lobby_msg_discord_invalid%");
                 } catch (Exception exception) {
@@ -79,6 +84,8 @@ public class ServerEvent {
                 }
                 member.discord = false;
                 member.user.setInput(false);
+            } else if (message.isEmpty()) {
+                e.setCancelled(true);
             } else if (message.charAt(0) != '/') {
                 e.setCancelled(true);
                 RankFormat format = member.user.getFormat(false);

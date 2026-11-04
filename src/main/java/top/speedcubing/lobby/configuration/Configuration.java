@@ -2,6 +2,7 @@ package top.speedcubing.lobby.configuration;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import top.speedcubing.common.configuration.ServerConfig;
 import top.speedcubing.common.events.ConfigReloadEvent;
 import top.speedcubing.lib.eventbus.CubingEventHandler;
@@ -26,6 +27,7 @@ public class Configuration {
 
     @CubingEventHandler(priority = 30)
     public void configReloadEvent(ConfigReloadEvent e) {
-        reload();
+        // fired from Cubing-Tick-Thread / socket thread; joinCrash and the navigator inventories belong to the main thread
+        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), Configuration::reload);
     }
 }

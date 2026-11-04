@@ -21,6 +21,8 @@ public class Member {
 
     public boolean haveToLogin;
     public boolean discord;
+    // cached playersdata.discord; loaded at login, kept in sync by the lobby's own set (packet thread) / remove
+    public volatile String discordName;
     public int messagetoggled;
 
     public boolean agree;
@@ -31,6 +33,8 @@ public class Member {
         Lobby.login.remove(user.id);
         agree = user.data.getBoolean("agreement");
         messagetoggled = user.data.getInt("messagable");
+        String discordName = user.data.getString("discord");
+        this.discordName = discordName == null ? "" : discordName;
         users.put(user.id, this);
     }
 }
