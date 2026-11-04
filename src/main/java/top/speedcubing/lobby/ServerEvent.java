@@ -3,7 +3,10 @@ package top.speedcubing.lobby;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import top.speedcubing.common.database.Database;
 import top.speedcubing.common.database.DatabaseData;
+import top.speedcubing.common.player.PlayerCache;
+import top.speedcubing.lib.utils.SQL.SQLConnection;
 import top.speedcubing.common.events.CubingTickEvent;
 import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
@@ -61,7 +64,14 @@ public class ServerEvent {
                 e.setCancelled(true);
                 try {
                     if (message.matches("^.{3,32}#[0-9]{4}$") || message.matches("^[0-9,a-z_.]*$")) {
-                        member.user.dbUpdate("discord='" + message + "'");
+                        // bound parameter: the "name#1234" format allows quotes and commas
+                        try (SQLConnection connection = Database.getCubing()) {
+                            connection.prepare("UPDATE playersdata SET discord=? WHERE id=?")
+                                    .setString(1, message)
+                                    .setInt(2, member.user.id)
+                                    .execute();
+                        }
+                        PlayerCache.invalidate(member.user.uuid);
                         member.user.sendMessage("%lang_lobby_msg_discord_updated%", message);
                     } else member.user.sendMessage("%lang_lobby_msg_discord_invalid%");
                 } catch (Exception exception) {
