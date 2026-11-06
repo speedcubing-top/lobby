@@ -101,7 +101,8 @@ public class PlayerJoin implements Listener {
         //fly
         boolean isFly = member.user.data.getBoolean("flying");
         if (isFly && (member.user.isStaff || member.user.realRank.equals("champ"))) {
-            member.user.player.performCommand("fly");
+            // restore the saved state quietly; /fly itself announces the toggle
+            player.setAllowFlight(true);
         }
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
             member.user.dbUpdate("flying=0");
