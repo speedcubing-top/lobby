@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 import top.speedcubing.server.system.command.CubingCommand;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.Member;
-import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.common.text.Msg;
 
 /**
@@ -22,11 +21,11 @@ public class npcreload extends CubingCommand {
         Member member = Member.getMember(sender);
         
         if (!member.user.hasPermission("lobby.npcreload")) {
-            sender.sendMessage(StringList.PREFIX + Msg.NO_PERMISSION);
+            sender.sendMessage(Msg.SYSTEM + Msg.NO_PERMISSION);
             return;
         }
 
-        sender.sendMessage(StringList.PREFIX + Msg.INFO + "Reloading NPCs and holograms...");
+        sender.sendMessage(Msg.SYSTEM + Msg.INFO + "Reloading NPCs and holograms...");
         
         try {
             // Clean up existing entities
@@ -35,9 +34,9 @@ public class npcreload extends CubingCommand {
             // Reinitialize from config
             new EntityList().init();
             
-            sender.sendMessage(StringList.PREFIX + Msg.SUCCESS + "Successfully reloaded NPCs and holograms!");
+            sender.sendMessage(Msg.SYSTEM + Msg.SUCCESS + "Successfully reloaded NPCs and holograms!");
         } catch (Exception e) {
-            sender.sendMessage(StringList.PREFIX + Msg.ERROR + "Error reloading NPCs: " + e.getMessage());
+            sender.sendMessage(Msg.SYSTEM + Msg.ERROR + "Error reloading NPCs: " + e.getMessage());
             e.printStackTrace();
         }
     }
