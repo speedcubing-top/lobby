@@ -1,6 +1,7 @@
 package top.speedcubing.lobby.bukkitlistener;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -105,9 +106,7 @@ public class PlayerJoin implements Listener {
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
             member.user.dbUpdate("flying=0");
         }
-        if (joinEvent && !member.user.vanished) {
-            member.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
-        } else {
+        if (!joinEvent || member.user.vanished) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.showPlayer(player);
                 Member m = Member.getMember(p);
@@ -115,12 +114,19 @@ public class PlayerJoin implements Listener {
                     player.showPlayer(p);
             }
         }
-        // players whose join failed have no Member; skip them instead of aborting this join
-        player.getWorld().getPlayers().forEach(a -> {
-            Member m = Member.getMember(a);
-            if (m != null)
-                m.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
-        });
+        // only ranked players are announced (nicks do not apply in the lobby), never while vanished.
+        // During PlayerJoinEvent the joining player is not in the world's player list yet, so add them
+        // explicitly; the set keeps it to one message either way.
+        if (!member.user.vanished && !member.user.realRank.equals("default")) {
+            Set<Player> recipients = new LinkedHashSet<>(player.getWorld().getPlayers());
+            recipients.add(player);
+            // players whose join failed have no Member; skip them instead of aborting this join
+            recipients.forEach(a -> {
+                Member m = Member.getMember(a);
+                if (m != null)
+                    m.user.sendMessage("%lang_lobby_msg_join_lobby%", text1);
+            });
+        }
     }
 }
 
