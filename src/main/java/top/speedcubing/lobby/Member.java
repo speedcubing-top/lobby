@@ -26,6 +26,13 @@ public class Member {
     public int messagetoggled;
 
     public boolean agree;
+    // /fly is on (staff and champ); everyone else gets double jump
+    public boolean flying;
+    // session only: hide every other player in the lobby
+    public boolean hidePlayers;
+    public long lastVisibilityToggle;
+    public long lastEnderButt;
+    public long lastJumpPad;
 
     public Member(Player player) {
         this.user = User.getUser(player);

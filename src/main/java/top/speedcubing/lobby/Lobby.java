@@ -13,6 +13,7 @@ import top.speedcubing.lobby.bukkitlistener.EntityDamage;
 import top.speedcubing.lobby.bukkitlistener.InventoryClick;
 import top.speedcubing.lobby.bukkitlistener.PlayerDropItem;
 import top.speedcubing.lobby.bukkitlistener.PlayerInteract;
+import top.speedcubing.lobby.bukkitlistener.LobbyMovement;
 import top.speedcubing.lobby.bukkitlistener.PlayerJoin;
 import top.speedcubing.lobby.bukkitlistener.PlayerMove;
 import top.speedcubing.lobby.bukkitlistener.PlayerQuit;
@@ -59,6 +60,7 @@ public class Lobby extends JavaPlugin {
                 new InventoryClick(),
                 new PlayerDropItem(),
                 new PlayerInteract(),
+                new LobbyMovement(),
                 new PlayerMove(),
                 new PlayerQuit());
     }

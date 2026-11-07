@@ -23,6 +23,7 @@ import top.speedcubing.lib.bukkit.inventory.BookBuilder;
 import top.speedcubing.lib.bukkit.inventory.ItemBuilder;
 import top.speedcubing.lobby.Lobby;
 import top.speedcubing.lobby.Member;
+import top.speedcubing.lobby.PlayerVisibility;
 import top.speedcubing.lobby.configuration.Configuration;
 import top.speedcubing.lobby.cubingcmd.terms;
 import top.speedcubing.lobby.list.ItemStackList;
@@ -98,12 +99,12 @@ public class PlayerJoin implements Listener {
                 .skullFromProfileValue(member.user.defaultSkin.getValue())
                 .build();
         inventory.setItem(2, profile);
-        //fly
+        member.user.setLangItem(4, ItemStackList.EnderButt);
+        member.user.setLangItem(PlayerVisibility.SLOT, PlayerVisibility.item(member));
+        //fly: staff and champ keep their saved /fly, everyone else gets double jump
         boolean isFly = member.user.data.getBoolean("flying");
-        if (isFly && (member.user.isStaff || member.user.realRank.equals("champ"))) {
-            // restore the saved state quietly; /fly itself announces the toggle
-            player.setAllowFlight(true);
-        }
+        member.flying = isFly && (member.user.isStaff || member.user.realRank.equals("champ"));
+        LobbyMovement.applyJoin(member);
         if (isFly && !member.user.isStaff && member.user.realRank.equals("champ")) {
             member.user.dbUpdate("flying=0");
         }
@@ -115,6 +116,7 @@ public class PlayerJoin implements Listener {
                     player.showPlayer(p);
             }
         }
+        PlayerVisibility.applyToJoining(player);
         // only ranked players are announced (nicks do not apply in the lobby), never while vanished.
         // During PlayerJoinEvent the joining player is not in the world's player list yet, so add them
         // explicitly; the set keeps it to one message either way.
