@@ -25,6 +25,12 @@ import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.configuration.LobbyConfig;
 import top.speedcubing.lobby.configuration.LobbyConfig.MovementConfig;
 import top.speedcubing.lobby.list.ItemStackList;
+import java.util.EnumSet;
+import java.util.Set;
+import net.minecraft.server.v1_8_R3.PacketPlayOutPosition;
+import top.speedcubing.lib.bukkit.events.packet.PlayOutEvent;
+import top.speedcubing.lib.eventbus.CubingEventHandler;
+import top.speedcubing.lib.utils.ReflectionUtils;
 
 /**
  * Double jump, jump pads, the ender butt and the join effects.
@@ -138,6 +144,8 @@ public class LobbyMovement implements Listener {
         EnderPearl pearl = player.launchProjectile(EnderPearl.class);
         pearl.setPassenger(player);
         player.playSound(player.getLocation(), Sound.SHOOT_ARROW, 1, 1);
+        // every position packet of the ride (sneak dismount, landing teleport) keeps the client's camera
+        member.keepCameraUntil = Long.MAX_VALUE;
 
         // the pearl's own vanilla landing teleport places the player; this only ends rides that leave the
         // lobby bounds, fall into the void or fly too long (PlayerMove handles the void and border after that)
@@ -147,14 +155,60 @@ public class LobbyMovement implements Listener {
             @Override
             public void run() {
                 Location at = pearl.getLocation();
+                if (player.isOnline() && !pearl.isDead() && pearl.getPassenger() != player) {
+                    // sneaked off: vanilla already put the player on top of the pearl; only fix a hitbox in a wall
+                    pearl.remove();
+                    end();
+                    Location from = player.getLocation();
+                    Location to = from.clone();
+                    to.setX(pushOut(to, 0.3, 0));
+                    to.setX(pushOut(to, -0.3, 0));
+                    to.setZ(pushOut(to, 0, 0.3));
+                    to.setZ(pushOut(to, 0, -0.3));
+                    if (to.getX() != from.getX() || to.getZ() != from.getZ())
+                        player.teleport(to);
+                    return;
+                }
                 if (pearl.isDead() || ++ticks > ENDER_BUTT_MAX_TICKS || !player.isOnline() || pearl.getPassenger() != player
                         || at.getY() < 0 || Math.abs(at.getX()) > 501 || Math.abs(at.getZ()) > 501) {
                     pearl.eject();
                     pearl.remove();
-                    cancel();
+                    end();
                 }
             }
+
+            private void end() {
+                cancel();
+                // the landing teleport and the dismount's position packet can still be on their way
+                member.keepCameraUntil = System.currentTimeMillis() + KEEP_CAMERA_AFTER_RIDE_MILLIS;
+            }
         }.runTaskTimer(Lobby.getPlugin(Lobby.class), 1, 1);
+    }
+
+    private static final long KEEP_CAMERA_AFTER_RIDE_MILLIS = 1000;
+
+    /**
+     * Vanilla sends every server-side move of the player (the dismount on sneak, the pearl's landing teleport)
+     * with an absolute yaw and pitch, which lag behind a client that is turning: its camera snaps back. During
+     * a ride, rewrite those packets to leave the rotation alone.
+     */
+    @CubingEventHandler
+    public void playOutEvent(PlayOutEvent e) {
+        if (!(e.getPacket() instanceof PacketPlayOutPosition))
+            return;
+        Member member = Member.getMember(e.getPlayer());
+        if (member == null || System.currentTimeMillis() >= member.keepCameraUntil)
+            return;
+        PacketPlayOutPosition packet = (PacketPlayOutPosition) e.getPacket();
+        @SuppressWarnings("unchecked")
+        Set<PacketPlayOutPosition.EnumPlayerTeleportFlags> flags = (Set<PacketPlayOutPosition.EnumPlayerTeleportFlags>) ReflectionUtils.getField(packet, "f");
+        Set<PacketPlayOutPosition.EnumPlayerTeleportFlags> relative = flags.isEmpty()
+                ? EnumSet.noneOf(PacketPlayOutPosition.EnumPlayerTeleportFlags.class) : EnumSet.copyOf(flags);
+        relative.add(PacketPlayOutPosition.EnumPlayerTeleportFlags.X_ROT);
+        relative.add(PacketPlayOutPosition.EnumPlayerTeleportFlags.Y_ROT);
+        ReflectionUtils.setField(packet, "d", 0F);
+        ReflectionUtils.setField(packet, "e", 0F);
+        ReflectionUtils.setField(packet, "f", relative);
     }
 
     // vanilla lands the player exactly on the pearl's impact point, i.e. on the block face: half the hitbox

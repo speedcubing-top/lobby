@@ -31,6 +31,8 @@ public class Member {
     public boolean hidePlayers;
     public long lastVisibilityToggle;
     public long lastEnderButt;
+    // until then (ms) position packets keep the client's camera rotation; netty thread reads it
+    public volatile long keepCameraUntil;
     public long lastJumpPad;
 
     public Member(Player player) {
