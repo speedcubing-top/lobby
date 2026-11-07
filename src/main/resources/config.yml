@@ -15,6 +15,36 @@ spawn:
   z: 50
 
 # ============================================================
+# Movement and join effects (every key optional; these are the defaults)
+# Sounds are Bukkit 1.8 Sound names, or "none".
+#   join.speed-amplifier -> 0 = Speed I, 1 = Speed II, -1 = no speed
+#   double-jump          -> for players without /fly; forward/up = launch velocity
+#   jump-pad             -> pressure plate block that launches players on a fixed path:
+#                           pads: "x y z yaw" per plate (map coordinates like the NPCs; yaw in
+#                           degrees, 0 = south, 90 = west, 180 = north, 270 = east). Plates that
+#                           aren't listed launch straight up.
+#   ender-butt           -> hotbar ender pearl the player rides
+# ============================================================
+movement:
+  join:
+    sound: "LEVEL_UP"
+    speed-amplifier: 1
+  double-jump:
+    enabled: true
+    forward: 1.2
+    up: 0.9
+    sound: "BAT_TAKEOFF"
+  jump-pad:
+    block: "GOLD_PLATE"
+    forward: 2.5
+    up: 0.9
+    sound: "ENDERDRAGON_WINGS"
+    pads: []
+  ender-butt:
+    enabled: true
+    cooldown-seconds: 1
+
+# ============================================================
 # NPC Definitions
 # Each NPC has a skin (textures + signature), location, yaw,
 # and a click action.

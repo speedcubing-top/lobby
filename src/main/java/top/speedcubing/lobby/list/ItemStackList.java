@@ -31,6 +31,9 @@ public class ItemStackList {
     public static LangItem Settings = new LangItem(Material.REDSTONE_COMPARATOR).name("%lang_lobby_item_settings%");
     public static LangItem lang = new LangItem(Material.SKULL_ITEM).name("%lang_lobby_item_lang%").durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece");
     public static LangItem dm = new LangItem(Material.SIGN).name("%lang_lobby_item_direct_message%");
+    public static LangItem EnderButt = new LangItem(Material.ENDER_PEARL).name("%lang_lobby_item_ender_butt%");
+    public static LangItem PlayersShown = new LangItem(Material.INK_SACK).name("%lang_lobby_item_players_shown%").durability(10);
+    public static LangItem PlayersHidden = new LangItem(Material.INK_SACK).name("%lang_lobby_item_players_hidden%").durability(8);
 
     // ---- Settings toggle items (off / friends / all) ----
     public static LangItem[] toggle = {

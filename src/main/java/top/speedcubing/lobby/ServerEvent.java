@@ -8,7 +8,6 @@ import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.player.PlayerCache;
 import top.speedcubing.lib.utils.SQL.SQLConnection;
 import top.speedcubing.common.events.CubingTickEvent;
-import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
@@ -18,11 +17,12 @@ import top.speedcubing.lib.eventbus.CubingEventHandler;
 import top.speedcubing.lobby.list.EntityList;
 import top.speedcubing.lobby.list.StringList;
 import top.speedcubing.server.events.player.HubEvent;
+import top.speedcubing.server.events.player.ToggleFlyEvent;
+import top.speedcubing.lobby.configuration.LobbyConfig;
 import top.speedcubing.server.events.player.LanguageChangeEvent;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -94,23 +94,24 @@ public class ServerEvent {
         }
     }
 
-    @CubingEventHandler(priority = 500)
-    public void socketInputEvent(SocketReadEvent e) {
-        switch (e.getPacketID()) {
-            case "login":
-                try {
-                    Lobby.login.add(e.getData().readInt());
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-                break;
-        }
-    }
-
     @CubingEventHandler
     public void hubEvent(HubEvent e) {
         e.setCancelled(true);
         Member.getMember(e.getPlayer()).user.sendMessage("%lang_lobby_msg_alr_in_lobby%");
+    }
+
+    // fly.java reads getAllowFlight() to decide on/off, but double jump keeps allowFlight on for everyone:
+    // hand it the real /fly state, then restore double jump next tick once the command has applied
+    @CubingEventHandler
+    public void toggleFlyEvent(ToggleFlyEvent e) {
+        Player player = e.getPlayer();
+        Member member = Member.getMember(player);
+        if (member == null)
+            return;
+        player.setAllowFlight(member.flying);
+        member.flying = !member.flying;
+        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class),
+                () -> player.setAllowFlight(member.flying || LobbyConfig.movement.doubleJumpEnabled));
     }
 
     @CubingEventHandler

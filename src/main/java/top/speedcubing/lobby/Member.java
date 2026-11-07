@@ -19,18 +19,24 @@ public class Member {
 
     public final User user;
 
-    public boolean haveToLogin;
     public boolean discord;
     // cached playersdata.discord; loaded at login, kept in sync by the lobby's own set (packet thread) / remove
     public volatile String discordName;
     public int messagetoggled;
 
     public boolean agree;
+    // /fly is on (staff and champ); everyone else gets double jump
+    public boolean flying;
+    // session only: hide every other player in the lobby
+    public boolean hidePlayers;
+    public long lastVisibilityToggle;
+    public long lastEnderButt;
+    // until then (ms) position packets keep the client's camera rotation; netty thread reads it
+    public volatile long keepCameraUntil;
+    public long lastJumpPad;
 
     public Member(Player player) {
         this.user = User.getUser(player);
-        haveToLogin = Lobby.login.contains(user.id);
-        Lobby.login.remove(user.id);
         agree = user.data.getBoolean("agreement");
         messagetoggled = user.data.getInt("messagable");
         String discordName = user.data.getString("discord");

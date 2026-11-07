@@ -10,13 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
 import top.speedcubing.lobby.LanguageInventory;
+import top.speedcubing.lobby.PlayerVisibility;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.lang.LangInv;
 import top.speedcubing.server.lang.LangItem;
-import top.speedcubing.server.player.User;
 
 public class PlayerInteract implements Listener {
     @EventHandler
@@ -29,6 +28,14 @@ public class PlayerInteract implements Listener {
                     member.user.openLangInventory(ItemStackList.navigator);
                     break;
                 case SKULL_ITEM:
+                    break;
+                case ENDER_PEARL:
+                    // never let the vanilla throw run; the ender butt launches its own pearl
+                    e.setCancelled(true);
+                    LobbyMovement.launchEnderButt(member);
+                    break;
+                case INK_SACK:
+                    PlayerVisibility.toggle(member);
                     break;
                 case REDSTONE_COMPARATOR:
                     String data = member.discordName;
@@ -98,25 +105,5 @@ public class PlayerInteract implements Listener {
                 e.setCancelled(true);
             }
         }
-    }
-
-    @EventHandler
-    public void onPlayerUsePressurePlate(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        if (e.getAction() == Action.PHYSICAL) {
-            if (e.getClickedBlock().getType() != null && e.getClickedBlock().getType() == Material.GOLD_PLATE) {
-                User user = User.getUser(p);
-                Vector vector = getPlayerForwardUpVector(p, 2.0);
-                user.knockback(vector);
-            }
-        }
-    }
-
-    public static Vector getPlayerForwardUpVector(Player player, double distance) {
-        Vector direction = player.getLocation().getDirection();
-        Vector up = new Vector(0, 0.45, 0);
-        Vector forwardUp = direction.add(up).normalize();
-        forwardUp.multiply(distance);
-        return forwardUp;
     }
 }

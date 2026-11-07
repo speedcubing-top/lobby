@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,6 +36,9 @@ public class LobbyConfig {
 
     /** Navigator inventory configuration. */
     public static NavigatorConfig navigatorConfig;
+
+    /** Join effects, jump pad, double jump and ender butt settings. */
+    public static MovementConfig movement = new MovementConfig();
 
     /** Default Y offset from NPC position for the hologram name line. */
     private static final double DEFAULT_HOLOGRAM_NAME_OFFSET = 1.85;
@@ -75,6 +79,7 @@ public class LobbyConfig {
         parseSpawnAndOffset();
         parseNpcs();
         parseNavigator();
+        parseMovement();
     }
 
     // ---- Parsing helpers ----
@@ -173,6 +178,60 @@ public class LobbyConfig {
         }
     }
 
+    // every key is optional: an existing config.yml without a movement section keeps the defaults
+    private static void parseMovement() {
+        MovementConfig m = new MovementConfig();
+        ConfigurationSection section = config.getConfigurationSection("movement");
+        if (section != null) {
+            m.joinSound = parseSound(section.getString("join.sound"), m.joinSound);
+            m.joinSpeedAmplifier = section.getInt("join.speed-amplifier", m.joinSpeedAmplifier);
+
+            m.doubleJumpEnabled = section.getBoolean("double-jump.enabled", m.doubleJumpEnabled);
+            m.doubleJumpForward = section.getDouble("double-jump.forward", m.doubleJumpForward);
+            m.doubleJumpUp = section.getDouble("double-jump.up", m.doubleJumpUp);
+            m.doubleJumpSound = parseSound(section.getString("double-jump.sound"), m.doubleJumpSound);
+
+            String padBlock = section.getString("jump-pad.block");
+            Material padMaterial = padBlock == null ? null : Material.matchMaterial(padBlock);
+            if (padMaterial != null)
+                m.jumpPadBlock = padMaterial;
+            m.jumpPadForward = section.getDouble("jump-pad.forward", m.jumpPadForward);
+            m.jumpPadUp = section.getDouble("jump-pad.up", m.jumpPadUp);
+            m.jumpPadSound = parseSound(section.getString("jump-pad.sound"), m.jumpPadSound);
+            // fixed launch direction per pad: "x y z yaw", coordinates like the NPCs (offset applied)
+            for (String pad : section.getStringList("jump-pad.pads")) {
+                String[] parts = pad.trim().split("\\s+");
+                try {
+                    int x = (int) Math.floor(Double.parseDouble(parts[0]) + offset.getX());
+                    int y = (int) Math.floor(Double.parseDouble(parts[1]) + offset.getY());
+                    int z = (int) Math.floor(Double.parseDouble(parts[2]) + offset.getZ());
+                    double yaw = Math.toRadians(Double.parseDouble(parts[3]));
+                    // Minecraft yaw: 0 = +Z (south), 90 = -X (west)
+                    m.jumpPadDirections.put(x + "," + y + "," + z, new Vector(-Math.sin(yaw), 0, Math.cos(yaw)));
+                } catch (RuntimeException e) {
+                    Bukkit.getLogger().warning("[Lobby] invalid jump pad '" + pad + "' in config.yml, expected \"x y z yaw\"");
+                }
+            }
+
+            m.enderButtEnabled = section.getBoolean("ender-butt.enabled", m.enderButtEnabled);
+            m.enderButtCooldownMillis = (long) (section.getDouble("ender-butt.cooldown-seconds", m.enderButtCooldownMillis / 1000.0) * 1000);
+        }
+        movement = m;
+    }
+
+    private static Sound parseSound(String name, Sound fallback) {
+        if (name == null)
+            return fallback;
+        if (name.equalsIgnoreCase("none"))
+            return null;
+        try {
+            return Sound.valueOf(name.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            Bukkit.getLogger().warning("[Lobby] unknown sound '" + name + "' in config.yml, using " + fallback);
+            return fallback;
+        }
+    }
+
     // ============================================================
     // Data classes
     // ============================================================
@@ -227,5 +286,26 @@ public class LobbyConfig {
         public String soundName;
         public String soundWorld;
         public double soundX, soundY, soundZ;
+    }
+
+    /** Lobby movement and join effects. A null sound means none. */
+    public static class MovementConfig {
+        public Sound joinSound = Sound.LEVEL_UP;
+        public int joinSpeedAmplifier = 1; // Speed II; -1 disables
+
+        public boolean doubleJumpEnabled = true;
+        public double doubleJumpForward = 1.2;
+        public double doubleJumpUp = 0.9;
+        public Sound doubleJumpSound = Sound.BAT_TAKEOFF;
+
+        public Material jumpPadBlock = Material.GOLD_PLATE;
+        public double jumpPadForward = 2.5;
+        public double jumpPadUp = 0.9;
+        public Sound jumpPadSound = Sound.ENDERDRAGON_WINGS;
+        // "x,y,z" of the plate block -> horizontal launch direction; unlisted pads launch straight up
+        public Map<String, Vector> jumpPadDirections = new HashMap<>();
+
+        public boolean enderButtEnabled = true;
+        public long enderButtCooldownMillis = 1000;
     }
 }
