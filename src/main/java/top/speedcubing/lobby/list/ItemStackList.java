@@ -34,12 +34,19 @@ public class ItemStackList {
     public static LangItem EnderButt = new LangItem(Material.ENDER_PEARL).name("%lang_lobby_item_ender_butt%");
     public static LangItem PlayersShown = new LangItem(Material.INK_SACK).name("%lang_lobby_item_players_shown%").durability(10);
     public static LangItem PlayersHidden = new LangItem(Material.INK_SACK).name("%lang_lobby_item_players_hidden%").durability(8);
+    public static LangItem chatFilter = new LangItem(Material.PAPER).name("%lang_lobby_item_chat_filter%").lore2("%lang_lobby_lore_chat_filter%");
 
     // ---- Settings toggle items (off / friends / all) ----
     public static LangItem[] toggle = {
             new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_message_0%"),
             new LangItem(Material.INK_SACK).durability(14).name("%lang_settings_message_1%"),
             new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_message_2%"),
+    };
+
+    // ---- Chat filter toggle items (off / on) ----
+    public static LangItem[] chatFilterToggle = {
+            new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_chatfilter_0%"),
+            new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_chatfilter_1%"),
     };
 
     // ---- Reset buttons ----

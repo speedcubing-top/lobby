@@ -14,6 +14,7 @@ import top.speedcubing.lobby.LanguageInventory;
 import top.speedcubing.lobby.PlayerVisibility;
 import top.speedcubing.lobby.Member;
 import top.speedcubing.lobby.list.ItemStackList;
+import top.speedcubing.lib.utils.bytes.ByteArrayBuffer;
 import top.speedcubing.server.lang.LangInv;
 import top.speedcubing.server.lang.LangItem;
 
@@ -88,7 +89,17 @@ public class PlayerInteract implements Listener {
                             .setItem(ItemStackList.ResetStat,
                                     (r) -> member.user.openLangInventory(ItemStackList.ResetConfirmStat),
                                     15)
-                            .setItem(ItemStackList.toggle[member.messagetoggled], 21);
+                            .setItem(ItemStackList.chatFilter, (r) -> {
+                                member.user.sound(Sound.CLICK);
+                                boolean on = !member.user.chatFilt;
+                                member.user.chatFilt = on;
+                                r.getEvent().getClickedInventory().setItem(25, ItemStackList.chatFilterToggle[on ? 1 : 0].get(member.user));
+                                member.user.dbUpdate("chatfilt=" + (on ? 1 : 0));
+                                // the proxy keeps its own copy for the chat it masks itself
+                                member.user.writeToProxy(new ByteArrayBuffer().writeUTF("chatfilt").writeInt(member.user.id).writeBoolean(on).toByteArray());
+                            }, 16)
+                            .setItem(ItemStackList.toggle[member.messagetoggled], 21)
+                            .setItem(ItemStackList.chatFilterToggle[member.user.chatFilt ? 1 : 0], 25);
                     member.user.openLangInventory(inventory);
                     break;
             }
