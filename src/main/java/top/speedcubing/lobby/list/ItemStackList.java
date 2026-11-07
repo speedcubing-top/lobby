@@ -31,12 +31,19 @@ public class ItemStackList {
     public static LangItem Settings = new LangItem(Material.REDSTONE_COMPARATOR).name("%lang_lobby_item_settings%");
     public static LangItem lang = new LangItem(Material.SKULL_ITEM).name("%lang_lobby_item_lang%").durability(3).skullFromURL("http://textures.minecraft.net/texture/c69196b330c6b8962f23ad5627fb6ecce472eaf5c9d44f791f6709c7d0f4dece");
     public static LangItem dm = new LangItem(Material.SIGN).name("%lang_lobby_item_direct_message%");
+    public static LangItem chatFilter = new LangItem(Material.PAPER).name("%lang_lobby_item_chat_filter%").lore2("%lang_lobby_lore_chat_filter%");
 
     // ---- Settings toggle items (off / friends / all) ----
     public static LangItem[] toggle = {
             new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_message_0%"),
             new LangItem(Material.INK_SACK).durability(14).name("%lang_settings_message_1%"),
             new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_message_2%"),
+    };
+
+    // ---- Chat filter toggle items (off / on) ----
+    public static LangItem[] chatFilterToggle = {
+            new LangItem(Material.INK_SACK).durability(1).name("%lang_settings_chatfilter_0%"),
+            new LangItem(Material.INK_SACK).durability(10).name("%lang_settings_chatfilter_1%"),
     };
 
     // ---- Reset buttons ----
