@@ -8,7 +8,6 @@ import top.speedcubing.common.database.DatabaseData;
 import top.speedcubing.common.player.PlayerCache;
 import top.speedcubing.lib.utils.SQL.SQLConnection;
 import top.speedcubing.common.events.CubingTickEvent;
-import top.speedcubing.common.events.SocketReadEvent;
 import top.speedcubing.common.rank.RankFormat;
 import top.speedcubing.common.server.MinecraftServer;
 import top.speedcubing.lib.bukkit.SideBar;
@@ -24,7 +23,6 @@ import top.speedcubing.server.events.player.LanguageChangeEvent;
 import top.speedcubing.server.lang.Lang;
 import top.speedcubing.server.share.Chat;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -93,19 +91,6 @@ public class ServerEvent {
                 RankFormat format = member.user.getFormat(false);
                 Chat.globalChat(player.getWorld().getPlayers(), player, Lang.of("%lang_message_format%"), message, format.getPrefix() + player.getName(), format.getChatColor());
             }
-        }
-    }
-
-    @CubingEventHandler(priority = 500)
-    public void socketInputEvent(SocketReadEvent e) {
-        switch (e.getPacketID()) {
-            case "login":
-                try {
-                    Lobby.login.add(e.getData().readInt());
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-                break;
         }
     }
 

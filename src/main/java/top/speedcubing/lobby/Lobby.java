@@ -1,11 +1,8 @@
 package top.speedcubing.lobby;
 
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
-import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import top.speedcubing.lib.eventbus.CubingEventManager;
@@ -26,7 +23,6 @@ import top.speedcubing.server.system.command.CubingCommandLoader;
 import top.speedcubing.server.utils.MapManager;
 
 public class Lobby extends JavaPlugin {
-    public static Set<Integer> login = new HashSet<>();
     public static Vector offset;
     public static boolean loaded;
 
@@ -37,16 +33,6 @@ public class Lobby extends JavaPlugin {
         Configuration.reload();
         registerListeners();
         registerWorlds();
-
-/*        if (!speedcubingServer.isBungeeOnlineMode) {
-            Bukkit.createWorld(new WorldCreator("login"));
-            Bukkit.getWorld("login").setDifficulty(Difficulty.PEACEFUL);
-            Bukkit.getWorld("login").setTime(6000);
-            Bukkit.getPluginCommand("login").setExecutor(new login());
-            Bukkit.getPluginCommand("login").setTabCompleter(new login());
-            Bukkit.getPluginCommand("register").setExecutor(new register());
-            Bukkit.getPluginCommand("register").setTabCompleter(new register());
-        } */
 
         new EntityList().init();
         ItemStackList.buildNavigator();

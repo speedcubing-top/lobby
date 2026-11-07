@@ -46,13 +46,6 @@ public class PlayerJoin implements Listener {
         Member member = new Member(player);
         player.sendTitle("", "");
         player.setGameMode(GameMode.ADVENTURE);
-//        if (!speedcubingServer.isBungeeOnlineMode && member.haveToLogin) {
-//            player.teleport(new Location(Bukkit.getWorld("login"), 0.5, 100, 0.5, 0, 0));
-//            player.sendMessage("§aDo §6/premium§a to enable Skip-Login if this account is premium!");
-//            if (member.user.dbSelect("password").getString().equals(""))
-//                player.sendMessage("/register <password> <confirm password>");
-//            else player.sendMessage("/login <password>");
-//        } else
         if (!member.agree) {
             player.getInventory().clear();
             player.getInventory().setItem(0, terms.book(member.user.lang));
@@ -68,7 +61,6 @@ public class PlayerJoin implements Listener {
 
     public static void joinLobby(Player player, boolean joinEvent) {
         Member member = Member.getMember(player);
-        member.haveToLogin = false;
         player.teleport(new Location(Bukkit.getWorlds().get(0), 0.5, 100, 0.5, 0, 0).add(Lobby.offset));
         player.setHealth(player.getMaxHealth());
         player.setSaturation(20);

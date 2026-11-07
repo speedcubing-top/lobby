@@ -19,7 +19,6 @@ public class Member {
 
     public final User user;
 
-    public boolean haveToLogin;
     public boolean discord;
     // cached playersdata.discord; loaded at login, kept in sync by the lobby's own set (packet thread) / remove
     public volatile String discordName;
@@ -36,8 +35,6 @@ public class Member {
 
     public Member(Player player) {
         this.user = User.getUser(player);
-        haveToLogin = Lobby.login.contains(user.id);
-        Lobby.login.remove(user.id);
         agree = user.data.getBoolean("agreement");
         messagetoggled = user.data.getInt("messagable");
         String discordName = user.data.getString("discord");
