@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -49,7 +50,7 @@ public class LobbyMovement implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void PlayerToggleFlightEvent(PlayerToggleFlightEvent e) {
         Player player = e.getPlayer();
-        if (!e.isFlying() || player.getGameMode() != GameMode.ADVENTURE)
+        if (!e.isFlying() || !doubleJumpMode(player))
             return;
         Member member = Member.getMember(player);
         MovementConfig config = LobbyConfig.movement;
@@ -64,11 +65,31 @@ public class LobbyMovement implements Listener {
     @EventHandler
     public void PlayerMoveEvent(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if (player.getAllowFlight() || !player.isOnGround() || player.getGameMode() != GameMode.ADVENTURE)
+        if (player.getAllowFlight() || !player.isOnGround() || !doubleJumpMode(player))
             return;
         Member member = Member.getMember(player);
         if (member != null && !member.flying && LobbyConfig.movement.doubleJumpEnabled && player.getWorld() == Bukkit.getWorlds().get(0))
             player.setAllowFlight(true);
+    }
+
+    // switching to survival/adventure clears allowFlight (and /fly) and a player standing still sends no move to
+    // re-arm it: restore it right after the switch, once the new mode has applied its own abilities
+    @EventHandler(ignoreCancelled = true)
+    public void PlayerGameModeChangeEvent(PlayerGameModeChangeEvent e) {
+        if (e.getNewGameMode() == GameMode.CREATIVE || e.getNewGameMode() == GameMode.SPECTATOR)
+            return;
+        Player player = e.getPlayer();
+        Bukkit.getScheduler().runTask(Lobby.getPlugin(Lobby.class), () -> {
+            Member member = Member.getMember(player);
+            if (member == null || !player.isOnline() || !doubleJumpMode(player))
+                return;
+            player.setAllowFlight(member.flying || LobbyConfig.movement.doubleJumpEnabled);
+        });
+    }
+
+    private static boolean doubleJumpMode(Player player) {
+        GameMode mode = player.getGameMode();
+        return mode == GameMode.ADVENTURE || mode == GameMode.SURVIVAL;
     }
 
     @EventHandler
