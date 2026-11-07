@@ -7,7 +7,7 @@ import top.speedcubing.lobby.list.ItemStackList;
 import top.speedcubing.server.lang.LangItem;
 
 /**
- * The hotbar "players visible / hidden" toggle. Session only; vanished players stay hidden either way.
+ * The hotbar "players visible / hidden" toggle. Session only; vanished players stay hidden from non-staff either way.
  */
 public class PlayerVisibility {
     public static final int SLOT = 8;
@@ -28,7 +28,7 @@ public class PlayerVisibility {
                 continue;
             if (member.hidePlayers)
                 viewer.hidePlayer(other);
-            else if (canSee(other))
+            else if (canSee(member, other))
                 viewer.showPlayer(other);
         }
         member.user.setLangItem(SLOT, item(member));
@@ -48,9 +48,9 @@ public class PlayerVisibility {
         return member.hidePlayers ? ItemStackList.PlayersHidden : ItemStackList.PlayersShown;
     }
 
-    // same rule as PlayerJoin.joinLobby: vanished players are never shown by the lobby
-    private static boolean canSee(Player other) {
+    // same rule as PlayerJoin.joinLobby: vanished players are only shown to staff
+    private static boolean canSee(Member viewer, Player other) {
         Member member = Member.getMember(other);
-        return member != null && !member.user.vanished;
+        return member != null && member.user.canBeSeenBy(viewer.user);
     }
 }

@@ -102,9 +102,12 @@ public class PlayerJoin implements Listener {
         }
         if (!joinEvent || member.user.vanished) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                p.showPlayer(player);
                 Member m = Member.getMember(p);
-                if (m != null && !m.user.vanished)
+                if (m == null)
+                    continue;
+                if (member.user.canBeSeenBy(m.user))
+                    p.showPlayer(player);
+                if (m.user.canBeSeenBy(member.user))
                     player.showPlayer(p);
             }
         }
